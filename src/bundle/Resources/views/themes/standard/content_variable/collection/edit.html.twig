@@ -1,0 +1,48 @@
+{% extends '@ezdesign/layout.html.twig' %}
+
+{% form_theme form '@ezdesign/form_fields.html.twig' %}
+
+{% trans_default_domain "content_variables" %}
+
+{% set breadcrumbsTitle = collection.isNew ? 'collection.new'|trans : 'collection.edit'|trans({'%name%': collection.name|truncate(50) }) %}
+{%- block content -%}
+    <div class="row align-items-stretch ez-main-row">
+        <div class="px-0 pb-4 ez-content-container">
+            <div class="ez-header">
+                <div class="container">
+                    {% include '@ezdesign/parts/breadcrumbs.html.twig' with { items: [
+                        { value: 'path.collections'|trans, url: path('content_variables.collection.list') },
+                        { value: breadcrumbsTitle }
+                    ]} %}
+
+                    {% include '@ezdesign/parts/page_title.html.twig' with {
+                        title: breadcrumbsTitle,
+                        iconName: 'sections'
+                    } %}
+                </div>
+            </div>
+
+            <div class="container px-0 pb-4 mt-5">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+                <section class="container mt-4">
+                    <div class="card ez-card">
+                        <div class="card-body">
+                            {{ form_row(form.name, {'label_attr': {'class': 'ez-label'}}) }}
+                            {{ form_row(form.description, {'label_attr': {'class': 'ez-label'}}) }}
+                        </div>
+                    </div>
+                </section>
+                <button id="collection-update" type="submit" hidden></button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <div class="pt-4 px-0 bg-secondary ez-context-menu">
+            {% set sidebar_right = knp_menu_get('content_variables.menu.collection_edit.sidebar_right', [], {}) %}
+            {{ knp_menu_render(sidebar_right, {
+                'template': '@ezdesign/parts/menu/sidebar_right.html.twig'
+            }) }}
+        </div>
+    </div>
+{%- endblock -%}

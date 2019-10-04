@@ -1,0 +1,21 @@
+{
+    "name": "contextualcode/ezplatform-content-variables",
+    "license": "GPL-2.0-only",
+    "type": "ezplatform-bundle",
+    "description": "eZ Platform bundle which provides dynamic content variables and UI to manage them",
+    "keywords": ["ezplatform"],
+    "homepage": "http://www.contextualcode.com",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Serhey Dolgushev",
+            "email": "serhey@contextualcode.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ContextualCode\\EzPlatformContentVariablesBundle\\": "src/bundle/",
+            "ContextualCode\\EzPlatformContentVariables\\": "src/lib/"
+        }
+    }
+}

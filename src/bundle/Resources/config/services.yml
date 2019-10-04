@@ -1,0 +1,30 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    ContextualCode\EzPlatformContentVariablesBundle\Controller\:
+        resource: '../../Controller'
+        tags: ['controller.service_arguments']
+
+    ContextualCode\EzPlatformContentVariables\Variable\Value\Processor:
+        arguments: [!tagged content_variables.value.callback]
+
+    ContextualCode\EzPlatformContentVariablesBundle\Form\Type\Variable\Edit:
+        arguments: ['@ContextualCode\EzPlatformContentVariables\Variable\Value\Processor']
+        tags: [form.type]
+
+    ContextualCode\EzPlatformContentVariablesBundle\EventListener\Menu:
+        public: true
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ContextualCode\EzPlatformContentVariables\Menu\CollectionEditRightSidebarBuilder:
+        public: true
+        tags:
+            - { name: knp_menu.menu_builder, method: build, alias: content_variables.menu.collection_edit.sidebar_right }
+    ContextualCode\EzPlatformContentVariables\Menu\VariableEditRightSidebarBuilder:
+        public: true
+        tags:
+            - { name: knp_menu.menu_builder, method: build, alias: content_variables.menu.variable_edit.sidebar_right }

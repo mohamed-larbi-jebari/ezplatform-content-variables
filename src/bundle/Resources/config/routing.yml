@@ -1,0 +1,9 @@
+content_variables:
+    resource: "@EzPlatformContentVariablesBundle/Controller/VariableController.php"
+    prefix: /
+    type: annotation
+
+content_variables_collection:
+    resource: "@EzPlatformContentVariablesBundle/Controller/CollectionController.php"
+    prefix: /
+    type: annotation

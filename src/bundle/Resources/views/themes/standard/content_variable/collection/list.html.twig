@@ -1,0 +1,80 @@
+{% extends '@ezdesign/layout.html.twig' %}
+
+{% trans_default_domain "content_variables" %}
+
+{% block breadcrumbs %}
+    {% include '@ezdesign/parts/breadcrumbs.html.twig' with { items: [
+        { value: 'path.collections'|trans }
+    ]} %}
+{% endblock %}
+
+{% block page_title %}
+    {% include '@ezdesign/parts/page_title.html.twig' with {
+        title: 'collections.title'|trans,
+        iconName: 'sections'
+    } %}
+{% endblock %}
+
+{% block content %}
+    <section class="container mt-4 px-5">
+        <div class="ez-table-header">
+            <div class="ez-table-header__headline">{{ 'collections.title'|trans }}</div>
+            <div>
+                {% include '@ezdesign/content_variable/buttons/new.html.twig' with {
+                    'title': 'collection.new'|trans,
+                    'href': path('content_variables.collection.new'),
+                }%}
+                {% include '@ezdesign/content_variable/buttons/delete.html.twig' with {
+                    'modal_data_target': 'delete-collections-modal',
+                    'id': 'delete-collections',
+                    'title': 'collection.delete'|trans,
+                    'data_click': '#collections_delete_delete',
+                    'message': 'collection.delete.modal.message'|trans,
+                }%}
+            </div>
+        </div>
+
+        {% if collections|length > 0 %}
+            {{ form_start(form, {
+                'action': path('content_variables.collection.bulk_delete'),
+                'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-collections' }
+            }) }}
+            <table class="ez-table table mb-3">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>{{ 'collection.name'|trans }}</th>
+                    <th>{{ 'collection.variables'|trans }}</th>
+                    <th>{{ 'collection.description'|trans }}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for collection in collections %}
+                    <tr>
+                        <td class="ez-table__cell ez-table__cell--has-checkbox">
+                            {{ form_widget(form.items[collection.id], {"disabled": not collection.canBeDeleted}) }}
+                        </td>
+                        <td class="ez-table__cell"><a href="{{ path('content_variables.list', {'id': collection.id}) }}">{{ collection.name }}</a></td>
+                        <td class="ez-table__cell"><a href="{{ path('content_variables.list', {'id': collection.id}) }}">{{ collection.contentVariables|length }}</a></td>
+                        <td class="ez-table__cell">{{ collection.description }}</td>
+                        <td class="ez-table__cell ez-table__cell--has-action-btns text-right">
+                            {% include '@ezdesign/content_variable/buttons/edit.html.twig' with {
+                                'title': 'collection.edit'|trans({'%name%': collection.name|truncate(50) }),
+                                'href': path('content_variables.collection.edit', {'id': collection.id}),
+                            }%}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {{ form_end(form) }}
+        {% else %}
+            <div class="c-no-items">{{ 'collections.no_items'|trans }}</div>
+        {% endif %}
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('ezplatform-contnet-variables-collection-list-js', null, 'ezplatform') }}
+{% endblock %}

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="not.available">
+        <header>
+            <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+            <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+        </header>
+        <body>
+            <trans-unit id="1ea2a90f8ebd8fc941f923f94ac56b8b9ee46afe" resname="collection.list">
+                <source>Variables</source>
+                <target>Variables</target>
+                <note>key: collection.list</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8ebd8fc941f923f94ac56bddaae46afe" resname="collections.title">
+                <source>Collections</source>
+                <target>Collections</target>
+                <note>key: collections.title</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8ebd8fc941f923f94ac56bddaaddaafe" resname="path.collections">
+                <source>Collections</source>
+                <target>Collections</target>
+                <note>key: path.collections</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8aaabb162223d3feefc56b8b9eaaf221" resname="collections.no_items">
+                <source>There are no collections</source>
+                <target>There are no collections</target>
+                <note>key: collections.no_items</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8ebd8fc941f923f94ac56b8b9eaaf221" resname="collection.new">
+                <source>New collection</source>
+                <target>New collection</target>
+                <note>key: collection.new</note>
+            </trans-unit>
+            <trans-unit id="4f04e19e68e7ce4a6948c0b95eddde28900b274a" resname="collection.new.success">
+                <source>Collection "%name%" created.</source>
+                <target>Collection "%name%" created.</target>
+                <note>key: collection.new.success</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8ebd8fc941f923f94ac56b8b9eed31fe" resname="collection.edit">
+                <source>Editing "%name%"</source>
+                <target>Editing "%name%"</target>
+                <note>key: collection.edit</note>
+            </trans-unit>
+            <trans-unit id="4f04e19e68e7ce4a6948c0b95edeea28900b274a" resname="collection.edit.success">
+                <source>Collection "%name%" updated.</source>
+                <target>Collection "%name%" updated.</target>
+                <note>key: collection.edit.success</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8ebd8fc941f923fddaab6b8b9eaaf221" resname="collection.delete.success">
+                <source>Collection "%name%" removed.</source>
+                <target>Collection "%name%" removed.</target>
+                <note>key: collection.delete.success</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8ebd8fc941f923feefc56b8b9eaaf221" resname="collection.delete">
+                <source>Delete collection(s)</source>
+                <target>Delete collection(s)</target>
+                <note>key: collection.delete</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8ebd8fc941f923feefc56b8b9eaaf221" resname="collection.delete.modal.message">
+                <source>Do you want to delete collection(s)?</source>
+                <target>Do you want to delete collection(s)?</target>
+                <note>key: collection.delete.modal.message</note>
+            </trans-unit>
+            <trans-unit id="dda2a90f8ebd8fc941f923feefc56b8b9eaaf221" resname="collection.name">
+                <source>Name</source>
+                <target>Name</target>
+                <note>key: collection.name</note>
+            </trans-unit>
+            <trans-unit id="dda2a90f8ebd8fc941eeabbeefc56b8b9eaaf221" resname="collection.variables">
+                <source>Variables</source>
+                <target>Variables</target>
+                <note>key: collection.variables</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f832d8feeada923feefc56eeb9eaaf221" resname="collection.description">
+                <source>Description</source>
+                <target>Description</target>
+                <note>key: collection.description</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8ebd8fc941f923f33ac56bddaae46afe" resname="variables.title">
+                <source>Content Variables</source>
+                <target>Content Variables</target>
+                <note>key: variables.title</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8ebd822141f923f94ac56bddaaddaafe" resname="path.variables">
+                <source>Content Variables</source>
+                <target>Content Variables</target>
+                <note>key: path.variables</note>
+            </trans-unit>
+            <trans-unit id="1eaeeadd8ebd822141f923f94ac56bddaaddaafe" resname="variables.new">
+                <source>New content variable</source>
+                <target>New content variable</target>
+                <note>key: variables.new</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8ebd8fc941f923f22123132b9eaaf221" resname="collection.delete">
+                <source>Delete content variable(s)</source>
+                <target>Delete content variable(s)</target>
+                <note>key: collection.delete</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8add21162223d3feefc56b8b9eaaf221" resname="variable.delete.modal.message">
+                <source>Do you want to delete content variable(s)?</source>
+                <target>Do you want to delete content variable(s)?</target>
+                <note>key: variable.delete.modal.message</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8addee162223d3feefc56b8b9eaaf221" resname="variable.no_items">
+                <source>This collection has no content variables</source>
+                <target>This collection has no content variables</target>
+                <note>key: variable.no_items</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8addee16233123feefc56b8b9eaaf221" resname="variable.value_type.1">
+                <source>Static</source>
+                <target>Static</target>
+                <note>key: variable.value_type.1</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8addee16233123feefc56b8b9eaaf221" resname="variable.value_type.2">
+                <source>Callback</source>
+                <target>Callback</target>
+                <note>key: variable.value_type.2</note>
+            </trans-unit>
+            <trans-unit id="4f04e19e68e7ce4a6948c0b95eddde28900b274a" resname="variable.new.success">
+                <source>Content variable "%name%" created.</source>
+                <target>Content variable "%name%" created.</target>
+                <note>key: variable.new.success</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8ebd8fc941f923f94ac56b8b9eed31fe" resname="variable.edit">
+                <source>Editing "%name%"</source>
+                <target>Editing "%name%"</target>
+                <note>key: variable.edit</note>
+            </trans-unit>
+            <trans-unit id="4f04e19e68e7ce4a6948c0b95edeea28900b274a" resname="variable.edit.success">
+                <source>Content variable "%name%" updated.</source>
+                <target>Content variable "%name%" updated.</target>
+                <note>key: variable.edit.success</note>
+            </trans-unit>
+            <trans-unit id="aadde0f8ebd8fc941f923feefc56b8b9eaaf221" resname="variable.name">
+                <source>Name</source>
+                <target>Name</target>
+                <note>key: variable.name</note>
+            </trans-unit>
+            <trans-unit id="aadde0f8ebd8fc941f923feefc56b8bdddaf221" resname="variable.identifier">
+                <source>Identifier</source>
+                <target>Identifier</target>
+                <note>key: variable.identifier</note>
+            </trans-unit>
+            <trans-unit id="aadde0f8ebd111941f923feefc56b8bdddaf221" resname="variable.content">
+                <source>Linked contnet</source>
+                <target>Linked contnet</target>
+                <note>key: variable.content</note>
+            </trans-unit>
+            <trans-unit id="aadde0f8ebd8fc941f9233322c56b8bdddaf221" resname="variable.value">
+                <source>Value</source>
+                <target>Value</target>
+                <note>key: variable.value</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8edaafc941f923fddaab6b8b9eaaf221" resname="variable.delete.success">
+                <source>Content variable "%name%" removed.</source>
+                <target>Content variable "%name%" removed.</target>
+                <note>key: variable.delete.success</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8edaafc941f923fddaab6b8b9add231" resname="variable.value.callback">
+                <source>Callback "%callback%"</source>
+                <target>Callback "%callback%"</target>
+                <note>key: variable.value.callback</note>
+            </trans-unit>
+        </body>
+  </file>
+</xliff>
