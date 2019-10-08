@@ -8,17 +8,16 @@ services:
         resource: '../../Controller'
         tags: ['controller.service_arguments']
 
+    ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber\:
+        resource: '../../EventSubscriber'
+        tags: ['kernel.event_subscriber']
+
     ContextualCode\EzPlatformContentVariables\Variable\Value\Processor:
         arguments: [!tagged content_variables.value.callback]
 
     ContextualCode\EzPlatformContentVariablesBundle\Form\Type\Variable\Edit:
         arguments: ['@ContextualCode\EzPlatformContentVariables\Variable\Value\Processor']
         tags: [form.type]
-
-    ContextualCode\EzPlatformContentVariablesBundle\EventListener\Menu:
-        public: true
-        tags:
-            - { name: kernel.event_subscriber }
 
     ContextualCode\EzPlatformContentVariables\Menu\CollectionEditRightSidebarBuilder:
         public: true

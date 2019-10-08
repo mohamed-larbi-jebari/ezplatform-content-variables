@@ -1,6 +1,6 @@
 <?php
 
-namespace ContextualCode\EzPlatformContentVariablesBundle\EventListener;
+namespace ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Translation\TranslatorInterface;

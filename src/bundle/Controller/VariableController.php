@@ -92,7 +92,13 @@ class VariableController extends BaseController
      */
     public function linkedContentAction(Request $request, Variable $variable): Response
     {
-        return new Response('TODO');
+        $linkedContentInfo = $this->variableHandler->linkedContentInfo($variable);
+
+        $params = [
+            'variable' => $variable,
+            'linked_content' => $linkedContentInfo,
+        ];
+        return $this->render('@ezdesign/content_variable/variable/related_content.html.twig', $params);
     }
 
     public function deleteHandler(ItemsSelection $data): void

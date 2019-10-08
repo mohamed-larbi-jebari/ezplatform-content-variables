@@ -1,0 +1,49 @@
+{% extends '@ezdesign/layout.html.twig' %}
+
+{% trans_default_domain "content_variables" %}
+
+{% block breadcrumbs %}
+    {% include '@ezdesign/parts/breadcrumbs.html.twig' with { items: [
+        { value: 'path.collections'|trans, url: path('content_variables.collection.list') },
+        { value: 'path.variables'|trans, url: path('content_variables.list', {'id': variable.collection.id}) },
+        { value: 'path.linked_content'|trans },
+    ]} %}
+{% endblock %}
+
+{% block page_title %}
+    {% include '@ezdesign/parts/page_title.html.twig' with {
+        title: 'variables.linked_content.title'|trans({'%name%': variable.name|truncate(50) }),
+        iconName: 'view-custom'
+    } %}
+{% endblock %}
+
+{% block content %}
+    <section class="container mt-4 px-5">
+        {% if linked_content|length > 0 %}
+            <table class="ez-table table mb-3">
+                <thead>
+                    <tr>
+                        <th>{{ 'variable.related_content.name'|trans }}</th>
+                        <th>{{ 'variable.related_content.version'|trans }}</th>
+                        <th>{{ 'variable.related_content.field'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in linked_content %}
+                    <tr>
+                        <td class="ez-table__cell">
+                            <a href="{{ path('_ez_content_view', {'contentId': item.content.id}) }}" target="_blank">{{ item.content.name }}</a>
+                        </td>
+                        <td class="ez-table__cell">
+                            <a href="{{ path('ezplatform.content.preview', {'contentId': item.content.id, 'versionNo': item.content.versionInfo.versionNo, 'languageCode': item.content.versionInfo.languageCodes[0]}) }}" target="_blank">{{ item.content.versionInfo.versionNo }}</a>
+                        </td>
+                        <td class="ez-table__cell">{{ item.field_name }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="c-no-items">{{ 'variable.related_content.no_items'|trans }}</div>
+        {% endif %}
+    </section>
+{% endblock %}

@@ -101,6 +101,11 @@
                 <target>Do you want to delete content variable(s)?</target>
                 <note>key: variable.delete.modal.message</note>
             </trans-unit>
+            <trans-unit id="1ea2a6548ebd8fc941f923f94ac56b8b9eaaf221" resname="variable.new">
+                <source>New content variable</source>
+                <target>New content variable</target>
+                <note>key: variable.new</note>
+            </trans-unit>
             <trans-unit id="1ea2a90f8addee162223d3feefc56b8b9eaaf221" resname="variable.no_items">
                 <source>This collection has no content variables</source>
                 <target>This collection has no content variables</target>
@@ -142,8 +147,8 @@
                 <note>key: variable.identifier</note>
             </trans-unit>
             <trans-unit id="aadde0f8ebd111941f923feefc56b8bdddaf221" resname="variable.content">
-                <source>Linked contnet</source>
-                <target>Linked contnet</target>
+                <source>Linked content</source>
+                <target>Linked content</target>
                 <note>key: variable.content</note>
             </trans-unit>
             <trans-unit id="aadde0f8ebd8fc941f9233322c56b8bdddaf221" resname="variable.value">
@@ -161,6 +166,37 @@
                 <target>Callback "%callback%"</target>
                 <note>key: variable.value.callback</note>
             </trans-unit>
+            <trans-unit id="1ea2a90f8dda2c941f923fddaab6b8b9add231" resname="path.linked_content">
+                <source>Linked Content</source>
+                <target>Linked Content</target>
+                <note>key: path.linked_content</note>
+            </trans-unit>
+            <trans-unit id="cca2a90f8dda2c941f923fddaab6b8b9add231" resname="variables.linked_content.title">
+                <source>Linked content for "%name%" variable</source>
+                <target>Linked content for "%name%" variable</target>
+                <note>key: variables.linked_content.title</note>
+            </trans-unit>
+            <trans-unit id="cca2a90f8dda2c941dad3fddaab6b8b9add231" resname="variable.related_content.name">
+                <source>Name</source>
+                <target>Name</target>
+                <note>key: variable.related_content.name</note>
+            </trans-unit>
+            <trans-unit id="cca2a90f8dda2c941f9eeaddaab6b8b9add231" resname="variable.related_content.version">
+                <source>Version</source>
+                <target>Version</target>
+                <note>key: variable.related_content.version</note>
+            </trans-unit>
+            <trans-unit id="cca21add8dda2c941f923fddaab6b8b9add231" resname="variable.related_content.field">
+                <source>Field</source>
+                <target>Field</target>
+                <note>key: variable.related_content.field</note>
+            </trans-unit>
+            <trans-unit id="cca21add8dda2c941f923fddaabeeab9add231" resname="variable.related_content.no_items">
+                <source>There is no any linked content</source>
+                <target>There is no any linked content</target>
+                <note>key: variable.related_content.no_items</note>
+            </trans-unit>
+
         </body>
   </file>
 </xliff>

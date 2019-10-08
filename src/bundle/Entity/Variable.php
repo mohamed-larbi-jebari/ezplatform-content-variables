@@ -2,16 +2,21 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\Entity;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Persistence\Mapping\ClassMetadata;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ObjectManagerAware;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber\ContentVariablesOutputFilter;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="cc_content_variable")
  * @UniqueEntity("identifier")
  */
-class Variable
+class Variable implements ObjectManagerAware
 {
     const VALUE_TYPE_STATIC = 1;
     const VALUE_TYPE_CALLBACK = 2;
@@ -59,6 +64,9 @@ class Variable
      * @ORM\Column(type="string", length=256, nullable=true)
      */
     private $valueCallback;
+
+    /** @var EntityManagerInterface */
+    private $entityManager;
 
     public function __construct()
     {
@@ -145,10 +153,42 @@ class Variable
         return $this->getValueType() === self::VALUE_TYPE_STATIC;
     }
 
+    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata)
+    {
+        $this->entityManager = $objectManager;
+    }
+
     public function getLinkedContentCount(): int
     {
-        // TODO
-        return 0;
+        $placeholder = $this->getPlaceholder();
+        if ($placeholder === null) {
+            return 0;
+        }
+
+        $query = $this->entityManager->getConnection()->createQueryBuilder()
+            ->select('o.id, COUNT(o.id) as linked_objects_count')
+            ->from('ezcontentobject', 'o')
+            ->leftJoin(
+                'o',
+                'ezcontentobject_attribute',
+                'a',
+                '(a.version = o.current_version AND a.contentobject_id = o.id)')
+            ->where('a.data_text LIKE :contnet_variable')
+            ->groupBy('o.id')
+            ->setParameter('contnet_variable', '%' . $placeholder . '%');
+
+        return (int) $query->execute()->rowCount();
+    }
+
+    public function getPlaceholder(): ?string
+    {
+        $identifier = $this->getIdentifier();
+        if (empty($identifier)) {
+            return null;
+        }
+
+        $separator = ContentVariablesOutputFilter::WRAPPER;
+        return $separator . $identifier . $separator;
     }
 
     public static function getValueTypes(): array
