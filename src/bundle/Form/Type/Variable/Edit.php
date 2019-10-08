@@ -14,7 +14,8 @@ class Edit extends AbstractType
     /** @var Processor */
     protected $callbackProcessor;
 
-    public function __construct(Processor $callbackProcessor) {
+    public function __construct(Processor $callbackProcessor)
+    {
         $this->callbackProcessor = $callbackProcessor;
     }
 

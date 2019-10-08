@@ -172,7 +172,8 @@ class Variable implements ObjectManagerAware
                 'o',
                 'ezcontentobject_attribute',
                 'a',
-                '(a.version = o.current_version AND a.contentobject_id = o.id)')
+                '(a.version = o.current_version AND a.contentobject_id = o.id)'
+            )
             ->where('a.data_text LIKE :contnet_variable')
             ->groupBy('o.id')
             ->setParameter('contnet_variable', '%' . $placeholder . '%');

@@ -10,7 +10,6 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use ContextualCode\EzPlatformContentVariablesBundle\Service\VariableHandler;
 
-
 class ContentVariablesOutputFilter implements EventSubscriberInterface
 {
     const WRAPPER = '#';
@@ -18,7 +17,8 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
     /** @var VariableHandler */
     protected $variableHandler;
 
-    public function __construct(VariableHandler $variableHandler) {
+    public function __construct(VariableHandler $variableHandler)
+    {
         $this->variableHandler = $variableHandler;
     }
 
