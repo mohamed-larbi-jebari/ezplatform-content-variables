@@ -5,7 +5,7 @@
     const callbackType = 2;
 
     const handleValueType = (typeSelect) => {
-        const container = typeSelect.parentElement.parentElement;
+        const container = typeSelect.closest('.content-variable-block');
         const staticValue = container.querySelector('.content-variable-value-static');
         const callbackValue = container.querySelector('.content-variable-value-callback');
 

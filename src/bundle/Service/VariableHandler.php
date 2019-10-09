@@ -64,6 +64,8 @@ class VariableHandler
 
     public function persist(Variable $variable): void
     {
+        $variable->fixStaticValuePlaceholder();
+
         $this->entityManager->persist($variable);
         $this->entityManager->flush();
     }

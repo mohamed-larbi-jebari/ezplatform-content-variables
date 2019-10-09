@@ -1,0 +1,12 @@
+{% extends '@ezdesign/layout.html.twig' %}
+
+{% block left_sidebar %}
+    <div class="bg-dark pt-4 px-0 ez-side-menu">
+        <div class="ez-sticky-container">
+            {% set sidebar_right = knp_menu_get('content_variables.menu.main.sidebar_left', [], {}) %}
+            {{ knp_menu_render(sidebar_right, {
+                'template': '@ezdesign/parts/menu/sidebar_left.html.twig'
+            }) }}
+        </div>
+    </div>
+{% endblock left_sidebar %}

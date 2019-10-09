@@ -1,89 +1,96 @@
-{% extends '@ezdesign/layout.html.twig' %}
+{% extends '@ezdesign/content_variable/layout.html.twig' %}
 
 {% trans_default_domain "content_variables" %}
 
-{% block breadcrumbs %}
-    {% include '@ezdesign/parts/breadcrumbs.html.twig' with { items: [
-        { value: 'path.collections'|trans, url: path('content_variables.collection.list') },
-        { value: 'path.variables'|trans },
-    ]} %}
-{% endblock %}
-
-{% block page_title %}
-    {% include '@ezdesign/parts/page_title.html.twig' with {
-        title: 'variables.title'|trans,
-        iconName: 'keyword'
-    } %}
-{% endblock %}
-
 {% block content %}
-    <section class="container mt-4 px-5">
-        <div class="ez-table-header">
-            <div class="ez-table-header__headline">{{ 'variables.title'|trans }}</div>
-            <div>
-                {% include '@ezdesign/content_variable/buttons/new.html.twig' with {
-                    'title': 'variables.new'|trans,
-                    'href': path('content_variables.new', {'id': collection.id}),
-                } %}
-                {% include '@ezdesign/content_variable/buttons/delete.html.twig' with {
-                    'modal_data_target': 'delete-variables-modal',
-                    'id': 'delete-variables',
-                    'title': 'variable.delete'|trans,
-                    'data_click': '#variables_delete_delete',
-                    'message': 'variable.delete.modal.message'|trans,
-                } %}
-            </div>
-        </div>
+    <div class="row align-items-stretch ez-main-row">
+        {% block left_sidebar %}
+            {{ parent() }}
+        {% endblock left_sidebar %}
 
-        {% if variables|length > 0 %}
-            {{ form_start(form, {
-                'action': path('content_variables.bulk_delete', {'id': collection.id}),
-                'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-variables' }
-            }) }}
-            <table class="ez-table table mb-3">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>{{ 'variable.name'|trans }}</th>
-                        <th>{{ 'variable.identifier'|trans }}</th>
-                        <th>{{ 'variable.content'|trans }}</th>
-                        <th>{{ 'variable.value'|trans }}</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for variable in variables %}
-                    <tr>
-                        <td class="ez-table__cell ez-table__cell--has-checkbox">
-                            {{ form_widget(form.items[variable.id], {"disabled": not variable.canBeDeleted}) }}
-                        </td>
-                        <td class="ez-table__cell">{{ variable.name }}</td>
-                        <td class="ez-table__cell">{{ variable.identifier }}</td>
-                        <td class="ez-table__cell">
-                            <a href="{{ path('content_variables.linked_content', {'id': variable.id}) }}">{{ variable.getLinkedContentCount }}</a>
-                        </td>
-                        <td class="ez-table__cell">
-                            {% if variable.isStatic %}
-                                {{ variable.valueStatic }}
-                            {% else %}
-                                {{ 'variable.value.callback'|trans({'%callback%': variable.valueCallback}) }}
-                            {% endif %}
-                        </td>
-                        <td class="ez-table__cell ez-table__cell--has-action-btns text-right">
-                            {% include '@ezdesign/content_variable/buttons/edit.html.twig' with {
-                                'title': 'variable.edit'|trans({'%name%': collection.name|truncate(50) }),
-                                'href': path('content_variables.edit', {'id': variable.id}),
-                            } %}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            {{ form_end(form) }}
-        {% else %}
-            <div class="c-no-items">{{ 'variable.no_items'|trans }}</div>
-        {% endif %}
-    </section>
+        <div class="px-0 pb-4 ez-content-container">
+            <div class="ez-header">
+                <div class="container">
+                    {% include '@ezdesign/parts/breadcrumbs.html.twig' with { items: [
+                        { value: 'path.collections'|trans, url: path('content_variables.collection.list') },
+                        { value: 'path.variables'|trans },
+                    ]} %}
+                    {% include '@ezdesign/parts/page_title.html.twig' with {
+                        title: 'variables.title'|trans,
+                        iconName: 'keyword'
+                    } %}
+                </div>
+            </div>
+
+            <section class="container mt-4 px-5">
+                <div class="ez-table-header">
+                    <div class="ez-table-header__headline">{{ 'variables.title'|trans }}</div>
+                    <div>
+                        {% include '@ezdesign/content_variable/buttons/new.html.twig' with {
+                            'title': 'variables.new'|trans,
+                            'href': path('content_variables.new', {'id': collection.id}),
+                        } %}
+                        {% include '@ezdesign/content_variable/buttons/delete.html.twig' with {
+                            'modal_data_target': 'delete-variables-modal',
+                            'id': 'delete-variables',
+                            'title': 'variable.delete'|trans,
+                            'data_click': '#variables_delete_delete',
+                            'message': 'variable.delete.modal.message'|trans,
+                        } %}
+                    </div>
+                </div>
+
+                {% if variables|length > 0 %}
+                    {{ form_start(form, {
+                        'action': path('content_variables.bulk_delete', {'id': collection.id}),
+                        'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-variables' }
+                    }) }}
+                    <table class="ez-table table mb-3">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>{{ 'variable.name'|trans }}</th>
+                                <th>{{ 'variable.identifier'|trans }}</th>
+                                <th>{{ 'variable.content'|trans }}</th>
+                                <th>{{ 'variable.value'|trans }}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for variable in variables %}
+                            <tr>
+                                <td class="ez-table__cell ez-table__cell--has-checkbox">
+                                    {{ form_widget(form.items[variable.id], {"disabled": not variable.canBeDeleted}) }}
+                                </td>
+                                <td class="ez-table__cell">{{ variable.name }}</td>
+                                <td class="ez-table__cell">{{ variable.identifier }}</td>
+                                <td class="ez-table__cell">
+                                    <a href="{{ path('content_variables.linked_content', {'id': variable.id}) }}">{{ variable.getLinkedContentCount }}</a>
+                                </td>
+                                <td class="ez-table__cell">
+                                    {% if variable.isStatic %}
+                                        {{ variable.valueStatic }}
+                                    {% else %}
+                                        {{ 'variable.value.callback'|trans({'%callback%': variable.valueCallback}) }}
+                                    {% endif %}
+                                </td>
+                                <td class="ez-table__cell ez-table__cell--has-action-btns text-right">
+                                    {% include '@ezdesign/content_variable/buttons/edit.html.twig' with {
+                                        'title': 'variable.edit'|trans({'%name%': collection.name|truncate(50) }),
+                                        'href': path('content_variables.edit', {'id': variable.id}),
+                                    } %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {{ form_end(form) }}
+                {% else %}
+                    <div class="c-no-items">{{ 'variable.no_items'|trans }}</div>
+                {% endif %}
+            </section>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

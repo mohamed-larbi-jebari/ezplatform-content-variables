@@ -1,12 +1,16 @@
-{% extends '@ezdesign/layout.html.twig' %}
+{% extends '@ezdesign/content_variable/layout.html.twig' %}
 
 {% form_theme form '@ezdesign/form_fields.html.twig' %}
 
 {% trans_default_domain "content_variables" %}
 
 {% set breadcrumbsTitle = collection.isNew ? 'collection.new'|trans : 'collection.edit'|trans({'%name%': collection.name|truncate(50) }) %}
-{%- block content -%}
+{% block content %}
     <div class="row align-items-stretch ez-main-row">
+        {% block left_sidebar %}
+            {{ parent() }}
+        {% endblock left_sidebar %}
+
         <div class="px-0 pb-4 ez-content-container">
             <div class="ez-header">
                 <div class="container">
@@ -45,4 +49,4 @@
             }) }}
         </div>
     </div>
-{%- endblock -%}
+{% endblock %}

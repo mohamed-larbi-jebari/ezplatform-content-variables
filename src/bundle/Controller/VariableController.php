@@ -5,6 +5,7 @@ namespace ContextualCode\EzPlatformContentVariablesBundle\Controller;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\ItemsSelection;
+use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\VariableValues;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +21,30 @@ class VariableController extends BaseController
     public function createAction(Request $request, Collection $collection): Response
     {
         return $this->editAction($request, new Variable(), $collection);
+    }
+
+    /**
+     * @Route("/bulk_edit", name="bulk_edit")
+     */
+    public function bulkEditAction(Request $request): Response {
+        $collections = $this->collectionHandler->findAll();
+        $variables = $this->variableHandler->findAll();
+        $form = $this->formFactory->variablesBulkEdit(new VariableValues($variables));
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $result = $this->submitHandler->handle($form, [$this, 'bulkEditHandler']);
+            if ($result instanceof Response) {
+                return $result;
+            }
+        }
+
+        $params = [
+            'collections' => $collections,
+            'form' => $form->createView(),
+        ];
+
+        return $this->render('@ezdesign/content_variable/variable/bulk_edit.html.twig', $params);
     }
 
     /**
@@ -121,6 +146,18 @@ class VariableController extends BaseController
 
             $message = $this->getTranslatedMessage('variable.delete.success', [
                 '%name%' => $variable ? $variable->getName() : $variableId,
+            ]);
+            $this->notificationHandler->success($message);
+        }
+    }
+
+    public function bulkEditHandler(VariableValues $data): void
+    {
+        foreach ($data->getEditedVariables() as $variable) {
+            $this->variableHandler->persist($variable);
+
+            $message = $this->getTranslatedMessage('variable.edit.success', [
+                '%name%' => $variable->getName(),
             ]);
             $this->notificationHandler->success($message);
         }

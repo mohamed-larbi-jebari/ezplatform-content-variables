@@ -91,10 +91,10 @@
                 <target>New content variable</target>
                 <note>key: variables.new</note>
             </trans-unit>
-            <trans-unit id="1ea2a90f8ebd8fc941f923f22123132b9eaaf221" resname="collection.delete">
+            <trans-unit id="1ea2a90f8ebd8fc941f923f22123132b9eaaf221" resname="variable.delete">
                 <source>Delete content variable(s)</source>
                 <target>Delete content variable(s)</target>
-                <note>key: collection.delete</note>
+                <note>key: variable.delete</note>
             </trans-unit>
             <trans-unit id="1ea2a90f8add21162223d3feefc56b8b9eaaf221" resname="variable.delete.modal.message">
                 <source>Do you want to delete content variable(s)?</source>
@@ -156,6 +156,16 @@
                 <target>Value</target>
                 <note>key: variable.value</note>
             </trans-unit>
+            <trans-unit id="aadde0f8ebd8fc941f9233322eedaabdddaf224" resname="variable.placeholder">
+                <source>Placeholder</source>
+                <target>Placeholder</target>
+                <note>key: variable.placeholder</note>
+            </trans-unit>
+            <trans-unit id="aadde0f8ebd8fc941f9232422eedaabdddaf224" resname="variable.type">
+                <source>Type</source>
+                <target>Type</target>
+                <note>key: variable.type</note>
+            </trans-unit>
             <trans-unit id="1ea2a90f8edaafc941f923fddaab6b8b9eaaf221" resname="variable.delete.success">
                 <source>Content variable "%name%" removed.</source>
                 <target>Content variable "%name%" removed.</target>
@@ -195,6 +205,22 @@
                 <source>There is no any linked content</source>
                 <target>There is no any linked content</target>
                 <note>key: variable.related_content.no_items</note>
+            </trans-unit>
+            <trans-unit id="cca21add8dda2c941f923fddaaddabb9add231" resname="path.variable.bulk_edit">
+                <source>Bulk Edit</source>
+                <target>Bulk Edit</target>
+                <note>key: path.variable.bulk_edit</note>
+            </trans-unit>
+            <trans-unit id="cca21aeef4da2c941f923fddaaddabb9add231" resname="variable.bulk_edit.title">
+                <source>Bulk Edit</source>
+                <target>Bulk Edit</target>
+                <note>key: variable.bulk_edit.title</note>
+            </trans-unit>
+
+            <trans-unit id="cca21aeef4da2c941f923fddacc2abb9add231" resname="bulk_edit.no_items">
+                <source>There are no content variables. Start by <a href="%url%">creating new collection</a> and adding some of content variables</source>
+                <target>There are no content variables. Start by creating a new collection and adding some of content variables</target>
+                <note>key: bulk_edit.no_items</note>
             </trans-unit>
 
         </body>

@@ -25,20 +25,20 @@ This bundle provides a way to manage content variables. Basically, those are pla
 
 4. Run the migrations:
 
-    If you're using [Kaliop eZ-Migration Bundle](https://github.com/kaliop-uk/ezmigrationbundle)
-    ```bash
-    php bin/console kaliop:migration:migrate
-    ```
+    - If you're using [Kaliop eZ-Migration Bundle](https://github.com/kaliop-uk/ezmigrationbundle)
+        ```bash
+        php bin/console kaliop:migration:migrate
+        ```
 
-    If you're using [DoctrineMigrationsBundle](https://github.com/doctrine/DoctrineMigrationsBundle)
-    ```bash
-    php bin/console doctrine:migrations:migrate --configuration=vendor/contextualcode/ezplatform-content-variables/src/bundle/Resources/config/doctrine_migrations.yaml
-    ```
+    - If you're using [DoctrineMigrationsBundle](https://github.com/doctrine/DoctrineMigrationsBundle)
+        ```bash
+        php bin/console doctrine:migrations:migrate --configuration=vendor/contextualcode/ezplatform-content-variables/src/bundle/Resources/config/doctrine_migrations.yaml
+        ```
 
-    If you're not using migration bundle, execute SQL manually
-    ```bash
-    mysql < vendor/contextualcode/ezplatform-content-variables/src/bundle/MigrationVersions/20191009101530_mysql_create_cc_content_variable_table.sql
-    ```
+    - If you're not using any migration bundle, execute SQL manually
+        ```bash
+        mysql < vendor/contextualcode/ezplatform-content-variables/src/bundle/MigrationVersions/20191009101530_mysql_create_cc_content_variable_table.sql
+        ```
 
 5. Clear the caches:
     ```bash

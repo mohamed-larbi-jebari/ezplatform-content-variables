@@ -1,4 +1,4 @@
-{% extends '@ezdesign/layout.html.twig' %}
+{% extends '@ezdesign/content_variable/layout.html.twig' %}
 
 {% form_theme form '@ezdesign/form_fields.html.twig' %}
 
@@ -7,6 +7,10 @@
 {% set breadcrumbsTitle = variable.isNew ? 'variable.new'|trans : 'variable.edit'|trans({'%name%': variable.name|truncate(50) }) %}
 {% block content %}
     <div class="row align-items-stretch ez-main-row">
+        {% block left_sidebar %}
+            {{ parent() }}
+        {% endblock left_sidebar %}
+
         <div class="px-0 pb-4 ez-content-container">
             <div class="ez-header">
                 <div class="container">
@@ -29,7 +33,7 @@
 
                 <section class="container mt-4">
                     <div class="card ez-card">
-                        <div class="card-body">
+                        <div class="card-body content-variable-block">
                             {{ form_row(form.name, {'label_attr': {'class': 'ez-label'}}) }}
                             {{ form_row(form.identifier, {'label_attr': {'class': 'ez-label'}}) }}
                             {% if form.valueType is defined %}

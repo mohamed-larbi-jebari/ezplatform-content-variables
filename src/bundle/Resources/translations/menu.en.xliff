@@ -6,6 +6,16 @@
             <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
         </header>
         <body>
+            <trans-unit id="aabba90feead8fc941f923f94ac56b8b9ee46afe" resname="content_variable_main__sidebar_left__bulk_edit">
+                <source>Bulk Edit</source>
+                <target>Bulk Edit</target>
+                <note>key: content_variable_main__sidebar_left__bulk_edit</note>
+            </trans-unit>
+            <trans-unit id="ddeea90f8ebd8fc941f923f94ac56b8b9eaaf221" resname="content_variable_main__sidebar_left__collections">
+                <source>Configure</source>
+                <target>Configure</target>
+                <note>key: content_variable_main__sidebar_left__collections</note>
+            </trans-unit>
             <trans-unit id="eea2a90f8ebd8fc941f923f94ac56b8b9ee46afe" resname="content_variable_collection_edit__sidebar_right__save">
                 <source>Save</source>
                 <target>Save</target>
@@ -25,6 +35,11 @@
                 <source>Discard changes</source>
                 <target>Discard changes</target>
                 <note>key: content_variable_variable_edit__sidebar_right__cancel</note>
+            </trans-unit>
+            <trans-unit id="aab2a90f8ebd8fc941f923f94ac56bdda3aaf221" resname="content_variable_bulk_edit__sidebar_right__save">
+                <source>Save</source>
+                <target>Save</target>
+                <note>key: content_variable_bulk_edit__sidebar_right__save</note>
             </trans-unit>
         </body>
   </file>
