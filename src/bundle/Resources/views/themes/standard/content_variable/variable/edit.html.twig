@@ -34,16 +34,16 @@
                             {{ form_row(form.identifier, {'label_attr': {'class': 'ez-label'}}) }}
                             {% if form.valueType is defined %}
                                 {{ form_row(form.valueType, {
-                                    'attr': {'class': 'contnet-variable-value-type'},
+                                    'attr': {'class': 'content-variable-value-type'},
                                     'label_attr': {'class': 'ez-label'}
                                 }) }}
                                 {{ form_row(form.valueCallback, {
-                                    'attr': {'class': 'contnet-variable-value-callback'},
+                                    'attr': {'class': 'content-variable-value-callback'},
                                     'label_attr': {'class': 'ez-label'}
                                 }) }}
                             {% endif %}
                             {{ form_row(form.valueStatic, {
-                                'attr': {'class': 'contnet-variable-value-static'},
+                                'attr': {'class': 'content-variable-value-static'},
                                 'label_attr': {'class': 'ez-label'}
                             }) }}
                         </div>
@@ -63,5 +63,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-contnet-variables-variables-edit-js', null, 'ezplatform') }}
+    {{ encore_entry_script_tags('ezplatform-content-variables-variables-edit-js', null, 'ezplatform') }}
 {% endblock %}

@@ -2,15 +2,15 @@
 
 namespace ContextualCode\EzPlatformContentVariables\Menu;
 
+use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
-use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
 
 class CollectionEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    const ITEM__SAVE = 'content_variable_collection_edit__sidebar_right__save';
-    const ITEM__CANCEL = 'content_variable_collection_edit__sidebar_right__cancel';
+    private const ITEM__SAVE = 'content_variable_collection_edit__sidebar_right__save';
+    private const ITEM__CANCEL = 'content_variable_collection_edit__sidebar_right__cancel';
 
     protected function getConfigureEventName(): string
     {

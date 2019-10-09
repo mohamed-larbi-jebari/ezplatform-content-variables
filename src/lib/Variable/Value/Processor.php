@@ -4,7 +4,7 @@ namespace ContextualCode\EzPlatformContentVariables\Variable\Value;
 
 class Processor
 {
-    /** @var array */
+    /** @var \ContextualCode\EzPlatformContentVariables\Variable\Value\Callback[] */
     protected $callbacks = [];
 
     public function __construct(iterable $callbacks)
@@ -20,16 +20,25 @@ class Processor
         $this->callbacks[$identifier] = $callback;
     }
 
+    /**
+     * @return \ContextualCode\EzPlatformContentVariables\Variable\Value\Callback|null
+     */
     public function getCallback(string $identifier): ?Callback
     {
-        return isset($this->callbacks[$identifier]) ? $this->callbacks[$identifier] : null;
+        return $this->callbacks[$identifier] ?? null;
     }
 
+    /**
+     * @return \ContextualCode\EzPlatformContentVariables\Variable\Value\Callback[]
+     */
     public function getCallbacks(): array
     {
         return $this->callbacks;
     }
 
+    /**
+     * @return string[]
+     */
     public function getCallbackChoices(): array
     {
         $choices = [];

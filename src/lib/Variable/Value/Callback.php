@@ -4,7 +4,7 @@ namespace ContextualCode\EzPlatformContentVariables\Variable\Value;
 
 abstract class Callback
 {
-    /** @var array */
+    /** @var string */
     protected $identifier;
 
     public function getIdentifier(): string

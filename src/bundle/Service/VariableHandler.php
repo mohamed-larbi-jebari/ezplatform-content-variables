@@ -2,17 +2,16 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\Service;
 
+use ContextualCode\EzPlatformContentVariables\Variable\Value\Processor as CallbackProcessor;
+use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
+use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\Core\Base\Exceptions\NotFoundException;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler as TypeHandler;
 use eZ\Publish\SPI\Persistence\Content\Type;
-use ContextualCode\EzPlatformContentVariables\Variable\Value\Callback as ValueCallback;
-use ContextualCode\EzPlatformContentVariables\Variable\Value\Processor as CallbackProcessor;
-use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
-use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable;
 
 class VariableHandler
 {
@@ -55,6 +54,9 @@ class VariableHandler
         return $collection->getContentVariables()->getValues();
     }
 
+    /**
+     * @return Variable[]
+     */
     public function findAll(): array
     {
         return $this->repository->findAll();
@@ -84,26 +86,26 @@ class VariableHandler
         $query = $this->entityManager->getConnection()->createQueryBuilder()
             ->select('DISTINCT contentobject_id, version, contentclassattribute_id')
             ->from('ezcontentobject_attribute')
-            ->where('data_text LIKE :contnet_variable')
-            ->setParameter('contnet_variable', '%' . $placeholder . '%')
+            ->where('data_text LIKE :content_variable')
+            ->setParameter('content_variable', '%' . $placeholder . '%')
             ->orderBy('contentobject_id', 'DESC')
             ->addOrderBy('version', 'DESC');
 
         $fieldNames = [];
         $result = $query->execute();
         while ($row = $result->fetch()) {
-            $id = (int) $row['contentobject_id'];
-            $version = (int) $row['version'];
+            $id = (int)$row['contentobject_id'];
+            $version = (int)$row['version'];
             $content = $this->contentService->loadContent($id, null, $version);
 
-            $fieldId = (int) $row['contentclassattribute_id'];
+            $fieldId = (int)$row['contentclassattribute_id'];
             if (isset($fieldNames[$fieldId]) === false) {
                 $fieldNames[$fieldId] = $this->getFieldName($fieldId);
             }
 
             $linkedContent[] = [
                 'content' => $content,
-                'field_name' => $fieldNames[$fieldId]
+                'field_name' => $fieldNames[$fieldId],
             ];
         }
 
@@ -120,7 +122,7 @@ class VariableHandler
 
         $language = $fieldDefinition->mainLanguageCode;
         $names = $fieldDefinition->name;
-        $name = isset($names[$language]) ? $names[$language] : $fieldDefinition->identifier;
+        $name = $names[$language] ?? $fieldDefinition->identifier;
 
         return $name . ' (' . $fieldDefinition->fieldType . ')';
     }
@@ -132,7 +134,7 @@ class VariableHandler
         }
 
         $callback = $this->callbackProcessor->getCallback($variable->getValueCallback());
-        if ($callback instanceof ValueCallback) {
+        if ($callback) {
             return $callback->getValue();
         }
 

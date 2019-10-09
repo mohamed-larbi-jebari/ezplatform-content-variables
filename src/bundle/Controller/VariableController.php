@@ -2,17 +2,20 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\ItemsSelection;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/content_variables", name="content_variables.")
+ */
 class VariableController extends BaseController
 {
     /**
-     * @Route("/content_variables/{id}/new", name="content_variables.new", defaults={"id"=null}, requirements={"id"="\d+"})
+     * @Route("/{id}/new", name="new", defaults={"id"=null}, requirements={"id"="\d+"})
      */
     public function createAction(Request $request, Collection $collection): Response
     {
@@ -20,7 +23,7 @@ class VariableController extends BaseController
     }
 
     /**
-     * @Route("/content_variables/edit/{id}", name="content_variables.edit", defaults={"id"=null})
+     * @Route("/edit/{id}", name="edit", defaults={"id"=null})
      */
     public function editAction(
         Request $request,
@@ -51,13 +54,14 @@ class VariableController extends BaseController
             'variable' => $variable,
             'collection' => $collection,
         ];
+
         return $this->render('@ezdesign/content_variable/variable/edit.html.twig', $params);
     }
 
     /**
-     * @Route("/content_variables/{id}/variables", name="content_variables.list", defaults={"id"=null})
+     * @Route("/{id}/variables", name="list", defaults={"id"=null})
      */
-    public function listAction(Collection $collection)
+    public function listAction(Collection $collection): Response
     {
         $variables = $this->variableHandler->findByCollection($collection);
         $form = $this->formFactory->variablesDelete(new ItemsSelection($variables));
@@ -67,11 +71,12 @@ class VariableController extends BaseController
             'collection' => $collection,
             'form' => $form->createView(),
         ];
+
         return $this->render('@ezdesign/content_variable/variable/list.html.twig', $params);
     }
 
     /**
-     * @Route("/content_variables/{id}/bulk_delete", name="content_variables.bulk_delete", defaults={"id"=null}, requirements={"id"="\d+"})
+     * @Route("/{id}/bulk_delete", name="bulk_delete", defaults={"id"=null}, requirements={"id"="\d+"})
      */
     public function bulkDeleteAction(Request $request, Collection $collection): Response
     {
@@ -88,9 +93,9 @@ class VariableController extends BaseController
     }
 
     /**
-     * @Route("/content_variables/{id}/linked_content", name="content_variables.linked_content", defaults={"id"=null}, requirements={"id"="\d+"})
+     * @Route("/{id}/linked_content", name="linked_content", defaults={"id"=null}, requirements={"id"="\d+"})
      */
-    public function linkedContentAction(Request $request, Variable $variable): Response
+    public function linkedContentAction(Variable $variable): Response
     {
         $linkedContentInfo = $this->variableHandler->linkedContentInfo($variable);
 
@@ -98,6 +103,7 @@ class VariableController extends BaseController
             'variable' => $variable,
             'linked_content' => $linkedContentInfo,
         ];
+
         return $this->render('@ezdesign/content_variable/variable/related_content.html.twig', $params);
     }
 
@@ -109,10 +115,13 @@ class VariableController extends BaseController
             }
 
             $variable = $this->variableHandler->find($variableId);
-            $this->variableHandler->delete($variable);
+            if ($variable) {
+                $this->variableHandler->delete($variable);
+            }
 
-            $params = ['%name%' => $variable->getName()];
-            $message = $this->getTranslatedMessage('variable.delete.success', $params);
+            $message = $this->getTranslatedMessage('variable.delete.success', [
+                '%name%' => $variable ? $variable->getName() : $variableId,
+            ]);
             $this->notificationHandler->success($message);
         }
     }
@@ -121,6 +130,7 @@ class VariableController extends BaseController
     {
         $key = $variable->isNew() ? 'variable.new.success' : 'variable.edit.success';
         $params = ['%name%' => $variable->getName()];
+
         return $this->getTranslatedMessage($key, $params);
     }
 }

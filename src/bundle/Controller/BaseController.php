@@ -2,14 +2,14 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\Controller;
 
-use Symfony\Component\Translation\TranslatorInterface;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface;
-use EzSystems\EzPlatformAdminUiBundle\Controller\Controller;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\ItemsSelection;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Factory\FormFactory;
 use ContextualCode\EzPlatformContentVariablesBundle\Service\CollectionHandler;
 use ContextualCode\EzPlatformContentVariablesBundle\Service\VariableHandler;
+use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
+use EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface;
+use EzSystems\EzPlatformAdminUiBundle\Controller\Controller;
+use Symfony\Component\Translation\TranslatorInterface;
 
 abstract class BaseController extends Controller
 {

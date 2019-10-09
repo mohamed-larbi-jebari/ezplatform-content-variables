@@ -2,10 +2,10 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
 use EzSystems\EzPlatformAdminUi\Menu\MainMenuBuilder;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class Menu implements EventSubscriberInterface
 {
@@ -19,14 +19,14 @@ class Menu implements EventSubscriberInterface
         $this->translator = $translator;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ConfigureMenuEvent::MAIN_MENU => ['onMenuConfigure', 0],
         ];
     }
 
-    public function onMenuConfigure(ConfigureMenuEvent $event)
+    public function onMenuConfigure(ConfigureMenuEvent $event): void
     {
         $menu = $event->getMenu();
 
