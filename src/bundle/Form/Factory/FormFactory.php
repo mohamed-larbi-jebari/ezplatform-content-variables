@@ -2,8 +2,6 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\Form\Factory;
 
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\ItemsSelection;
@@ -11,6 +9,8 @@ use ContextualCode\EzPlatformContentVariablesBundle\Form\Type\Collection\Delete 
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Type\Collection\Edit as CollectionEdit;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Type\Variable\Delete as VariablesDelete;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Type\Variable\Edit as VariableEdit;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 
 class FormFactory
 {

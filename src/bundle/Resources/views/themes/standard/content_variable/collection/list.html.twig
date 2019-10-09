@@ -23,14 +23,14 @@
                 {% include '@ezdesign/content_variable/buttons/new.html.twig' with {
                     'title': 'collection.new'|trans,
                     'href': path('content_variables.collection.new'),
-                }%}
+                } %}
                 {% include '@ezdesign/content_variable/buttons/delete.html.twig' with {
                     'modal_data_target': 'delete-collections-modal',
                     'id': 'delete-collections',
                     'title': 'collection.delete'|trans,
                     'data_click': '#collections_delete_delete',
                     'message': 'collection.delete.modal.message'|trans,
-                }%}
+                } %}
             </div>
         </div>
 
@@ -62,7 +62,7 @@
                             {% include '@ezdesign/content_variable/buttons/edit.html.twig' with {
                                 'title': 'collection.edit'|trans({'%name%': collection.name|truncate(50) }),
                                 'href': path('content_variables.collection.edit', {'id': collection.id}),
-                            }%}
+                            } %}
                         </td>
                     </tr>
                 {% endfor %}
@@ -76,5 +76,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-contnet-variables-collection-list-js', null, 'ezplatform') }}
+    {{ encore_entry_script_tags('ezplatform-content-variables-collection-list-js', null, 'ezplatform') }}
 {% endblock %}

@@ -2,10 +2,10 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\Service;
 
+use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
 
 class CollectionHandler
 {

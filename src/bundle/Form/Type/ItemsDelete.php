@@ -2,13 +2,13 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\Form\Type;
 
+use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\ItemsSelection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\ItemsSelection;
 
 abstract class ItemsDelete extends AbstractType
 {

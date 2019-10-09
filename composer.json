@@ -12,6 +12,16 @@
             "email": "serhey@contextualcode.com"
         }
     ],
+    "require": {
+        "php": ">=7.1",
+        "ezsystems/ezpublish-kernel": "^7.5",
+        "ezsystems/ezplatform-admin-ui": "^1.5",
+        "doctrine/orm": "^2.6"
+    },
+    "suggest": {
+        "doctrine/doctrine-migrations-bundle": "To apply required database changes",
+        "kaliop/ezmigrationbundle": "To apply required database changes"
+    },
     "autoload": {
         "psr-4": {
             "ContextualCode\\EzPlatformContentVariablesBundle\\": "src/bundle/",

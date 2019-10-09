@@ -2,14 +2,14 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\Entity;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping as ORM;
+use ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber\ContentVariablesOutputFilter;
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectManagerAware;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-use ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber\ContentVariablesOutputFilter;
 
 /**
  * @ORM\Entity
@@ -18,9 +18,9 @@ use ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber\ContentVaria
  */
 class Variable implements ObjectManagerAware
 {
-    const VALUE_TYPE_STATIC = 1;
-    const VALUE_TYPE_CALLBACK = 2;
-    const VALUE_STATIC_PLACEHOLDER = 'empty-value-placeholder';
+    private const VALUE_TYPE_STATIC = 1;
+    private const VALUE_TYPE_CALLBACK = 2;
+    private const VALUE_STATIC_PLACEHOLDER = 'empty-value-placeholder';
 
     /**
      * @ORM\Column(type="integer")
@@ -51,7 +51,7 @@ class Variable implements ObjectManagerAware
     private $name;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
+     * @ORM\Column(type="smallint", length=1, nullable=true)
      */
     private $valueType;
 
@@ -174,22 +174,21 @@ class Variable implements ObjectManagerAware
                 'a',
                 '(a.version = o.current_version AND a.contentobject_id = o.id)'
             )
-            ->where('a.data_text LIKE :contnet_variable')
+            ->where('a.data_text LIKE :content_variable')
             ->groupBy('o.id')
-            ->setParameter('contnet_variable', '%' . $placeholder . '%');
+            ->setParameter('content_variable', '%' . $placeholder . '%');
 
-        return (int) $query->execute()->rowCount();
+        return (int)$query->execute()->rowCount();
     }
 
     public function getPlaceholder(): ?string
     {
         $identifier = $this->getIdentifier();
-        if (empty($identifier)) {
+        if (!$identifier) {
             return null;
         }
 
-        $separator = ContentVariablesOutputFilter::WRAPPER;
-        return $separator . $identifier . $separator;
+        return ContentVariablesOutputFilter::WRAPPER . $identifier . ContentVariablesOutputFilter::WRAPPER;
     }
 
     public static function getValueTypes(): array

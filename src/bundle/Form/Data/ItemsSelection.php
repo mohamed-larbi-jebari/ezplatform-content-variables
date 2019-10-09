@@ -20,7 +20,7 @@ class ItemsSelection
         return $this->items;
     }
 
-    public function setItems(?array $items)
+    public function setItems(?array $items): void
     {
         $this->items = $items;
     }

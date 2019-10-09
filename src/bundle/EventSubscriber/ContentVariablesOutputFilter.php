@@ -2,17 +2,17 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber;
 
+use ContextualCode\EzPlatformContentVariablesBundle\Service\VariableHandler;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use ContextualCode\EzPlatformContentVariablesBundle\Service\VariableHandler;
 
 class ContentVariablesOutputFilter implements EventSubscriberInterface
 {
-    const WRAPPER = '#';
+    public const WRAPPER = '#';
 
     /** @var VariableHandler */
     protected $variableHandler;
@@ -38,7 +38,7 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
         }
 
         $route = $event->getRequest()->attributes->get('_route');
-        if (in_array($route, $this->getSupportedRoutes()) === false) {
+        if (!in_array($route, $this->getSupportedRoutes(), true)) {
             return;
         }
 

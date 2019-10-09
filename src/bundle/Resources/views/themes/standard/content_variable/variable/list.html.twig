@@ -24,14 +24,14 @@
                 {% include '@ezdesign/content_variable/buttons/new.html.twig' with {
                     'title': 'variables.new'|trans,
                     'href': path('content_variables.new', {'id': collection.id}),
-                }%}
+                } %}
                 {% include '@ezdesign/content_variable/buttons/delete.html.twig' with {
                     'modal_data_target': 'delete-variables-modal',
                     'id': 'delete-variables',
                     'title': 'variable.delete'|trans,
                     'data_click': '#variables_delete_delete',
                     'message': 'variable.delete.modal.message'|trans,
-                }%}
+                } %}
             </div>
         </div>
 
@@ -73,7 +73,7 @@
                             {% include '@ezdesign/content_variable/buttons/edit.html.twig' with {
                                 'title': 'variable.edit'|trans({'%name%': collection.name|truncate(50) }),
                                 'href': path('content_variables.edit', {'id': variable.id}),
-                            }%}
+                            } %}
                         </td>
                     </tr>
                 {% endfor %}
@@ -87,5 +87,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-contnet-variables-variables-list-js', null, 'ezplatform') }}
+    {{ encore_entry_script_tags('ezplatform-content-variables-variables-list-js', null, 'ezplatform') }}
 {% endblock %}
