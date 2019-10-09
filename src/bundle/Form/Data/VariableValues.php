@@ -33,7 +33,7 @@ class VariableValues
 
     public function setValueType(?array $data): void
     {
-        $this->setVariablesProperty($data,'setValueType', 'getValueType');
+        $this->setVariablesProperty($data, 'setValueType', 'getValueType');
     }
 
     public function getValueStatic(): array
@@ -43,7 +43,7 @@ class VariableValues
 
     public function setValueStatic(?array $data): void
     {
-        $this->setVariablesProperty($data,'setValueStatic', 'getValueStatic');
+        $this->setVariablesProperty($data, 'setValueStatic', 'getValueStatic');
     }
 
     public function getValueCallback(): array
@@ -53,7 +53,7 @@ class VariableValues
 
     public function setValueCallback(?array $data): void
     {
-        $this->setVariablesProperty($data,'setValueCallback', 'getValueCallback');
+        $this->setVariablesProperty($data, 'setValueCallback', 'getValueCallback');
     }
     
     protected function getVariablesProperty(string $getter): array

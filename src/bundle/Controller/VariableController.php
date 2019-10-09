@@ -26,7 +26,8 @@ class VariableController extends BaseController
     /**
      * @Route("/bulk_edit", name="bulk_edit")
      */
-    public function bulkEditAction(Request $request): Response {
+    public function bulkEditAction(Request $request): Response
+    {
         $collections = $this->collectionHandler->findAll();
         $variables = $this->variableHandler->findAll();
         $form = $this->formFactory->variablesBulkEdit(new VariableValues($variables));
