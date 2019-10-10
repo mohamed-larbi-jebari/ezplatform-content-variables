@@ -24,13 +24,13 @@
                     {{ form_errors(form) }}
 
                     {% for collection in collections %}
+                        <div class="ez-table-header">
+                            <div class="ez-table-header__headline">{{ collection.name }}</div>
+                            {% if collection.description %}
+                                <div class="c-no-items">{{ collection.description }}</div>
+                            {% endif %}
+                        </div>
                         {% if collection.contentVariables|length > 0 %}
-                            <div class="ez-table-header">
-                                <div class="ez-table-header__headline">{{ collection.name }}</div>
-                                {% if collection.description %}
-                                    <div class="c-no-items">{{ collection.description }}</div>
-                                {% endif %}
-                            </div>
                             <table class="ez-table table mb-3">
                                 <thead>
                                     <tr>
