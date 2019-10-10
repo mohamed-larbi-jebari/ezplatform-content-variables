@@ -23,18 +23,14 @@ services:
         tags: [form.type]
 
     ContextualCode\EzPlatformContentVariables\Menu\MainLeftSidebarBuilder:
-        public: true
         tags:
             - { name: knp_menu.menu_builder, method: build, alias: content_variables.menu.main.sidebar_left }
     ContextualCode\EzPlatformContentVariables\Menu\CollectionEditRightSidebarBuilder:
-        public: true
         tags:
             - { name: knp_menu.menu_builder, method: build, alias: content_variables.menu.collection_edit.sidebar_right }
     ContextualCode\EzPlatformContentVariables\Menu\VariableEditRightSidebarBuilder:
-        public: true
         tags:
             - { name: knp_menu.menu_builder, method: build, alias: content_variables.menu.variable_edit.sidebar_right }
     ContextualCode\EzPlatformContentVariables\Menu\BulkEditRightSidebarBuilder:
-        public: true
         tags:
             - { name: knp_menu.menu_builder, method: build, alias: content_variables.menu.bulk_edit.sidebar_right }

@@ -44,7 +44,7 @@ class FormFactory
         return $this->formFactory->createNamed('variables_delete', VariablesDelete::class, $data);
     }
 
-    public function variablesBulkEdit(VariableValues $data = null): FormInterface
+    public function variablesBulkEdit(VariableValues $data): FormInterface
     {
         return $this->formFactory->create(VariableBulkEdit::class, $data);
     }

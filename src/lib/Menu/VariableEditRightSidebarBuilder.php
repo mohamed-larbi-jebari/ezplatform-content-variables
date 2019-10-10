@@ -19,7 +19,7 @@ class VariableEditRightSidebarBuilder extends AbstractBuilder implements Transla
 
     protected function createStructure(array $options): ItemInterface
     {
-        /** @var ItemInterface|ItemInterface[] $menu */
+        /** @var ItemInterface $menu */
         $menu = $this->factory->createItem('root');
 
         $menu->setChildren([

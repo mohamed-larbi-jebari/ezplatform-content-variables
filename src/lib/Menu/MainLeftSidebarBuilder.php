@@ -19,7 +19,7 @@ class MainLeftSidebarBuilder extends AbstractBuilder implements TranslationConta
 
     protected function createStructure(array $options): ItemInterface
     {
-        /** @var ItemInterface|ItemInterface[] $menu */
+        /** @var ItemInterface $menu */
         $menu = $this->factory->createItem('root');
 
         $menu->setChildren([

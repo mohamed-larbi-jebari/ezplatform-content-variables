@@ -18,7 +18,7 @@ class BulkEditRightSidebarBuilder extends AbstractBuilder implements Translation
 
     protected function createStructure(array $options): ItemInterface
     {
-        /** @var ItemInterface|ItemInterface[] $menu */
+        /** @var ItemInterface $menu */
         $menu = $this->factory->createItem('root');
 
         $menu->setChildren([
