@@ -32,7 +32,7 @@ class Menu implements EventSubscriberInterface
                         'content_variables.new',
                         'content_variables.edit',
                         'content_variables.list',
-                        'content_variables.linked_content'
+                        'content_variables.linked_content',
                     ],
                 ],
             ]

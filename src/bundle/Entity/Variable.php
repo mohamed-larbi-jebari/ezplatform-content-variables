@@ -153,7 +153,7 @@ class Variable implements ObjectManagerAware
         return $this->getValueType() === self::VALUE_TYPE_STATIC;
     }
 
-    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata)
+    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata): void
     {
         $this->entityManager = $objectManager;
     }

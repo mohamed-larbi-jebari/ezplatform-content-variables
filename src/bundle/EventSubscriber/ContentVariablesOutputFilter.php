@@ -3,7 +3,9 @@
 namespace ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber;
 
 use ContextualCode\EzPlatformContentVariablesBundle\Service\VariableHandler;
+use eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -30,9 +32,11 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
 
         $response = $event->getResponse();
         if (
-            $response instanceof StreamedResponse ||
-            $response instanceof RedirectResponse ||
-            $response instanceof JsonResponse
+            $response instanceof StreamedResponse
+            || $response instanceof RedirectResponse
+            || $response instanceof JsonResponse
+            || $response instanceof BinaryFileResponse
+            || $response instanceof BinaryStreamResponse
         ) {
             return;
         }
@@ -56,13 +60,12 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
     public function replaceContentVariables(string $content): string
     {
         $variables = $this->variableHandler->findAll();
+
+        $replacementFrom = [];
+        $replacementTo = [];
         foreach ($variables as $variable) {
             $placeholder = $variable->getPlaceholder();
             if ($placeholder === null || strpos($content, $placeholder) === false) {
-                continue;
-            }
-
-            if ($variable->getLinkedContentCount() === 0) {
                 continue;
             }
 
@@ -70,14 +73,17 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
             if ($value === null) {
                 continue;
             }
-
-            $content = str_replace($placeholder, $value, $content);
+            $replacementFrom[] = $placeholder;
+            $replacementTo[] = $value;
+        }
+        if ($replacementFrom) {
+            $content = str_replace($replacementFrom, $replacementTo, $content);
         }
 
         return $content;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::RESPONSE => ['onKernelResponse', -5],

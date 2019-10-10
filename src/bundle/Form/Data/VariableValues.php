@@ -4,9 +4,14 @@ namespace ContextualCode\EzPlatformContentVariablesBundle\Form\Data;
 
 class VariableValues
 {
+    /** @var \ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable[] */
     protected $variables = [];
+    /** @var int[] */
     protected $updatedIds = [];
 
+    /**
+     * @param \ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable[] $variables
+     */
     public function __construct(array $variables = [])
     {
         foreach ($variables as $variable) {
@@ -14,6 +19,9 @@ class VariableValues
         }
     }
 
+    /**
+     * @return int[]
+     */
     public function getEditedVariables(): array
     {
         $return = [];
@@ -26,57 +34,79 @@ class VariableValues
         return $return;
     }
 
+    /**
+     * @return int[]
+     */
     public function getValueType(): array
     {
-        return $this->getVariablesProperty('getValueType');
+        return $this->getVariablesProperty('valueType');
     }
 
-    public function setValueType(?array $data): void
+    public function setValueType(array $data): void
     {
-        $this->setVariablesProperty($data, 'setValueType', 'getValueType');
+        $this->setVariablesProperty($data, 'valueType');
     }
 
+    /**
+     * @return string[]
+     */
     public function getValueStatic(): array
     {
-        return $this->getVariablesProperty('getValueStatic');
+        return $this->getVariablesProperty('valueStatic');
     }
 
-    public function setValueStatic(?array $data): void
+    public function setValueStatic(array $data): void
     {
-        $this->setVariablesProperty($data, 'setValueStatic', 'getValueStatic');
+        $this->setVariablesProperty($data, 'valueStatic');
     }
 
+    /**
+     * @return string[]
+     */
     public function getValueCallback(): array
     {
-        return $this->getVariablesProperty('getValueCallback');
+        return $this->getVariablesProperty('valueCallback');
     }
 
-    public function setValueCallback(?array $data): void
+    public function setValueCallback(array $data): void
     {
-        $this->setVariablesProperty($data, 'setValueCallback', 'getValueCallback');
+        $this->setVariablesProperty($data, 'valueCallback');
     }
-    
-    protected function getVariablesProperty(string $getter): array
+
+    /**
+     * @param string $property
+     * @return int[]|string[]
+     */
+    protected function getVariablesProperty(string $property): array
     {
-        $return = [];
+        $getter = 'get' . ucfirst($property);
+
+        $propertyValues = [];
         foreach ($this->variables as $id => $variable) {
-            $return[$id] = call_user_func([$variable, $getter]);
+            $propertyValues[$id] = $variable->{$getter}();
         }
 
-        return $return;
+        return $propertyValues;
     }
 
-    protected function setVariablesProperty(?array $data, string $setter, string $getter): void
+    /**
+     * @param \ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable[] $data
+     * @param string $property
+     */
+    protected function setVariablesProperty(array $data, string $property): void
     {
-        $return = [];
+        $property = ucfirst($property);
+        $getter = 'get' . $property;
+        $setter = 'set' . $property;
+
         foreach ($data as $id => $value) {
-            if (isset($this->variables[$id]) === false) {
+            if (!isset($this->variables[$id])) {
                 continue;
             }
 
-            $currentValue = call_user_func([$this->variables[$id], $getter]);
+            $currentValue = $this->variables[$id]->{$getter}();
             if ($value !== $currentValue) {
-                call_user_func([$this->variables[$id], $setter], $value);
+                $this->variables[$id]->{$setter}($value);
                 $this->updatedIds[] = $id;
             }
         }
