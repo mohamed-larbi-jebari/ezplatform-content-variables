@@ -15,6 +15,8 @@ class VariableValues
     public function __construct(array $variables = [])
     {
         foreach ($variables as $variable) {
+            $variable->setStaticValuePlaceholder();
+
             $this->variables[$variable->getId()] = $variable;
         }
     }
@@ -32,19 +34,6 @@ class VariableValues
         }
 
         return $return;
-    }
-
-    /**
-     * @return int[]
-     */
-    public function getValueType(): array
-    {
-        return $this->getVariablesProperty('valueType');
-    }
-
-    public function setValueType(array $data): void
-    {
-        $this->setVariablesProperty($data, 'valueType');
     }
 
     /**

@@ -206,6 +206,16 @@ class Variable implements ObjectManagerAware
         return ContentVariablesOutputFilter::WRAPPER . $identifier . ContentVariablesOutputFilter::WRAPPER;
     }
 
+    public function setStaticValuePlaceholder(): void
+    {
+        if (
+            $this->getValueType() === self::VALUE_TYPE_CALLBACK
+            && empty($this->getValueStatic())
+        ) {
+            $this->setValueStatic(self::VALUE_STATIC_PLACEHOLDER);
+        }
+    }
+
     public function fixStaticValuePlaceholder(): void
     {
         if (

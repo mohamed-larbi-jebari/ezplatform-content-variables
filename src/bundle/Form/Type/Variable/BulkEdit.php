@@ -35,18 +35,6 @@ class BulkEdit extends AbstractType
 
         if (count($callbacks) > 0) {
             $builder
-                ->add('valueType', CollectionType::class, [
-                    'entry_type' => ChoiceType::class,
-                    'label' => false,
-                    'entry_options' => [
-                        'label' => false,
-                        'choices' => VariableEntity::getValueTypes(),
-                        'choice_label' => static function ($choice, $key, $value) {
-                            return 'variable.value_type.' . $value;
-                        },
-                        'choice_translation_domain' => 'content_variables',
-                    ],
-                ])
                 ->add('valueCallback', CollectionType::class, [
                     'entry_type' => ChoiceType::class,
                     'label' => false,

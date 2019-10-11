@@ -36,7 +36,6 @@
                                     <tr>
                                         <th>{{ 'variable.name'|trans }}</th>
                                         <th>{{ 'variable.placeholder'|trans }}</th>
-                                        <th>{{ 'variable.type'|trans }}</th>
                                         <th>{{ 'variable.value'|trans }}</th>
                                     </tr>
                                 </thead>
@@ -46,21 +45,12 @@
                                         <td class="ez-table__cell">{{ variable.name }}</td>
                                         <td class="ez-table__cell">{{ variable.placeholder }}</td>
                                         <td class="ez-table__cell">
-                                            {% if form.valueType is defined %}
-                                                {{ form_widget(form.valueType[variable.id], {
-                                                    'attr': {'class': 'form-control content-variable-value-type'}
-                                                }) }}
-                                            {% else %}
-                                                {{ 'variable.value_type.1'|trans }}
-                                            {% endif %}
-                                        </td>
-                                        <td class="ez-table__cell">
                                             <div{% if not variable.isStatic %} hidden="hidden"{% endif %}>
                                                 {{ form_widget(form.valueStatic[variable.id], {
                                                     'attr': {'class': 'form-control content-variable-value-static'}
                                                 }) }}
                                             </div>
-                                            {% if form.valueType is defined %}
+                                            {% if form.valueCallback is defined %}
                                                 <div{% if variable.isStatic %} hidden="hidden"{% endif %}>
                                                     {{ form_widget(form.valueCallback[variable.id], {
                                                         'attr': {'class': 'form-control content-variable-value-callback'}
@@ -92,8 +82,4 @@
             }) }}
         </div>
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-content-variables-variables-edit-js', null, 'ezplatform') }}
 {% endblock %}
