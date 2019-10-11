@@ -34,6 +34,11 @@ class Collection
      */
     private $contentVariables;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $priority;
+
     public function __construct()
     {
         $this->contentVariables = new ArrayCollection();
@@ -67,6 +72,16 @@ class Collection
     public function getContentVariables(): ItemsCollection
     {
         return $this->contentVariables;
+    }
+
+    public function getPriority(): ?int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(?string $priority): void
+    {
+        $this->priority = $priority;
     }
 
     public function isNew(): bool

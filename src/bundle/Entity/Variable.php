@@ -65,6 +65,11 @@ class Variable implements ObjectManagerAware
      */
     private $valueCallback;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $priority;
+
     /** @var EntityManagerInterface */
     private $entityManager;
 
@@ -136,6 +141,16 @@ class Variable implements ObjectManagerAware
     public function setValueCallback(?string $valueCallback): void
     {
         $this->valueCallback = $valueCallback;
+    }
+
+    public function getPriority(): ?int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(?string $priority): void
+    {
+        $this->priority = $priority;
     }
 
     public function isNew(): bool
