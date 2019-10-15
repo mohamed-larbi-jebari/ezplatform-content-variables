@@ -3,7 +3,7 @@
 namespace ContextualCode\EzPlatformContentVariablesBundle\Controller;
 
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
-use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\ItemsSelection;
+use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Handler as EntityHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,6 +13,37 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CollectionController extends BaseController
 {
+    protected $entityName = 'collection';
+
+    protected function getEntityHandler(): EntityHandler {
+        return $this->collectionHandler;
+    }
+
+    /**
+     * @Route("/list", name="list")
+     */
+    public function listAction(Request $request): Response
+    {
+        $collections = $this->collectionHandler->findAll();
+        $form = $this->formFactory->collectionsBulkActions($collections);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $result = $this->handleBulkAction($form);
+            if ($result instanceof Response) {
+                return $result;
+            }
+
+            return $this->redirectToRoute('content_variables.collection.list');
+        }
+
+        $params = [
+            'collections' => $collections,
+            'form' => $form->createView(),
+        ];
+        return $this->render('@ezdesign/content_variable/collection/list.html.twig', $params);
+    }
+
     /**
      * @Route("/new", name="new")
      */
@@ -41,67 +72,6 @@ class CollectionController extends BaseController
             'collection' => $collection,
             'form' => $form->createView(),
         ];
-
         return $this->render('@ezdesign/content_variable/collection/edit.html.twig', $params);
-    }
-
-    /**
-     * @Route("/list", name="list")
-     */
-    public function listAction(): Response
-    {
-        $collections = $this->collectionHandler->findAll();
-        $form = $this->formFactory->collectionsDelete(new ItemsSelection($collections));
-
-        $params = [
-            'collections' => $collections,
-            'form' => $form->createView(),
-        ];
-
-        return $this->render('@ezdesign/content_variable/collection/list.html.twig', $params);
-    }
-
-    /**
-     * @Route("/bulk_delete", name="bulk_delete")
-     */
-    public function bulkDeleteAction(Request $request): Response
-    {
-        $form = $this->formFactory->collectionsDelete();
-        $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, [$this, 'deleteHandler']);
-            if ($result instanceof Response) {
-                return $result;
-            }
-        }
-
-        return $this->redirectToRoute('content_variables.collection.list');
-    }
-
-    public function deleteHandler(ItemsSelection $data): void
-    {
-        foreach ($data->getItems() as $collectionId => $selected) {
-            if ($selected === false) {
-                continue;
-            }
-
-            $collection = $this->collectionHandler->find($collectionId);
-            if ($collection) {
-                $this->collectionHandler->delete($collection);
-            }
-
-            $message = $this->getTranslatedMessage('collection.delete.success', [
-                '%name%' => $collection ? $collection->getName() : $collectionId,
-            ]);
-            $this->notificationHandler->success($message);
-        }
-    }
-
-    protected function getEditMessage(Collection $collection): string
-    {
-        $key = $collection->isNew() ? 'collection.new.success' : 'collection.edit.success';
-        $params = ['%name%' => $collection->getName()];
-
-        return $this->getTranslatedMessage($key, $params);
     }
 }

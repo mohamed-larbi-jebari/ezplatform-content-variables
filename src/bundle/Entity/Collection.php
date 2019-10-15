@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="cc_content_variable_collection")
  */
-class Collection
+class Collection extends Entity
 {
     /**
      * @ORM\Column(type="integer")
@@ -31,13 +31,14 @@ class Collection
 
     /**
      * @ORM\OneToMany(targetEntity="Variable", mappedBy="collection")
+     * @ORM\OrderBy({"priority" = "ASC", "id" = "DESC"})
      */
     private $contentVariables;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $priority;
+    private $priority = 0;
 
     public function __construct()
     {
@@ -82,11 +83,6 @@ class Collection
     public function setPriority(?string $priority): void
     {
         $this->priority = $priority;
-    }
-
-    public function isNew(): bool
-    {
-        return $this->getId() === null;
     }
 
     public function canBeDeleted(): bool

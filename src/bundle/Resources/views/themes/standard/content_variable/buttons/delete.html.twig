@@ -1,10 +1,13 @@
 <button
     id="{{ id }}"
     type="button"
-    class="btn btn-danger"
+    class="btn btn-danger update-bulk-action"
     disabled
     data-toggle="modal"
     data-target="#{{ modal_data_target }}"
+    data-form="#{{ form_id }}"
+    data-action-element="#{{ form_id }}_action"
+    data-action="{{ action }}"
     title="{{ title }}"
 >
     <svg class="ez-icon ez-icon-trash">
@@ -14,5 +17,5 @@
 {% include '@ezdesign/admin/bulk_delete_confirmation_modal.html.twig' with {
     'id': modal_data_target,
     'message': message,
-    'data_click': data_click,
+    'data_click': '#' ~ form_id ~ '_do_action',
 } %}

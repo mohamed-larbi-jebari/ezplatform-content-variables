@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="cc_content_variable")
  * @UniqueEntity("identifier")
  */
-class Variable implements ObjectManagerAware
+class Variable extends Entity implements ObjectManagerAware
 {
     private const VALUE_TYPE_STATIC = 1;
     private const VALUE_TYPE_CALLBACK = 2;
@@ -68,7 +68,7 @@ class Variable implements ObjectManagerAware
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $priority;
+    private $priority = 0;
 
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -151,11 +151,6 @@ class Variable implements ObjectManagerAware
     public function setPriority(?string $priority): void
     {
         $this->priority = $priority;
-    }
-
-    public function isNew(): bool
-    {
-        return $this->getId() === null;
     }
 
     public function canBeDeleted(): bool

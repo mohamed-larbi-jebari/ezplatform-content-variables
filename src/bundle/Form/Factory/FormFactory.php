@@ -6,22 +6,29 @@ use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\ItemsSelection;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\VariableValues;
-use ContextualCode\EzPlatformContentVariablesBundle\Form\Type\Collection\Delete as CollectionsDelete;
+use ContextualCode\EzPlatformContentVariablesBundle\Form\Type\Collection\BulkActions as CollectionsBulkActions;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Type\Collection\Edit as CollectionEdit;
+use ContextualCode\EzPlatformContentVariablesBundle\Form\Type\Variable\BulkActions as VariablesBulkActions;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Type\Variable\BulkEdit as VariableBulkEdit;
-use ContextualCode\EzPlatformContentVariablesBundle\Form\Type\Variable\Delete as VariablesDelete;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Type\Variable\Edit as VariableEdit;
+use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Variable as VariableHandler;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 
 class FormFactory
 {
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
+    /** @var FormFactoryInterface */
     protected $formFactory;
 
-    public function __construct(FormFactoryInterface $formFactory)
-    {
+    /** @var VariableHandler */
+    protected $variableHandler;
+
+    public function __construct(
+        FormFactoryInterface $formFactory,
+        VariableHandler $variableHandler
+    ) {
         $this->formFactory = $formFactory;
+        $this->variableHandler = $variableHandler;
     }
 
     public function collectionEdit(Collection $collection): FormInterface
@@ -29,23 +36,37 @@ class FormFactory
         return $this->formFactory->create(CollectionEdit::class, $collection);
     }
 
-    public function collectionsDelete(ItemsSelection $data = null): FormInterface
+    public function collectionsBulkActions(array $collections = []): FormInterface
     {
-        return $this->formFactory->createNamed('collections_delete', CollectionsDelete::class, $data);
+        return $this->formFactory->createNamed(
+            'collections_bulk_actions',
+            CollectionsBulkActions::class,
+            new ItemsSelection($collections)
+        );
     }
 
     public function variablesEdit(Variable $variable): FormInterface
     {
-        return $this->formFactory->create(VariableEdit::class, $variable, ['is_new' => $variable->isNew()]);
+        return $this->formFactory->create(
+            VariableEdit::class,
+            $variable,
+            ['is_new' => $variable->isNew()]
+        );
     }
 
-    public function variablesDelete(ItemsSelection $data = null): FormInterface
+    public function variablesBulkActions(Collection $collection): FormInterface
     {
-        return $this->formFactory->createNamed('variables_delete', VariablesDelete::class, $data);
+        $variables = $this->variableHandler->findByCollection($collection);
+
+        return $this->formFactory->createNamed(
+            'variables_bulk_actions',
+            VariablesBulkActions::class,
+            new ItemsSelection($variables)
+        );
     }
 
-    public function variablesBulkEdit(VariableValues $data): FormInterface
+    public function variablesBulkEdit(array $variables): FormInterface
     {
-        return $this->formFactory->create(VariableBulkEdit::class, $data);
+        return $this->formFactory->create(VariableBulkEdit::class, new VariableValues($variables));
     }
 }

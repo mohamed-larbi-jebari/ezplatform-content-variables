@@ -46,6 +46,11 @@
                 <target>Collection "%name%" updated.</target>
                 <note>key: collection.edit.success</note>
             </trans-unit>
+            <trans-unit id="4f04e19e68e7ce4a6948c0bebb55eea28900b274a" resname="collection.priority_update.success">
+                <source>Priority of "%name%" updated.</source>
+                <target>Priority of "%name%" updated.</target>
+                <note>key: collection.priority_update.success</note>
+            </trans-unit>
             <trans-unit id="1ea2a90f8ebd8fc941f923fddaab6b8b9eaaf221" resname="collection.delete.success">
                 <source>Collection "%name%" removed.</source>
                 <target>Collection "%name%" removed.</target>
@@ -56,6 +61,11 @@
                 <target>Delete collection(s)</target>
                 <note>key: collection.delete</note>
             </trans-unit>
+            <trans-unit id="1ea2a90f8ebd8fc941f923f43523132b9eaaf221" resname="collection.update_priority">
+                <source>Update priorities</source>
+                <target>Update priorities</target>
+                <note>key: collection.update_priority</note>
+            </trans-unit>
             <trans-unit id="1ea2a90f8ebd8fc941f923feefc56b8b9eaaf221" resname="collection.delete.modal.message">
                 <source>Do you want to delete collection(s)?</source>
                 <target>Do you want to delete collection(s)?</target>
@@ -65,6 +75,11 @@
                 <source>Name</source>
                 <target>Name</target>
                 <note>key: collection.name</note>
+            </trans-unit>
+            <trans-unit id="aadd123f8ebd8fc941f923feefc56b8bdddaf221" resname="collection.priority">
+                <source>Priority</source>
+                <target>Priority</target>
+                <note>key: collection.priority</note>
             </trans-unit>
             <trans-unit id="dda2a90f8ebd8fc941eeabbeefc56b8b9eaaf221" resname="collection.variables">
                 <source>Variables</source>
@@ -95,6 +110,11 @@
                 <source>Delete content variable(s)</source>
                 <target>Delete content variable(s)</target>
                 <note>key: variable.delete</note>
+            </trans-unit>
+            <trans-unit id="1ea2a90f8ebd8fc941f923f22123132b9eaaf221" resname="variable.update_priority">
+                <source>Update priorities</source>
+                <target>Update priorities</target>
+                <note>key: variable.update_priority</note>
             </trans-unit>
             <trans-unit id="1ea2a90f8add21162223d3feefc56b8b9eaaf221" resname="variable.delete.modal.message">
                 <source>Do you want to delete content variable(s)?</source>
@@ -136,6 +156,11 @@
                 <target>Content variable "%name%" updated.</target>
                 <note>key: variable.edit.success</note>
             </trans-unit>
+            <trans-unit id="4f04e19e68e7ce4a6948c0beeaaeeea28900b274a" resname="variable.priority_update.success">
+                <source>Priority of "%name%" updated.</source>
+                <target>Priority of "%name%" updated.</target>
+                <note>key: variable.priority_update.success</note>
+            </trans-unit>
             <trans-unit id="aadde0f8ebd8fc941f923feefc56b8b9eaaf221" resname="variable.name">
                 <source>Name</source>
                 <target>Name</target>
@@ -145,6 +170,11 @@
                 <source>Identifier</source>
                 <target>Identifier</target>
                 <note>key: variable.identifier</note>
+            </trans-unit>
+            <trans-unit id="aaeeacf8ebd8fc941f923feefc56b8bdddaf221" resname="variable.priority">
+                <source>Priority</source>
+                <target>Priority</target>
+                <note>key: variable.priority</note>
             </trans-unit>
             <trans-unit id="aadde0f8ebd111941f923feefc56b8bdddaf221" resname="variable.content">
                 <source>Linked content</source>

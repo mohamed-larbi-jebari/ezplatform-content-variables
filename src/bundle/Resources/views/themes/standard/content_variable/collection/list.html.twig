@@ -18,6 +18,7 @@
                 </div>
             </div>
 
+            {% set form_id = 'collections_bulk_actions' %}
             <section class="container mt-4 px-5">
                 <div class="ez-table-header">
                     <div class="ez-table-header__headline">{{ 'collections.title'|trans }}</div>
@@ -26,11 +27,18 @@
                             'title': 'collection.new'|trans,
                             'href': path('content_variables.collection.new'),
                         } %}
+                        {% include '@ezdesign/content_variable/buttons/update_priority.html.twig' with {
+                            'title': 'collection.update_priority'|trans,
+                            'id': 'update-priority-variables',
+                            'form_id': form_id,
+                            'action': 'updatePriority',
+                        } %}
                         {% include '@ezdesign/content_variable/buttons/delete.html.twig' with {
-                            'modal_data_target': 'delete-collections-modal',
-                            'id': 'delete-collections',
                             'title': 'collection.delete'|trans,
-                            'data_click': '#collections_delete_delete',
+                            'id': 'delete-collections',
+                            'form_id': form_id,
+                            'action': 'delete',
+                            'modal_data_target': 'delete-collections-modal',
                             'message': 'collection.delete.modal.message'|trans,
                         } %}
                     </div>
@@ -38,14 +46,18 @@
 
                 {% if collections|length > 0 %}
                     {{ form_start(form, {
-                        'action': path('content_variables.collection.bulk_delete'),
-                        'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-collections' }
+                        'attr': {
+                            'class': 'ez-toggle-btn-state',
+                            'data-toggle-button-id': '#delete-collections',
+                            'id': form_id
+                        }
                     }) }}
                     <table class="ez-table table mb-3">
                         <thead>
                         <tr>
                             <th></th>
                             <th>{{ 'collection.name'|trans }}</th>
+                            <th>{{ 'collection.priority'|trans }}</th>
                             <th>{{ 'collection.variables'|trans }}</th>
                             <th>{{ 'collection.description'|trans }}</th>
                             <th></th>
@@ -55,9 +67,16 @@
                         {% for collection in collections %}
                             <tr>
                                 <td class="ez-table__cell ez-table__cell--has-checkbox">
-                                    {{ form_widget(form.items[collection.id], {"disabled": not collection.canBeDeleted}) }}
+                                    {{ form_widget(form.selectedId[collection.id], {"disabled": not collection.canBeDeleted}) }}
                                 </td>
                                 <td class="ez-table__cell"><a href="{{ path('content_variables.list', {'id': collection.id}) }}">{{ collection.name }}</a></td>
+                                <td class="ez-table__cell">
+                                    <div class="c-table-view-item__inner-wrapper--input">
+                                        {{ form_widget(form.priority[collection.id], {
+                                            'attr': {'class': 'form-control content-variable-priority-value'}
+                                        }) }}
+                                    </div>
+                                </td>
                                 <td class="ez-table__cell"><a href="{{ path('content_variables.list', {'id': collection.id}) }}">{{ collection.contentVariables|length }}</a></td>
                                 <td class="ez-table__cell">{{ collection.description }}</td>
                                 <td class="ez-table__cell ez-table__cell--has-action-btns text-right">

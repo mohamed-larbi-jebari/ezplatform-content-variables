@@ -1,10 +1,11 @@
 <?php
 
-namespace ContextualCode\EzPlatformContentVariablesBundle\Service;
+namespace ContextualCode\EzPlatformContentVariablesBundle\Service\Handler;
 
 use ContextualCode\EzPlatformContentVariables\Variable\Value\Processor as CallbackProcessor;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
-use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable;
+use ContextualCode\EzPlatformContentVariablesBundle\Entity\Entity;
+use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable as VariableEntity;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,22 +14,16 @@ use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler as TypeHandler;
 use eZ\Publish\SPI\Persistence\Content\Type;
 
-class VariableHandler
+class Variable extends Handler
 {
-    /** @var ObjectRepository */
-    private $repository;
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
     /** @var ContentService */
-    private $contentService;
+    protected $contentService;
 
     /** @var TypeHandler */
-    private $typeHandler;
+    protected $typeHandler;
 
     /** @var CallbackProcessor */
-    private $callbackProcessor;
+    protected $callbackProcessor;
 
     public function __construct(
         ManagerRegistry $doctrine,
@@ -37,46 +32,32 @@ class VariableHandler
         TypeHandler $typeHandler,
         CallbackProcessor $callbackProcessor
     ) {
-        $this->repository = $doctrine->getRepository(Variable::class);
-        $this->entityManager = $entityManager;
+        parent::__construct($doctrine, $entityManager);
+
         $this->contentService = $contentService;
         $this->typeHandler = $typeHandler;
         $this->callbackProcessor = $callbackProcessor;
     }
 
-    public function find(int $id): ?Variable
+    protected function getRepository(ManagerRegistry $doctrine): ObjectRepository
     {
-        return $this->repository->find($id);
+        return $doctrine->getRepository(VariableEntity::class);
     }
 
     public function findByCollection(Collection $collection): array
     {
-        return $collection->getContentVariables()->getValues();
+        $criteria = ['collection' => $collection];
+        return $this->repository->findBy($criteria, $this->getOrderBy());
     }
 
-    /**
-     * @return Variable[]
-     */
-    public function findAll(): array
-    {
-        return $this->repository->findAll();
-    }
-
-    public function persist(Variable $variable): void
+    public function persist(Entity $variable): void
     {
         $variable->fixStaticValuePlaceholder();
 
-        $this->entityManager->persist($variable);
-        $this->entityManager->flush();
+        parent::persist($variable);
     }
 
-    public function delete(Variable $variable): void
-    {
-        $this->entityManager->remove($variable);
-        $this->entityManager->flush();
-    }
-
-    public function linkedContentInfo(Variable $variable): array
+    public function linkedContentInfo(VariableEntity $variable): array
     {
         $linkedContent = [];
 
@@ -129,7 +110,7 @@ class VariableHandler
         return $name . ' (' . $fieldDefinition->fieldType . ')';
     }
 
-    public function getVariableValue(Variable $variable): ?string
+    public function getVariableValue(VariableEntity $variable): ?string
     {
         if ($variable->isStatic()) {
             return $variable->getValueStatic();

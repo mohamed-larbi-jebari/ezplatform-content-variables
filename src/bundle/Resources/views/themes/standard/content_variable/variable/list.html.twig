@@ -22,6 +22,7 @@
                 </div>
             </div>
 
+            {% set form_id = 'variables_bulk_actions' %}
             <section class="container mt-4 px-5">
                 <div class="ez-table-header">
                     <div class="ez-table-header__headline">{{ 'variables.title'|trans }}</div>
@@ -30,11 +31,18 @@
                             'title': 'variables.new'|trans,
                             'href': path('content_variables.new', {'id': collection.id}),
                         } %}
+                        {% include '@ezdesign/content_variable/buttons/update_priority.html.twig' with {
+                            'title': 'variable.update_priority'|trans,
+                            'id': 'update-priority-variables',
+                            'form_id': form_id,
+                            'action': 'updatePriority',
+                        } %}
                         {% include '@ezdesign/content_variable/buttons/delete.html.twig' with {
-                            'modal_data_target': 'delete-variables-modal',
-                            'id': 'delete-variables',
                             'title': 'variable.delete'|trans,
-                            'data_click': '#variables_delete_delete',
+                            'id': 'delete-variables',
+                            'form_id': form_id,
+                            'action': 'delete',
+                            'modal_data_target': 'delete-variables-modal',
                             'message': 'variable.delete.modal.message'|trans,
                         } %}
                     </div>
@@ -42,8 +50,11 @@
 
                 {% if variables|length > 0 %}
                     {{ form_start(form, {
-                        'action': path('content_variables.bulk_delete', {'id': collection.id}),
-                        'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-variables' }
+                        'attr': {
+                            'class': 'ez-toggle-btn-state',
+                            'data-toggle-button-id': '#delete-variables',
+                            'id': form_id
+                        }
                     }) }}
                     <table class="ez-table table mb-3">
                         <thead>
@@ -51,6 +62,7 @@
                                 <th></th>
                                 <th>{{ 'variable.name'|trans }}</th>
                                 <th>{{ 'variable.identifier'|trans }}</th>
+                                <th>{{ 'variable.priority'|trans }}</th>
                                 <th>{{ 'variable.content'|trans }}</th>
                                 <th>{{ 'variable.value'|trans }}</th>
                                 <th></th>
@@ -60,10 +72,17 @@
                         {% for variable in variables %}
                             <tr>
                                 <td class="ez-table__cell ez-table__cell--has-checkbox">
-                                    {{ form_widget(form.items[variable.id], {"disabled": not variable.canBeDeleted}) }}
+                                    {{ form_widget(form.selectedId[variable.id], {"disabled": not variable.canBeDeleted}) }}
                                 </td>
                                 <td class="ez-table__cell">{{ variable.name }}</td>
                                 <td class="ez-table__cell">{{ variable.identifier }}</td>
+                                <td class="ez-table__cell">
+                                    <div class="c-table-view-item__inner-wrapper--input">
+                                        {{ form_widget(form.priority[variable.id], {
+                                            'attr': {'class': 'form-control content-variable-priority-value'}
+                                        }) }}
+                                    </div>
+                                </td>
                                 <td class="ez-table__cell">
                                     <a href="{{ path('content_variables.linked_content', {'id': variable.id}) }}">{{ variable.getLinkedContentCount }}</a>
                                 </td>

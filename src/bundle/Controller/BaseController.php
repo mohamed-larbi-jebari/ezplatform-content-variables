@@ -2,21 +2,25 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\Controller;
 
+use ContextualCode\EzPlatformContentVariablesBundle\Entity\Entity;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\ItemsSelection;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Factory\FormFactory;
-use ContextualCode\EzPlatformContentVariablesBundle\Service\CollectionHandler;
-use ContextualCode\EzPlatformContentVariablesBundle\Service\VariableHandler;
+use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Collection;
+use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Handler as EntityHandler;
+use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Variable;
 use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
 use EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface;
 use EzSystems\EzPlatformAdminUiBundle\Controller\Controller;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\TranslatorInterface;
 
 abstract class BaseController extends Controller
 {
-    /** @var CollectionHandler */
+    /** @var Collection */
     protected $collectionHandler;
 
-    /** @var VariableHandler */
+    /** @var Variable */
     protected $variableHandler;
 
     /** @var FormFactory */
@@ -31,9 +35,11 @@ abstract class BaseController extends Controller
     /** @var SubmitHandler */
     protected $submitHandler;
 
+    protected $entityName;
+
     public function __construct(
-        CollectionHandler $collectionHandler,
-        VariableHandler $variableHandler,
+        Collection $collectionHandler,
+        Variable $variableHandler,
         FormFactory $formFactory,
         NotificationHandlerInterface $notificationHandler,
         TranslatorInterface $translator,
@@ -47,8 +53,64 @@ abstract class BaseController extends Controller
         $this->submitHandler = $submitHandler;
     }
 
-    protected function deleteHandler(ItemsSelection $data): void
+    protected function handleBulkAction(FormInterface $form): ?Response
     {
+        $data = $form->getData();
+        if ($data->isActionValid() === false) {
+            return null;
+        }
+
+        $actionHandler = $data->getAction() . 'Handler';
+        $handler = [$this, $actionHandler];
+
+        return is_callable($handler) ?  $this->submitHandler->handle($form, $handler) : null;
+    }
+
+    public function updatePriorityHandler(ItemsSelection $data): ?Response
+    {
+        foreach ($data->getEditedItems() as $item) {
+            $this->getEntityHandler()->persist($item);
+            $this->sendSuccessMessage($item, 'priority_update');
+        }
+
+        return null;
+    }
+
+    public function deleteHandler(ItemsSelection $data): ?Response
+    {
+        foreach ($data->getSelectedItems() as $item) {
+            if ($item->canBeDeleted() === false) {
+                continue;
+            }
+
+            $this->getEntityHandler()->delete($item);
+            $this->sendSuccessMessage($item, 'delete');
+        }
+
+        return null;
+    }
+
+    protected function getEntityHandler(): EntityHandler {
+        return $this->collectionHandler;
+    }
+
+    protected function getEditMessage($item): string
+    {
+        return $this->getSuccessMessage($item, $item->isNew() ? 'new' : 'edit');
+    }
+
+    protected function sendSuccessMessage($item, string $action): void
+    {
+        $message = $this->getSuccessMessage($item, $action);
+        $this->notificationHandler->success($message);
+    }
+
+    protected function getSuccessMessage(Entity $item, string $action): string
+    {
+        $key = $this->entityName . '.' . $action . '.success';
+        $params = ['%name%' => $item->getName()];
+
+        return $this->getTranslatedMessage($key, $params);
     }
 
     protected function getTranslatedMessage(string $key, array $params = []): string

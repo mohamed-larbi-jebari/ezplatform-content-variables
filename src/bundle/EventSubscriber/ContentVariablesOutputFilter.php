@@ -2,7 +2,7 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber;
 
-use ContextualCode\EzPlatformContentVariablesBundle\Service\VariableHandler;
+use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Variable;
 use eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -16,10 +16,10 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
 {
     public const WRAPPER = '#';
 
-    /** @var VariableHandler */
+    /** @var Variable */
     protected $variableHandler;
 
-    public function __construct(VariableHandler $variableHandler)
+    public function __construct(Variable $variableHandler)
     {
         $this->variableHandler = $variableHandler;
     }

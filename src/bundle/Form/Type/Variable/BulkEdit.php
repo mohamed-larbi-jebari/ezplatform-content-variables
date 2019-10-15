@@ -3,7 +3,6 @@
 namespace ContextualCode\EzPlatformContentVariablesBundle\Form\Type\Variable;
 
 use ContextualCode\EzPlatformContentVariables\Variable\Value\Processor;
-use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable as VariableEntity;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\VariableValues;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -13,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BulkEdit extends AbstractType
 {
-    /** @var \ContextualCode\EzPlatformContentVariables\Variable\Value\Processor */
+    /** @var Processor */
     protected $callbackProcessor;
 
     public function __construct(Processor $callbackProcessor)

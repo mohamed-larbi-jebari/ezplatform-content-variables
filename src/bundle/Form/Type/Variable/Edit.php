@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Edit extends AbstractType
 {
-    /** @var \ContextualCode\EzPlatformContentVariables\Variable\Value\Processor */
+    /** @var Processor */
     protected $callbackProcessor;
 
     public function __construct(Processor $callbackProcessor)
