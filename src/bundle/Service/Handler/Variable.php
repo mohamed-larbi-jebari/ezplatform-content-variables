@@ -123,4 +123,19 @@ class Variable extends Handler
 
         return null;
     }
+
+    public function checkVariableCallback(VariableEntity $variable): bool
+    {
+        if ($variable->isStatic() === false) {
+            $callback = $variable->getValueCallback();
+            if ($this->callbackProcessor->getCallback($callback) === null) {
+                $variable->makeStatic();
+                parent::persist($variable);
+
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

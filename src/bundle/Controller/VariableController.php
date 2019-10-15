@@ -67,6 +67,11 @@ class VariableController extends BaseController
             $collection = $variable->getCollection();
         }
 
+        if ($this->variableHandler->checkVariableCallback($variable) === false) {
+            $message = $this->getTranslatedMessage('variable.missing_callback.warning');
+            $this->notificationHandler->warning($message);
+        }
+
         $form = $this->formFactory->variablesEdit($variable);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

@@ -221,6 +221,12 @@ class Variable extends Entity implements ObjectManagerAware
         }
     }
 
+    public function makeStatic(): void
+    {
+        $this->setValueType(self::VALUE_TYPE_STATIC);
+        $this->setValueCallback(null);
+    }
+
     public static function getValueTypes(): array
     {
         return [

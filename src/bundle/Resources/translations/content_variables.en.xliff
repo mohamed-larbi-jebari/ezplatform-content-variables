@@ -246,13 +246,16 @@
                 <target>Bulk Edit</target>
                 <note>key: variable.bulk_edit.title</note>
             </trans-unit>
-
+            <trans-unit id="cca21aeef4da2c421f923fddaaddabb9add231" resname="variable.missing_callback.warning">
+                <source>The chosen callback is missing, and that's why the variable value type was switched to static</source>
+                <target>The chosen callback is missing, and that's why the variable value type was switched to static</target>
+                <note>key: variable.missing_callback.warning</note>
+            </trans-unit>
             <trans-unit id="cca21aeef4da2c941f923fddacc2abb9add231" resname="bulk_edit.no_items">
                 <source>There are no content variables. Start by <a href="%url%">creating new collection</a> and adding some of content variables</source>
                 <target>There are no content variables. Start by creating a new collection and adding some of content variables</target>
                 <note>key: bulk_edit.no_items</note>
             </trans-unit>
-
         </body>
   </file>
 </xliff>
