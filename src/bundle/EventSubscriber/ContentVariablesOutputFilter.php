@@ -59,6 +59,7 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
 
     public function replaceContentVariables(string $content): string
     {
+        /** @var \ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable[] $variables */
         $variables = $this->variableHandler->findAll();
 
         $replacementFrom = [];

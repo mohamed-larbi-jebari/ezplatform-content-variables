@@ -15,7 +15,8 @@ class CollectionController extends BaseController
 {
     protected $entityName = 'collection';
 
-    protected function getEntityHandler(): EntityHandler {
+    protected function getEntityHandler(): EntityHandler
+    {
         return $this->collectionHandler;
     }
 
@@ -41,6 +42,7 @@ class CollectionController extends BaseController
             'collections' => $collections,
             'form' => $form->createView(),
         ];
+
         return $this->render('@ezdesign/content_variable/collection/list.html.twig', $params);
     }
 
@@ -72,6 +74,7 @@ class CollectionController extends BaseController
             'collection' => $collection,
             'form' => $form->createView(),
         ];
+
         return $this->render('@ezdesign/content_variable/collection/edit.html.twig', $params);
     }
 }

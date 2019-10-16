@@ -35,6 +35,7 @@ abstract class BaseController extends Controller
     /** @var SubmitHandler */
     protected $submitHandler;
 
+    /** @var string */
     protected $entityName;
 
     public function __construct(
@@ -56,14 +57,14 @@ abstract class BaseController extends Controller
     protected function handleBulkAction(FormInterface $form): ?Response
     {
         $data = $form->getData();
-        if ($data->isActionValid() === false) {
+        if (!$data->isActionValid()) {
             return null;
         }
 
         $actionHandler = $data->getAction() . 'Handler';
         $handler = [$this, $actionHandler];
 
-        return is_callable($handler) ?  $this->submitHandler->handle($form, $handler) : null;
+        return is_callable($handler) ? $this->submitHandler->handle($form, $handler) : null;
     }
 
     public function updatePriorityHandler(ItemsSelection $data): ?Response
@@ -79,7 +80,7 @@ abstract class BaseController extends Controller
     public function deleteHandler(ItemsSelection $data): ?Response
     {
         foreach ($data->getSelectedItems() as $item) {
-            if ($item->canBeDeleted() === false) {
+            if (!$item->canBeDeleted()) {
                 continue;
             }
 
@@ -88,10 +89,6 @@ abstract class BaseController extends Controller
         }
 
         return null;
-    }
-
-    protected function getEntityHandler(): EntityHandler {
-        return $this->collectionHandler;
     }
 
     protected function getEditMessage($item): string
@@ -117,4 +114,6 @@ abstract class BaseController extends Controller
     {
         return $this->translator->trans($key, $params, 'content_variables');
     }
+
+    abstract protected function getEntityHandler(): EntityHandler;
 }

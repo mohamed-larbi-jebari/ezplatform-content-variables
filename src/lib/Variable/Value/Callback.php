@@ -12,13 +12,10 @@ abstract class Callback
         return $this->identifier;
     }
 
-    public function getValue(): string
-    {
-        return '';
-    }
-
     public function getName(): string
     {
         return $this->identifier;
     }
+
+    abstract public function getValue(): string;
 }
