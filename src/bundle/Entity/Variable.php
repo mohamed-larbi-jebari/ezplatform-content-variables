@@ -176,7 +176,7 @@ class Variable extends Entity implements ObjectManagerAware
         }
 
         $query = $this->entityManager->getConnection()->createQueryBuilder()
-            ->select('o.id, COUNT(o.id) as linked_objects_count')
+            ->select('COUNT(DISTINCT o.id) as linked_objects_count')
             ->from('ezcontentobject', 'o')
             ->leftJoin(
                 'o',
@@ -185,10 +185,9 @@ class Variable extends Entity implements ObjectManagerAware
                 '(a.version = o.current_version AND a.contentobject_id = o.id)'
             )
             ->where('a.data_text LIKE :content_variable')
-            ->groupBy('o.id')
             ->setParameter('content_variable', '%' . $placeholder . '%');
 
-        return (int)$query->execute()->rowCount();
+        return (int)$query->execute()->fetchColumn();
     }
 
     public function getPlaceholder(): ?string

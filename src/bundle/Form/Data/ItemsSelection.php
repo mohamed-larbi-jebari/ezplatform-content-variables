@@ -2,6 +2,8 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\Form\Data;
 
+use ContextualCode\EzPlatformContentVariablesBundle\Entity\Entity;
+
 class ItemsSelection extends Collection
 {
     protected $selectedIds = [];
@@ -40,6 +42,9 @@ class ItemsSelection extends Collection
         $this->setItemsProperty($data, 'priority');
     }
 
+    /**
+     * @return Entity[]
+     */
     public function getSelectedItems(): array
     {
         $return = [];

@@ -47,6 +47,7 @@ class Variable extends Handler
     public function findByCollection(Collection $collection): array
     {
         $criteria = ['collection' => $collection];
+
         return $this->repository->findBy($criteria, $this->getOrderBy());
     }
 
@@ -82,7 +83,7 @@ class Variable extends Handler
             $content = $this->contentService->loadContent($id, null, $version);
 
             $fieldId = (int)$row['contentclassattribute_id'];
-            if (isset($fieldNames[$fieldId]) === false) {
+            if (!isset($fieldNames[$fieldId])) {
                 $fieldNames[$fieldId] = $this->getFieldName($fieldId);
             }
 
@@ -116,6 +117,7 @@ class Variable extends Handler
             return $variable->getValueStatic();
         }
 
+        /** @var \ContextualCode\EzPlatformContentVariables\Variable\Value\Callback $callback */
         $callback = $this->callbackProcessor->getCallback($variable->getValueCallback());
         if ($callback) {
             return $callback->getValue();
@@ -124,18 +126,20 @@ class Variable extends Handler
         return null;
     }
 
-    public function checkVariableCallback(VariableEntity $variable): bool
+    public function missingCallbackToStatic(VariableEntity $variable): bool
     {
-        if ($variable->isStatic() === false) {
-            $callback = $variable->getValueCallback();
-            if ($this->callbackProcessor->getCallback($callback) === null) {
-                $variable->makeStatic();
-                parent::persist($variable);
-
-                return false;
-            }
+        if ($variable->isStatic()) {
+            return false;
         }
 
-        return true;
+        $callback = $variable->getValueCallback();
+        if ($this->callbackProcessor->getCallback($callback) === null) {
+            $variable->makeStatic();
+            $this->persist($variable);
+
+            return true;
+        }
+
+        return false;
     }
 }
