@@ -3,10 +3,6 @@
 namespace ContextualCode\EzPlatformContentVariablesBundle\Entity;
 
 use ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber\ContentVariablesOutputFilter;
-use Doctrine\Common\Persistence\Mapping\ClassMetadata;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Persistence\ObjectManagerAware;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -16,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="cc_content_variable")
  * @UniqueEntity("identifier")
  */
-class Variable extends Entity implements ObjectManagerAware
+class Variable extends Entity
 {
     private const VALUE_TYPE_STATIC = 1;
     private const VALUE_TYPE_CALLBACK = 2;
@@ -70,8 +66,8 @@ class Variable extends Entity implements ObjectManagerAware
      */
     private $priority = 0;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    /** @var int */
+    private $linkedContentCount = 0;
 
     public function __construct()
     {
@@ -163,31 +159,14 @@ class Variable extends Entity implements ObjectManagerAware
         return $this->getValueType() === self::VALUE_TYPE_STATIC;
     }
 
-    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata): void
-    {
-        $this->entityManager = $objectManager;
-    }
-
     public function getLinkedContentCount(): int
     {
-        $placeholder = $this->getPlaceholder();
-        if ($placeholder === null) {
-            return 0;
-        }
+        return $this->linkedContentCount;
+    }
 
-        $query = $this->entityManager->getConnection()->createQueryBuilder()
-            ->select('COUNT(DISTINCT o.id) as linked_objects_count')
-            ->from('ezcontentobject', 'o')
-            ->leftJoin(
-                'o',
-                'ezcontentobject_attribute',
-                'a',
-                '(a.version = o.current_version AND a.contentobject_id = o.id)'
-            )
-            ->where('a.data_text LIKE :content_variable')
-            ->setParameter('content_variable', '%' . $placeholder . '%');
-
-        return (int)$query->execute()->fetchColumn();
+    public function setLinkedContentCount(int $count): void
+    {
+        $this->linkedContentCount = $count;
     }
 
     public function getPlaceholder(): ?string

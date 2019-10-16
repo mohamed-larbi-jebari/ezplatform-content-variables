@@ -11,6 +11,9 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use eZ\Publish\API\Repository\SearchService;
+use eZ\Publish\API\Repository\Values\Content\LocationQuery;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler as TypeHandler;
 use eZ\Publish\SPI\Persistence\Content\Type;
 
@@ -25,18 +28,23 @@ class Variable extends Handler
     /** @var CallbackProcessor */
     protected $callbackProcessor;
 
+    /** @var SearchService */
+    protected $searchService;
+
     public function __construct(
         ManagerRegistry $doctrine,
         EntityManagerInterface $entityManager,
         ContentService $contentService,
         TypeHandler $typeHandler,
-        CallbackProcessor $callbackProcessor
+        CallbackProcessor $callbackProcessor,
+        SearchService $searchService
     ) {
         parent::__construct($doctrine, $entityManager);
 
         $this->contentService = $contentService;
         $this->typeHandler = $typeHandler;
         $this->callbackProcessor = $callbackProcessor;
+        $this->searchService = $searchService;
     }
 
     protected function getRepository(ManagerRegistry $doctrine): ObjectRepository
@@ -56,6 +64,20 @@ class Variable extends Handler
         $variable->fixStaticValuePlaceholder();
 
         parent::persist($variable);
+    }
+
+    public function countLinkedContent(VariableEntity $variable): void
+    {
+        $placeholder = $variable->getPlaceholder();
+        if ($placeholder === null) {
+            return;
+        }
+
+        $criterion = new Criterion\FullText($placeholder);
+        $query = new LocationQuery(['query' => $criterion]);
+        $results = $this->searchService->findContentInfo($query);
+
+        $variable->setLinkedContentCount((int) $results->totalCount);
     }
 
     public function linkedContentInfo(VariableEntity $variable): array

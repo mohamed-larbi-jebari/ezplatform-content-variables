@@ -31,8 +31,11 @@ class VariableController extends BaseController
     public function listAction(Request $request, Collection $collection): Response
     {
         $variables = $this->variableHandler->findByCollection($collection);
-        $form = $this->formFactory->variablesBulkActions($collection);
+        foreach ($variables as $variable) {
+            $this->variableHandler->countLinkedContent($variable);
+        }
 
+        $form = $this->formFactory->variablesBulkActions($collection);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $result = $this->handleBulkAction($form);
