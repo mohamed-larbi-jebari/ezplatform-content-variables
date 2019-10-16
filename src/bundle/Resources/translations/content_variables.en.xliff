@@ -32,8 +32,8 @@
                 <note>key: collection.new</note>
             </trans-unit>
             <trans-unit id="4f04e19e68e7ce4a6948c0b95eddde28900b274a" resname="collection.new.success">
-                <source>Collection "%name%" created.</source>
-                <target>Collection "%name%" created.</target>
+                <source>Collection "%name%" created</source>
+                <target>Collection "%name%" created</target>
                 <note>key: collection.new.success</note>
             </trans-unit>
             <trans-unit id="1ea2a90f8ebd8fc941f923f94ac56b8b9eed31fe" resname="collection.edit">
@@ -42,18 +42,18 @@
                 <note>key: collection.edit</note>
             </trans-unit>
             <trans-unit id="4f04e19e68e7ce4a6948c0b95edeea28900b274a" resname="collection.edit.success">
-                <source>Collection "%name%" updated.</source>
-                <target>Collection "%name%" updated.</target>
+                <source>Collection "%name%" updated</source>
+                <target>Collection "%name%" updated</target>
                 <note>key: collection.edit.success</note>
             </trans-unit>
             <trans-unit id="4f04e19e68e7ce4a6948c0bebb55eea28900b274a" resname="collection.priority_update.success">
-                <source>Priority of "%name%" updated.</source>
-                <target>Priority of "%name%" updated.</target>
+                <source>Priority of "%name%" updated</source>
+                <target>Priority of "%name%" updated</target>
                 <note>key: collection.priority_update.success</note>
             </trans-unit>
             <trans-unit id="1ea2a90f8ebd8fc941f923fddaab6b8b9eaaf221" resname="collection.delete.success">
-                <source>Collection "%name%" removed.</source>
-                <target>Collection "%name%" removed.</target>
+                <source>Collection "%name%" removed</source>
+                <target>Collection "%name%" removed</target>
                 <note>key: collection.delete.success</note>
             </trans-unit>
             <trans-unit id="1ea2a90f8ebd8fc941f923feefc56b8b9eaaf221" resname="collection.delete">
@@ -142,8 +142,8 @@
                 <note>key: variable.value_type.2</note>
             </trans-unit>
             <trans-unit id="4f04e19e68e7ce4a6948c0b95eddde28900b274a" resname="variable.new.success">
-                <source>Content variable "%name%" created.</source>
-                <target>Content variable "%name%" created.</target>
+                <source>Content variable "%name%" created</source>
+                <target>Content variable "%name%" created</target>
                 <note>key: variable.new.success</note>
             </trans-unit>
             <trans-unit id="1ea2a90f8ebd8fc941f923f94ac56b8b9eed31fe" resname="variable.edit">
@@ -152,13 +152,13 @@
                 <note>key: variable.edit</note>
             </trans-unit>
             <trans-unit id="4f04e19e68e7ce4a6948c0b95edeea28900b274a" resname="variable.edit.success">
-                <source>Content variable "%name%" updated.</source>
-                <target>Content variable "%name%" updated.</target>
+                <source>Content variable "%name%" updated</source>
+                <target>Content variable "%name%" updated</target>
                 <note>key: variable.edit.success</note>
             </trans-unit>
             <trans-unit id="4f04e19e68e7ce4a6948c0beeaaeeea28900b274a" resname="variable.priority_update.success">
-                <source>Priority of "%name%" updated.</source>
-                <target>Priority of "%name%" updated.</target>
+                <source>Priority of "%name%" updated</source>
+                <target>Priority of "%name%" updated</target>
                 <note>key: variable.priority_update.success</note>
             </trans-unit>
             <trans-unit id="aadde0f8ebd8fc941f923feefc56b8b9eaaf221" resname="variable.name">
@@ -197,8 +197,8 @@
                 <note>key: variable.type</note>
             </trans-unit>
             <trans-unit id="1ea2a90f8edaafc941f923fddaab6b8b9eaaf221" resname="variable.delete.success">
-                <source>Content variable "%name%" removed.</source>
-                <target>Content variable "%name%" removed.</target>
+                <source>Content variable "%name%" removed</source>
+                <target>Content variable "%name%" removed</target>
                 <note>key: variable.delete.success</note>
             </trans-unit>
             <trans-unit id="1ea2a90f8edaafc941f923fddaab6b8b9add231" resname="variable.value.callback">
@@ -232,8 +232,8 @@
                 <note>key: variable.related_content.field</note>
             </trans-unit>
             <trans-unit id="cca21add8dda2c941f923fddaabeeab9add231" resname="variable.related_content.no_items">
-                <source>There is no any linked content</source>
-                <target>There is no any linked content</target>
+                <source>There is not any linked content</source>
+                <target>There is not any linked content</target>
                 <note>key: variable.related_content.no_items</note>
             </trans-unit>
             <trans-unit id="cca21add8dda2c941f923fddaaddabb9add231" resname="path.variable.bulk_edit">
@@ -252,8 +252,9 @@
                 <note>key: variable.missing_callback.warning</note>
             </trans-unit>
             <trans-unit id="cca21aeef4da2c941f923fddacc2abb9add231" resname="bulk_edit.no_items">
-                <source>There are no content variables. Start by <a href="%url%">creating new collection</a> and adding some of content variables</source>
-                <target>There are no content variables. Start by creating a new collection and adding some of content variables</target>
+            privacy policy%link_end%
+                <source>There are no content variables. Start by %link_start%creating a new collection%link_end% and adding some content variables</source>
+                <target>There are no content variables. Start by %link_start%creating a new collection%link_end% and adding some content variables</target>
                 <note>key: bulk_edit.no_items</note>
             </trans-unit>
         </body>
