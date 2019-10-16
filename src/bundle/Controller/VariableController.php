@@ -15,6 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class VariableController extends BaseController
 {
+    private const BULK_EDIT_COLLAPSED_COLLECTIONS_COOKIE_VAR = 'content-variables_bulk-edit_collapsed-collections';
+    private const BULK_EDIT_COLLAPSED_COLLECTIONS_COOKIE_SEPARATOR = ',';
+
     protected $entityName = 'variable';
 
     protected function getEntityHandler(): EntityHandler {
@@ -129,6 +132,7 @@ class VariableController extends BaseController
         $params = [
             'collections' => $collections,
             'form' => $form->createView(),
+            'collapsed_collections' => $this->getBulkEditCollapsedCollections($request),
         ];
         return $this->render('@ezdesign/content_variable/variable/bulk_edit.html.twig', $params);
     }
@@ -139,5 +143,17 @@ class VariableController extends BaseController
             $this->variableHandler->persist($variable);
             $this->sendSuccessMessage($variable, 'edit');
         }
+    }
+
+    protected function getBulkEditCollapsedCollections(Request $request): array
+    {
+        $var = self::BULK_EDIT_COLLAPSED_COLLECTIONS_COOKIE_VAR;
+        $separator = self::BULK_EDIT_COLLAPSED_COLLECTIONS_COOKIE_SEPARATOR;
+
+        return [
+            'ids' => explode($separator, $request->cookies->get($var, null)),
+            'cookie_var' => $var,
+            'cookie_separator' => $separator,
+        ];
     }
 }

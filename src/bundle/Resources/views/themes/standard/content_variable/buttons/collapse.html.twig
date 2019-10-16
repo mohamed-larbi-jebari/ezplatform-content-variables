@@ -1,0 +1,17 @@
+<a
+    data-toggle="collapse"
+    class="btn btn-primary content-variables-collapsable-collections"
+    role="button"
+    aria-expanded="{{ isClollapsed ? 'false' : 'true' }}"
+    href="#{{ containerId }}"
+    data-cookie-variable="{{ cookieVariable }}"
+    data-cookie-separator="{{ cookieSeparator }}"
+    data-item-id="{{ itemId }}"
+>
+    <svg class="ez-icon collapse-show"{% if not isClollapsed %} hidden{% endif %}>
+        <use xlink:href="{{ asset('bundles/ezplatformadminui/img/ez-icons.svg') }}#caret-down"></use>
+    </svg>
+    <svg class="ez-icon collapse-hide"{% if isClollapsed %} hidden{% endif %}>
+        <use xlink:href="{{ asset('bundles/ezplatformadminui/img/ez-icons.svg') }}#caret-up"></use>
+    </svg>
+</a>

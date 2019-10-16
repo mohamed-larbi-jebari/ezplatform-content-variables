@@ -17,4 +17,8 @@ module.exports = (eZConfig, eZConfigManager) => {
         path.resolve(__dirname, '../public/js/button.submit-form.js'),
         path.resolve(__dirname, '../public/js/form.bulk-actions.action.js')
     ];
+    eZConfig.entry['ezplatform-content-variables-bulk-edit-js'] = [
+        path.resolve(__dirname, '../public/js/button.collapsable-collections.js')
+    ];
+
 };
