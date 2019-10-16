@@ -20,7 +20,8 @@ class VariableController extends BaseController
 
     protected $entityName = 'variable';
 
-    protected function getEntityHandler(): EntityHandler {
+    protected function getEntityHandler(): EntityHandler
+    {
         return $this->variableHandler;
     }
 
@@ -47,6 +48,7 @@ class VariableController extends BaseController
             'collection' => $collection,
             'form' => $form->createView(),
         ];
+
         return $this->render('@ezdesign/content_variable/variable/list.html.twig', $params);
     }
 
@@ -70,7 +72,7 @@ class VariableController extends BaseController
             $collection = $variable->getCollection();
         }
 
-        if ($this->variableHandler->checkVariableCallback($variable) === false) {
+        if ($this->variableHandler->missingCallbackToStatic($variable)) {
             $message = $this->getTranslatedMessage('variable.missing_callback.warning');
             $this->notificationHandler->warning($message);
         }
@@ -95,6 +97,7 @@ class VariableController extends BaseController
             'variable' => $variable,
             'collection' => $collection,
         ];
+
         return $this->render('@ezdesign/content_variable/variable/edit.html.twig', $params);
     }
 
@@ -109,6 +112,7 @@ class VariableController extends BaseController
             'variable' => $variable,
             'linked_content' => $linkedContentInfo,
         ];
+
         return $this->render('@ezdesign/content_variable/variable/related_content.html.twig', $params);
     }
 
@@ -134,6 +138,7 @@ class VariableController extends BaseController
             'form' => $form->createView(),
             'collapsed_collections' => $this->getBulkEditCollapsedCollections($request),
         ];
+
         return $this->render('@ezdesign/content_variable/variable/bulk_edit.html.twig', $params);
     }
 
