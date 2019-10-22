@@ -8,11 +8,13 @@ use ContextualCode\EzPlatformContentVariablesBundle\Form\Factory\FormFactory;
 use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Collection;
 use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Handler as EntityHandler;
 use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Variable;
+use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
 use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
 use EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface;
 use EzSystems\EzPlatformAdminUiBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Translation\TranslatorInterface;
 
 abstract class BaseController extends Controller
@@ -35,6 +37,9 @@ abstract class BaseController extends Controller
     /** @var SubmitHandler */
     protected $submitHandler;
 
+    /** @var AuthorizationChecker */
+    protected $authorizationChecker;
+
     /** @var string */
     protected $entityName;
 
@@ -44,7 +49,8 @@ abstract class BaseController extends Controller
         FormFactory $formFactory,
         NotificationHandlerInterface $notificationHandler,
         TranslatorInterface $translator,
-        SubmitHandler $submitHandler
+        SubmitHandler $submitHandler,
+        AuthorizationChecker $authorizationChecker
     ) {
         $this->collectionHandler = $collectionHandler;
         $this->variableHandler = $variableHandler;
@@ -52,6 +58,20 @@ abstract class BaseController extends Controller
         $this->notificationHandler = $notificationHandler;
         $this->translator = $translator;
         $this->submitHandler = $submitHandler;
+        $this->authorizationChecker = $authorizationChecker;
+
+        $this->performSecurityAccessCheck();
+    }
+
+    public function performSecurityAccessCheck(): void
+    {
+        $attributes = new Attribute('content', 'manage_variables');
+        if (!$this->authorizationChecker->isGranted($attributes)) {
+            $exception = $this->createAccessDeniedException();
+            $exception->setAttributes($attributes);
+
+            throw $exception;
+        }
     }
 
     protected function handleBulkAction(FormInterface $form): ?Response

@@ -1,0 +1,30 @@
+services:
+    ContextualCode\EzPlatformContentVariablesBundle\REST\Controller\Collection:
+        parent: ezpublish_rest.controller.base
+        autowire: true
+        autoconfigure: false
+        public: true
+
+    ContextualCode\EzPlatformContentVariablesBundle\REST\ValueObjectVisitor\CollectionList:
+        parent: ezpublish_rest.output.value_object_visitor.base
+        autowire: true
+        autoconfigure: false
+        public: true
+        tags:
+            - { name: ezpublish_rest.output.value_object_visitor, type: ContextualCode\EzPlatformContentVariablesBundle\REST\Values\CollectionList }
+
+    ContextualCode\EzPlatformContentVariablesBundle\REST\ValueObjectVisitor\Collection:
+        parent: ezpublish_rest.output.value_object_visitor.base
+        autowire: true
+        autoconfigure: false
+        public: true
+        tags:
+            - { name: ezpublish_rest.output.value_object_visitor, type: ContextualCode\EzPlatformContentVariablesBundle\REST\Values\Collection }
+
+    ContextualCode\EzPlatformContentVariablesBundle\REST\ValueObjectVisitor\Variable:
+        parent: ezpublish_rest.output.value_object_visitor.base
+        autowire: true
+        autoconfigure: false
+        public: true
+        tags:
+            - { name: ezpublish_rest.output.value_object_visitor, type: ContextualCode\EzPlatformContentVariablesBundle\REST\Values\Variable }

@@ -6,6 +6,11 @@
             <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
         </header>
         <body>
+            <trans-unit id="faeea0f8ddd8fc941f923f94aceeaad9eaaf221" resname="role.policy.content.manage_variables">
+                <source>Content / Manage Variables</source>
+                <target>Content / Manage Variables</target>
+                <note>key: role.policy.content.manage_variables</note>
+            </trans-unit>
             <trans-unit id="faeea0f8ebd8fc941f923f94ac56b8b9eaaf221" resname="collections_delete.delete">
                 <source>Delete collections</source>
                 <target>Delete collections</target>
@@ -16,6 +21,7 @@
                 <target>Delete content variables</target>
                 <note>key: variables_delete.delete</note>
             </trans-unit>
+
         </body>
   </file>
 </xliff>

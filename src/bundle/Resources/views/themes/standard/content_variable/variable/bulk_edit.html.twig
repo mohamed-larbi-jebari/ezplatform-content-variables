@@ -25,7 +25,7 @@
 
                     {% for collection in collections %}
                         {% set hasVariables = collection.contentVariables|length > 0 %}
-                        {% set isClollapsed = collection.id in collapsed_collections.ids %}
+                        {% set isCollapsed = collection.id in collapsed_collections.ids %}
                         <div class="ez-table-header">
                             <div class="ez-table-header__headline">{{ collection.name }}</div>
                             {% if collection.description %}
@@ -34,14 +34,14 @@
                             <div>
                                 {% include '@ezdesign/content_variable/buttons/collapse.html.twig' with {
                                     'containerId': 'content-variables-bulk-edit-' ~ collection.id,
-                                    'isClollapsed': isClollapsed,
+                                    'isCollapsed': isCollapsed,
                                     'cookieVariable': collapsed_collections.cookie_var,
                                     'cookieSeparator': collapsed_collections.cookie_separator,
                                     'itemId': collection.id,
                                 } %}
                             </div>
                         </div>
-                        <div id="content-variables-bulk-edit-{{ collection.id }}" class="{{ isClollapsed ? 'collapse' : 'show' }}">
+                        <div id="content-variables-bulk-edit-{{ collection.id }}" class="{{ isCollapsed ? 'collapse' : 'show' }}">
                             {% if hasVariables %}
                                 <table class="ez-table table mb-3">
                                     <thead>
@@ -80,7 +80,7 @@
                         </div>
                     {% endfor %}
 
-                    <button id="variables-update" type="submit" hidden></button>
+                    <button id="variables-update" type="submit" hidden />
                     {{ form_end(form) }}
                 {% else %}
                     <div class="c-no-items">{{ 'bulk_edit.no_items'|trans({'%link_start%' : '<a href="'~path('content_variables.collection.new')~'">', '%link_end%' : '</a>'})|raw }}</div>

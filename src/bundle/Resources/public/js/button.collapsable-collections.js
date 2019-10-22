@@ -38,9 +38,9 @@ import Cookies from './universalCookie.min';
     const storeCollapsedItemIds = (button, itemIds) => {
         const cookies = new Cookies();
         const cookieVariable = button.getAttribute('data-cookie-variable');
-        const cookieSeprator = button.getAttribute('data-cookie-separator');
+        const cookieSeparator = button.getAttribute('data-cookie-separator');
 
-        cookies.set(cookieVariable, itemIds.join(cookieSeprator));
+        cookies.set(cookieVariable, itemIds.join(cookieSeparator));
     };
 
     const items = doc.querySelectorAll('.content-variables-collapsable-collections');

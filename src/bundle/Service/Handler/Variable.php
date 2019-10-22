@@ -139,7 +139,7 @@ class Variable extends Handler
             return $variable->getValueStatic();
         }
 
-        /** @var \ContextualCode\EzPlatformContentVariables\Variable\Value\Callback $callback */
+        /** @var Callback $callback */
         $callback = $this->callbackProcessor->getCallback($variable->getValueCallback());
         if ($callback) {
             return $callback->getValue();

@@ -20,5 +20,12 @@ module.exports = (eZConfig, eZConfigManager) => {
     eZConfig.entry['ezplatform-content-variables-bulk-edit-js'] = [
         path.resolve(__dirname, '../public/js/button.collapsable-collections.js')
     ];
+    eZConfigManager.add({
+        eZConfig,
+        entryName: 'ezplatform-admin-ui-alloyeditor-js',
+        newItems: [
+            path.resolve(__dirname, '../public/js/alloyeditor/buttons/content-variables.js')
+        ]
+    });
 
 };

@@ -158,8 +158,13 @@ class VariableController extends BaseController
         $var = self::BULK_EDIT_COLLAPSED_COLLECTIONS_COOKIE_VAR;
         $separator = self::BULK_EDIT_COLLAPSED_COLLECTIONS_COOKIE_SEPARATOR;
 
+        $ids = explode($separator, $request->cookies->get($var, null));
+        foreach ($ids as $k => $id) {
+            $ids[$k] = (int) $id;
+        }
+
         return [
-            'ids' => explode($separator, $request->cookies->get($var, null)),
+            'ids' => $ids,
             'cookie_var' => $var,
             'cookie_separator' => $separator,
         ];

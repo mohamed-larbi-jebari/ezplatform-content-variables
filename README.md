@@ -50,6 +50,11 @@ This bundle provides a way to manage content variables. Basically, those are pla
     yarn encore dev
     ```
 
+7. Update JavaScript translations:
+    ```bash
+    php bin/console bazinga:js-translation:dump web/assets --merge-domains
+    ```
+
 ## Usage
 
 All the content variables are grouped in the collections. So first you would need to define those collections. To do so,

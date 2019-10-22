@@ -1,0 +1,7 @@
+button.label: 'Content Variables'
+modal.header: 'Content Variables'
+modal.no_collections: 'There are no content variables. Start by creating a new collection and adding some content variables'
+modal.buttons.cancel.label: 'Cancel'
+modal.buttons.select.label: 'Select'
+modal.form.select.collection: 'Select a collection'
+modal.form.select.variable: 'Select a content variable'

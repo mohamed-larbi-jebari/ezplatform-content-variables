@@ -7,3 +7,8 @@ content_variables_collection:
     resource: "@EzPlatformContentVariablesBundle/Controller/CollectionController.php"
     prefix: /
     type: annotation
+
+content_variables_rest_collection:
+    resource: "@EzPlatformContentVariablesBundle/REST/Controller/Collection.php"
+    prefix: '%ezpublish_rest.path_prefix%'
+    type: annotation
