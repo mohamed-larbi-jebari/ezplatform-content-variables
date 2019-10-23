@@ -74,7 +74,7 @@ class Variable extends Handler
         }
 
         $criterion = new Criterion\FullText($placeholder);
-        $query = new LocationQuery(['query' => $criterion]);
+        $query = new LocationQuery(['query' => $criterion, 'limit' => 0]);
         $results = $this->searchService->findContentInfo($query);
 
         $variable->setLinkedContentCount((int) $results->totalCount);
