@@ -24,7 +24,23 @@ module.exports = (eZConfig, eZConfigManager) => {
         eZConfig,
         entryName: 'ezplatform-admin-ui-alloyeditor-js',
         newItems: [
-            path.resolve(__dirname, '../public/js/alloyeditor/buttons/content-variables.js')
+            path.resolve(__dirname, '../public/js/alloyeditor/buttons/content-variable-insert.js'),
+            path.resolve(__dirname, '../public/js/alloyeditor/buttons/content-variable-edit.js'),
+            path.resolve(__dirname, '../public/js/alloyeditor/toolbars/content-variable-edit.js'),
+            path.resolve(__dirname, '../public/js/alloyeditor/plugins/content-variables.js'),
+        ]
+    });
+    eZConfigManager.replace({
+        eZConfig,
+        entryName: 'ezplatform-admin-ui-alloyeditor-js',
+        itemToReplace: path.resolve(__dirname, eZAdminUIPath + 'js/scripts/fieldType/base/base-rich-text.js'),
+        newItem: path.resolve(__dirname, '../public/js/scripts/fieldType/base/base-rich-text.js'),
+    });
+    eZConfigManager.add({
+        eZConfig,
+        entryName: 'ezplatform-admin-ui-layout-css',
+        newItems: [
+            path.resolve(__dirname, '../public/css/alloyeditor/widgets/content-variable.css'),
         ]
     });
 

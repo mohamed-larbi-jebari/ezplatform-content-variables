@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:db="http://docbook.org/ns/docbook"
+         xmlns:ez="http://ez.no/xmlns/ezpublish/docbook"
+         xmlns:ezxhtml="http://ez.no/xmlns/ezpublish/docbook/xhtml"
+         xmlns:ezcustom="http://ez.no/xmlns/ezpublish/docbook/custom"
+         xmlns:a="http://ez.no/xmlns/annotation"
+         xmlns:m="http://ez.no/xmlns/module"
+         ns="http://docbook.org/ns/docbook"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <include href="../../../../../../../ezsystems/ezplatform-richtext/src/lib/eZ/RichText/Resources/schemas/docbook/ezpublish.rng" />
+
+  <div>
+    <a:documentation>
+      Adding child ezattribute element to the selected elements.
+    </a:documentation>
+    <define name="ez.template.contentmodel.inline" combine="interleave">
+      <ref name="ez.xhtml.data.attribute" />
+    </define>
+  </div>
+
+</grammar>

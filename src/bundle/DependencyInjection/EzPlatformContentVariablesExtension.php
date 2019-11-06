@@ -17,6 +17,7 @@ class EzPlatformContentVariablesExtension extends Extension implements PrependEx
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('rest_api.yml');
+        $loader->load('ezrichtext_settings.yml');
     }
 
     public function prepend(ContainerBuilder $container): void

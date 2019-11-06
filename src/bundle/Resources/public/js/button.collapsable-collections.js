@@ -28,10 +28,10 @@ import Cookies from './universalCookie.min';
     const getCollapsedItemIds = (button) => {
         const cookies = new Cookies();
         const cookieVariable = button.getAttribute('data-cookie-variable');
-        const cookieSeprator = button.getAttribute('data-cookie-separator');
+        const cookieSeparator = button.getAttribute('data-cookie-separator');
 
         return cookies.get(cookieVariable)
-            ? cookies.get(cookieVariable).split(cookieSeprator)
+            ? cookies.get(cookieVariable).split(cookieSeparator)
             : [];
     };
 

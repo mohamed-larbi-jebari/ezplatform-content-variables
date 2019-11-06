@@ -13,8 +13,8 @@ export default class ContentVariablesModal extends Component {
         this.state = {
             isDataLoading: true,
             data: new Map(),
-            collectionId: null,
-            variableId: null,
+            collectionId: this.props.collectionId ? parseInt(this.props.collectionId) : null,
+            variableId: this.props.variableId ? parseInt(this.props.variableId) : null,
         };
     }
 
@@ -64,6 +64,7 @@ export default class ContentVariablesModal extends Component {
                     id: variable._id,
                     name: variable._name,
                     identifier: variable._identifier,
+                    collectionId: collection._id,
                 });
             });
 
@@ -71,7 +72,6 @@ export default class ContentVariablesModal extends Component {
                 id: collection._id,
                 name: collection._name,
                 variables: variablesMap,
-                collection_id: collection._id,
             });
         });
 

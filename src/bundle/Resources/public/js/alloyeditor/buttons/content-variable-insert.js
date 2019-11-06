@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AlloyEditor from 'alloyeditor';
-import EzButton from './../../../../../../../../../ezsystems/ezplatform-admin-ui/src/bundle/Resources/public/js/alloyeditor/src/base/ez-button';
+import EzWidgetButton from './../../../../../../../../../ezsystems/ezplatform-admin-ui/src/bundle/Resources/public/js/alloyeditor/src/base/ez-widgetbutton';
 import ContentVariablesModal from '../modals/content-variables';
 
-class BtnContentVariables extends EzButton {
+export default class BtnContentVariableInsert extends EzWidgetButton {
     static get key() {
-        return 'content_variables';
+        return 'content-variable-insert';
     }
 
     constructor(props) {
@@ -15,7 +15,7 @@ class BtnContentVariables extends EzButton {
         this.container = document.querySelector('.ez-modal-wrapper');
     }
 
-    editSource() {
+    openModal() {
         this.props.editor.get('nativeEditor').lockSelection();
 
         const token = document.querySelector('meta[name="CSRF-Token"]').content;
@@ -31,7 +31,22 @@ class BtnContentVariables extends EzButton {
 
     confirmHandler(contentVariable) {
         const editor = this.props.editor.get('nativeEditor');
-        editor.insertText(' #' + contentVariable.identifier + '# ');
+
+        // Insert widget by running it as CKEditor command
+        if (navigator.userAgent.indexOf('Chrome') > -1) {
+            const scrollY = window.pageYOffset;
+            this.execCommand();
+            window.scroll(window.pageXOffset, scrollY);
+        } else {
+            this.execCommand();
+        }
+
+        const widget = this.getWidget();
+        if (widget) {
+            widget.setFocused(true);
+            widget.update(contentVariable);
+        }
+
         editor.unlockSelection(true);
     }
 
@@ -43,7 +58,7 @@ class BtnContentVariables extends EzButton {
         return (
             <button
                 className="ae-button ez-btn-ae ez-btn-ae--content-variables"
-                onClick={this.editSource.bind(this)}
+                onClick={this.openModal.bind(this)}
                 tabIndex={this.props.tabIndex}
                 title={Translator.trans('button.label', {}, 'content_variables')}
             >
@@ -55,4 +70,8 @@ class BtnContentVariables extends EzButton {
     }
 }
 
-AlloyEditor.Buttons[BtnContentVariables.key] = BtnContentVariables.BtnSource = BtnContentVariables;
+AlloyEditor.Buttons[BtnContentVariableInsert.key] = AlloyEditor.BtnContentVariableInsert = BtnContentVariableInsert;
+BtnContentVariableInsert.defaultProps = {
+    command: 'content-variable',
+    modifiesSelection: true,
+};
