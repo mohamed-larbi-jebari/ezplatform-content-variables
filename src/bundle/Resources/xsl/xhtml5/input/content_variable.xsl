@@ -30,6 +30,9 @@
         <xsl:value-of select="'content-variable'"/>
       </xsl:attribute>
       <xsl:call-template name="ezattribute"/>
+      <xsl:element name="ezcontent" namespace="http://docbook.org/ns/docbook">
+        <xsl:value-of select="concat('#', ./@data-ezattribute-identifier, '#')" />
+      </xsl:element>
     </xsl:element>
   </xsl:template>
 
