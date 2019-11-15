@@ -32,20 +32,22 @@
                             'title': 'variables.new'|trans,
                             'href': path('content_variables.new', {'id': collection.id}),
                         } %}
-                        {% include '@ezdesign/content_variable/buttons/update_priority.html.twig' with {
-                            'title': 'variable.update_priority'|trans,
-                            'id': 'update-priority-variables',
-                            'form_id': form_id,
-                            'action': 'updatePriority',
-                        } %}
-                        {% include '@ezdesign/content_variable/buttons/delete.html.twig' with {
-                            'title': 'variable.delete'|trans,
-                            'id': 'delete-variables',
-                            'form_id': form_id,
-                            'action': 'delete',
-                            'modal_data_target': 'delete-variables-modal',
-                            'message': 'variable.delete.modal.message'|trans,
-                        } %}
+                        {% if variables|length > 0 %}
+                            {% include '@ezdesign/content_variable/buttons/update_priority.html.twig' with {
+                                'title': 'variable.update_priority'|trans,
+                                'id': 'update-priority-variables',
+                                'form_id': form_id,
+                                'action': 'updatePriority',
+                            } %}
+                            {% include '@ezdesign/content_variable/buttons/delete.html.twig' with {
+                                'title': 'variable.delete'|trans,
+                                'id': 'delete-variables',
+                                'form_id': form_id,
+                                'action': 'delete',
+                                'modal_data_target': 'delete-variables-modal',
+                                'message': 'variable.delete.modal.message'|trans,
+                            } %}
+                        {% endif %}
                     </div>
                 </div>
 
@@ -60,7 +62,7 @@
                     <table class="ez-table table mb-3">
                         <thead>
                             <tr>
-                                <th/>
+                                <th class="ez-table__cell--has-checkbox"><input type="checkbox" /></th>
                                 <th>{{ 'variable.name'|trans }}</th>
                                 <th>{{ 'variable.identifier'|trans }}</th>
                                 <th>{{ 'variable.priority'|trans }}</th>
