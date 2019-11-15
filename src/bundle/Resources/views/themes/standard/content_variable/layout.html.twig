@@ -1,14 +1,16 @@
 {% extends '@ezdesign/layout.html.twig' %}
 
 {% block left_sidebar %}
-    <div class="bg-dark pt-4 px-0 ez-side-menu">
-        <div class="ez-sticky-container">
-            {% set sidebar_left = knp_menu_get('content_variables.menu.main.sidebar_left', [], {}) %}
-            {{ knp_menu_render(sidebar_left, {
-                'template': '@ezdesign/content_variable/parts/menu/sidebar_left.html.twig',
-                'currentClass': 'ez-btn--content-tree-expanded',
-                'ancestorClass': 'ez-btn--content-tree-expanded'
-            }) }}
+    {% if show_left_sidebar is defined %}
+        <div class="bg-dark pt-4 px-0 ez-side-menu">
+            <div class="ez-sticky-container">
+                {% set sidebar_left = knp_menu_get('content_variables.menu.main.sidebar_left', [], {}) %}
+                {{ knp_menu_render(sidebar_left, {
+                    'template': '@ezdesign/content_variable/parts/menu/sidebar_left.html.twig',
+                    'currentClass': 'ez-btn--content-tree-expanded',
+                    'ancestorClass': 'ez-btn--content-tree-expanded'
+                }) }}
+            </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock left_sidebar %}
