@@ -11,9 +11,10 @@
         <div class="px-0 pb-4 ez-content-container">
             <div class="ez-header">
                 <div class="container">
-                    {% include '@ezdesign/parts/page_title.html.twig' with {
+                    {% include '@ezdesign/content_variable/parts/page_title.html.twig' with {
                         title: 'collections.title'|trans,
-                        iconName: 'sections'
+                        iconsFile: 'bundles/ezplatformcontentvariables/img/icons.svg',
+                        iconName: 'content-variables-manager',
                     } %}
                 </div>
             </div>

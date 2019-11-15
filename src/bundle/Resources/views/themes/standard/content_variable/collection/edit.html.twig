@@ -18,10 +18,10 @@
                         { value: 'path.collections'|trans, url: path('content_variables.collection.list') },
                         { value: breadcrumbsTitle }
                     ]} %}
-
-                    {% include '@ezdesign/parts/page_title.html.twig' with {
+                    {% include '@ezdesign/content_variable/parts/page_title.html.twig' with {
                         title: breadcrumbsTitle,
-                        iconName: 'sections'
+                        iconsFile: 'bundles/ezplatformcontentvariables/img/icons.svg',
+                        iconName: 'content-variables-manager',
                     } %}
                 </div>
             </div>
