@@ -1,6 +1,10 @@
 (function (global, doc) {
     doc.querySelectorAll('.content-variable-update-priorities').forEach((button) => {
         const containerForm = doc.querySelector(button.getAttribute('data-form'));
+        if (containerForm === null) {
+            return;
+        }
+
         const priorityInputs = containerForm.querySelectorAll('.content-variable-priority-value');
 
         priorityInputs.forEach((priorityInput) => {
