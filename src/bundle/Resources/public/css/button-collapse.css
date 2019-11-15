@@ -1,0 +1,6 @@
+a[data-toggle="collapse"] > .ez-icon {
+    width: 2rem;
+    height: 2rem;
+    font-weight: bold;
+    fill: #333;
+}

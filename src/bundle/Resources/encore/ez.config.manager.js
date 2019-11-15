@@ -2,6 +2,9 @@ const path = require('path');
 const eZAdminUIPath = '../../../../../../ezsystems/ezplatform-admin-ui/src/bundle/Resources/public/';
 
 module.exports = (eZConfig, eZConfigManager) => {
+    eZConfig.entry['ezplatform-content-variables-bulk-edit-css'] = [
+        path.resolve(__dirname, '../public/css/button-collapse.css')
+    ];
     eZConfig.entry['ezplatform-content-variables-variables-list-js'] = [
         path.resolve(__dirname, eZAdminUIPath + 'js/scripts/button.state.toggle.js'),
         path.resolve(__dirname, '../public/js/button.update-priorities.toggler.js'),
