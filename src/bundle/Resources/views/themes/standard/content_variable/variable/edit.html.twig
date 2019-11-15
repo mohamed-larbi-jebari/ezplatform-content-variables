@@ -58,10 +58,12 @@
             </div>
         </div>
         <div class="pt-4 px-0 bg-secondary ez-context-menu">
-            {% set sidebar_right = knp_menu_get('content_variables.menu.variable_edit.sidebar_right', [], {'collection': collection}) %}
-            {{ knp_menu_render(sidebar_right, {
-                'template': '@ezdesign/parts/menu/sidebar_right.html.twig'
-            }) }}
+            <div class="ez-sticky-container">
+                {% set sidebar_right = knp_menu_get('content_variables.menu.variable_edit.sidebar_right', [], {'collection': collection}) %}
+                {{ knp_menu_render(sidebar_right, {
+                    'template': '@ezdesign/parts/menu/sidebar_right.html.twig'
+                }) }}
+            </div>
         </div>
     </div>
 {% endblock %}
