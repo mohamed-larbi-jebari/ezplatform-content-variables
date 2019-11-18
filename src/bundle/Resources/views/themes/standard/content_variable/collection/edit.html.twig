@@ -4,7 +4,8 @@
 
 {% trans_default_domain "content_variables" %}
 
-{% set breadcrumbsTitle = collection.isNew ? 'collection.new'|trans : 'collection.edit'|trans({'%name%': collection.name|truncate(50) }) %}
+{% set pathTitle = collection.isNew ? 'path.collection.new'|trans : 'path.collection.edit'|trans({'%name%': collection.name|truncate(50) }) %}
+{% set pageTitle = collection.isNew ? 'title.collection.new'|trans : 'title.collection.edit'|trans({'%name%': collection.name|truncate(50) }) %}
 {% block content %}
     <div class="row align-items-stretch ez-main-row">
         {% block left_sidebar %}
@@ -15,11 +16,11 @@
             <div class="ez-header">
                 <div class="container">
                     {% include '@ezdesign/parts/breadcrumbs.html.twig' with { items: [
-                        { value: 'path.collections'|trans, url: path('content_variables.collection.list') },
-                        { value: breadcrumbsTitle }
+                        { value: 'path.root'|trans, url: path('content_variables.collection.list') },
+                        { value: pathTitle }
                     ]} %}
                     {% include '@ezdesign/content_variable/parts/page_title.html.twig' with {
-                        title: breadcrumbsTitle,
+                        title: pageTitle,
                         iconsFile: 'bundles/ezplatformcontentvariables/img/icons.svg',
                         iconName: 'content-variables-manager',
                     } %}

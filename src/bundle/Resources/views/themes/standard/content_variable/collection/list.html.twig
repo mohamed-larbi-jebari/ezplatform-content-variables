@@ -12,8 +12,12 @@
         <div class="px-0 pb-4 ez-content-container">
             <div class="ez-header">
                 <div class="container">
+                    {% include '@ezdesign/parts/breadcrumbs.html.twig' with { items: [
+                        { value: 'path.root'|trans, url: path('content_variables.collection.list') },
+                        { value: 'path.collections'|trans }
+                    ]} %}
                     {% include '@ezdesign/content_variable/parts/page_title.html.twig' with {
-                        title: 'collections.title'|trans,
+                        title: 'title.collections'|trans,
                         iconsFile: 'bundles/ezplatformcontentvariables/img/icons.svg',
                         iconName: 'content-variables-manager',
                     } %}
@@ -23,7 +27,7 @@
             {% set form_id = 'collections_bulk_actions' %}
             <section class="container mt-4 px-5">
                 <div class="ez-table-header">
-                    <div class="ez-table-header__headline">{{ 'collections.title'|trans }}</div>
+                    <div class="ez-table-header__headline">{{ 'title.collections'|trans }}</div>
                     <div>
                         {% include '@ezdesign/content_variable/buttons/new.html.twig' with {
                             'title': 'collection.new'|trans,

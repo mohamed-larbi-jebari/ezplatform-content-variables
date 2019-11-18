@@ -12,8 +12,12 @@
         <div class="px-0 pb-4 ez-content-container">
             <div class="ez-header">
                 <div class="container">
+                    {% include '@ezdesign/parts/breadcrumbs.html.twig' with { items: [
+                        { value: 'path.root'|trans, url: path('content_variables.collection.list') },
+                        { value: 'path.bulk_edit'|trans }
+                    ]} %}
                     {% include '@ezdesign/parts/page_title.html.twig' with {
-                        title: 'variable.bulk_edit.title'|trans,
+                        title: 'title.bulk_edit'|trans,
                         iconName: 'edit'
                     } %}
                 </div>

@@ -13,12 +13,12 @@
             <div class="ez-header">
                 <div class="container">
                     {% include '@ezdesign/parts/breadcrumbs.html.twig' with { items: [
-                        { value: 'path.collections'|trans, url: path('content_variables.collection.list') },
-                        { value: 'path.variables'|trans, url: path('content_variables.list', {'id': variable.collection.id}) },
-                        { value: 'path.linked_content'|trans },
+                        { value: 'path.root'|trans, url: path('content_variables.collection.list') },
+                        { value: variable.collection.name, url: path('content_variables.list', {'id': variable.collection.id}) },
+                        { value: variable.name },
                     ]} %}
                     {% include '@ezdesign/parts/page_title.html.twig' with {
-                        title: 'variables.linked_content.title'|trans({'%name%': variable.name|truncate(50) }),
+                        title: 'title.variable.linked_content'|trans({'%name%': variable.name|truncate(50) }),
                         iconName: 'view-custom'
                     } %}
                 </div>

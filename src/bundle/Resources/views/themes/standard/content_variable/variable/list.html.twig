@@ -13,11 +13,11 @@
             <div class="ez-header">
                 <div class="container">
                     {% include '@ezdesign/parts/breadcrumbs.html.twig' with { items: [
-                        { value: 'path.collections'|trans, url: path('content_variables.collection.list') },
-                        { value: 'path.variables'|trans },
+                        { value: 'path.root'|trans, url: path('content_variables.collection.list') },
+                        { value: collection.name }
                     ]} %}
                     {% include '@ezdesign/parts/page_title.html.twig' with {
-                        title: 'variables.title'|trans,
+                        title: collection.name,
                         iconName: 'keyword'
                     } %}
                 </div>
@@ -26,7 +26,7 @@
             {% set form_id = 'variables_bulk_actions' %}
             <section class="container mt-4 px-5">
                 <div class="ez-table-header">
-                    <div class="ez-table-header__headline">{{ 'variables.title'|trans }}</div>
+                    <div class="ez-table-header__headline">{{ 'title.variables'|trans }}</div>
                     <div>
                         {% include '@ezdesign/content_variable/buttons/new.html.twig' with {
                             'title': 'variables.new'|trans,

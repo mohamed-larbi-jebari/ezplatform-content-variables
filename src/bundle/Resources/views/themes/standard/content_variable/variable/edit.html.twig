@@ -4,7 +4,8 @@
 
 {% trans_default_domain "content_variables" %}
 
-{% set breadcrumbsTitle = variable.isNew ? 'variable.new'|trans : 'variable.edit'|trans({'%name%': variable.name|truncate(50) }) %}
+{% set pathTitle = variable.isNew ? 'path.variable.new'|trans : 'path.variable.edit'|trans({'%name%': variable.name|truncate(50) }) %}
+{% set pageTitle = variable.isNew ? 'title.variable.new'|trans : 'title.variable.edit'|trans({'%name%': variable.name|truncate(50) }) %}
 {% block content %}
     <div class="row align-items-stretch ez-main-row">
         {% block left_sidebar %}
@@ -15,13 +16,13 @@
             <div class="ez-header">
                 <div class="container">
                     {% include '@ezdesign/parts/breadcrumbs.html.twig' with { items: [
-                        { value: 'path.collections'|trans, url: path('content_variables.collection.list') },
-                        { value: 'path.variables'|trans, url: path('content_variables.list', {'id': collection.id}) },
-                        { value: breadcrumbsTitle }
+                        { value: 'path.root'|trans, url: path('content_variables.collection.list') },
+                        { value: collection.name, url: path('content_variables.list', {'id': collection.id}) },
+                        { value: pathTitle }
                     ]} %}
 
                     {% include '@ezdesign/parts/page_title.html.twig' with {
-                        title: breadcrumbsTitle,
+                        title: pageTitle,
                         iconName: 'keyword'
                     } %}
                 </div>
