@@ -30,12 +30,15 @@ class VariableController extends BaseController
      */
     public function listAction(Request $request, Collection $collection): Response
     {
-        $variables = $this->variableHandler->findByCollection($collection);
+        $collectionVariables = $this->variableHandler->findByCollection($collection);
+        $pagination = $this->getPagination($request, $collectionVariables);
+
+        $variables = $pagination->getCurrentPageResults();
         foreach ($variables as $variable) {
             $this->variableHandler->countLinkedContent($variable);
         }
 
-        $form = $this->formFactory->variablesBulkActions($collection);
+        $form = $this->formFactory->variablesBulkActions($variables);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $result = $this->handleBulkAction($form);
@@ -47,6 +50,7 @@ class VariableController extends BaseController
         }
 
         $params = [
+            'pager' => $pagination,
             'variables' => $variables,
             'collection' => $collection,
             'form' => $form->createView(),

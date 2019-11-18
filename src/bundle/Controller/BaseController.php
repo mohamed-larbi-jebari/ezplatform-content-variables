@@ -12,7 +12,11 @@ use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
 use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
 use EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface;
 use EzSystems\EzPlatformAdminUiBundle\Controller\Controller;
+use EzSystems\EzPlatformUser\UserSetting\UserSettingService;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -40,6 +44,9 @@ abstract class BaseController extends Controller
     /** @var AuthorizationChecker */
     protected $authorizationChecker;
 
+    /** @var integer */
+    protected $paginationLimit;
+
     /** @var string */
     protected $entityName;
 
@@ -50,7 +57,8 @@ abstract class BaseController extends Controller
         NotificationHandlerInterface $notificationHandler,
         TranslatorInterface $translator,
         SubmitHandler $submitHandler,
-        AuthorizationChecker $authorizationChecker
+        AuthorizationChecker $authorizationChecker,
+        UserSettingService $userSettingService
     ) {
         $this->collectionHandler = $collectionHandler;
         $this->variableHandler = $variableHandler;
@@ -59,6 +67,7 @@ abstract class BaseController extends Controller
         $this->translator = $translator;
         $this->submitHandler = $submitHandler;
         $this->authorizationChecker = $authorizationChecker;
+        $this->paginationLimit = (int) $userSettingService->getUserSetting('subitems_limit')->value;
 
         $this->performSecurityAccessCheck();
     }
@@ -133,6 +142,19 @@ abstract class BaseController extends Controller
     protected function getTranslatedMessage(string $key, array $params = []): string
     {
         return $this->translator->trans($key, $params, 'content_variables');
+    }
+
+    protected function getPagination(Request $request, array $items): Pagerfanta
+    {
+        $page = $request->query->get('page') ?? 1;
+
+        $pagination = new Pagerfanta(
+            new ArrayAdapter($items)
+        );
+        $pagination->setMaxPerPage($this->paginationLimit);
+        $pagination->setCurrentPage(min($page, $pagination->getNbPages()));
+
+        return $pagination;
     }
 
     abstract protected function getEntityHandler(): EntityHandler;

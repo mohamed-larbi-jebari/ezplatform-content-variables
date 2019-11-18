@@ -54,10 +54,8 @@ class FormFactory
         );
     }
 
-    public function variablesBulkActions(Collection $collection): FormInterface
+    public function variablesBulkActions(array $variables): FormInterface
     {
-        $variables = $this->variableHandler->findByCollection($collection);
-
         return $this->formFactory->createNamed(
             'variables_bulk_actions',
             VariablesBulkActions::class,

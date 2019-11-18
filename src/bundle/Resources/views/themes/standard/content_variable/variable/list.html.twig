@@ -107,6 +107,18 @@
                         </tbody>
                     </table>
                     {{ form_end(form) }}
+                    <div class="row justify-content-center align-items-center mb-2">
+                        <span class="ez-pagination__text">
+                            {{ 'pagination.viewing'|trans({
+                                '%viewing%': pager.currentPageResults|length,
+                                '%total%': pager.nbResults}, 'pagination')|raw }}
+                        </span>
+                    </div>
+                    {% if pager.haveToPaginate %}
+                        <div class="row justify-content-center align-items-center ez-pagination__btn mb-5">
+                            {{ pagerfanta(pager, 'ez') }}
+                        </div>
+                    {% endif %}
                 {% else %}
                     <p class="ez-table-no-content">{{ 'variable.no_items'|trans }}</p>
                 {% endif %}

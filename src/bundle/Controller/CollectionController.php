@@ -25,7 +25,9 @@ class CollectionController extends BaseController
      */
     public function listAction(Request $request): Response
     {
-        $collections = $this->collectionHandler->findAll();
+        $pagination = $this->getPagination($request, $this->collectionHandler->findAll());
+        $collections = $pagination->getCurrentPageResults();
+
         $form = $this->formFactory->collectionsBulkActions($collections);
 
         $form->handleRequest($request);
@@ -39,6 +41,7 @@ class CollectionController extends BaseController
         }
 
         $params = [
+            'pager' => $pagination,
             'collections' => $collections,
             'form' => $form->createView(),
         ];
