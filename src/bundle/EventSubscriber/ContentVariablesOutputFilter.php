@@ -55,6 +55,7 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
         return [
             'ez_urlalias',
             '_ezpublishLocation',
+            '_ezpublishPreviewContent',
         ];
     }
 
