@@ -16,9 +16,10 @@
                         { value: 'path.root'|trans, url: path('content_variables.collection.list') },
                         { value: 'path.bulk_edit'|trans }
                     ]} %}
-                    {% include '@ezdesign/parts/page_title.html.twig' with {
+                    {% include '@ezdesign/content_variable/parts/page_title.html.twig' with {
                         title: 'title.bulk_edit'|trans,
-                        iconName: 'edit'
+                        iconsFile: 'bundles/ezplatformcontentvariables/img/icons.svg',
+                        iconName: 'edit-bulk',
                     } %}
                 </div>
             </div>

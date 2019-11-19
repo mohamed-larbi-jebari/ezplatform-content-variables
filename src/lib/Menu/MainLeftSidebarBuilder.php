@@ -46,7 +46,7 @@ class MainLeftSidebarBuilder extends AbstractBuilder implements TranslationConta
                 [
                     'route' => 'content_variables.bulk_edit',
                     'extras' => [
-                        'icon' => 'edit',
+                        'icon_path' => '/bundles/ezplatformcontentvariables/img/icons.svg#edit-bulk',
                         'routes' => [
                             'content_variables.bulk_edit',
                         ],
