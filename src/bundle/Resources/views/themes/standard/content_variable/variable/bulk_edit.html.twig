@@ -48,7 +48,7 @@
                         </div>
                         <div id="content-variables-bulk-edit-{{ collection.id }}" class="{{ isCollapsed ? 'collapse' : 'show' }}">
                             {% if hasVariables %}
-                                <table class="ez-table table mb-3">
+                                <table class="ez-table table mb-0">
                                     <thead>
                                         <tr>
                                             <th>{{ 'variable.name'|trans }}</th>
@@ -80,7 +80,7 @@
                                     </tbody>
                                 </table>
                             {% else %}
-                                <p class="ez-table-no-content">{{ 'variable.no_items'|trans }}</p>
+                                <p class="ez-table-no-content mb-0">{{ 'variable.no_items'|trans }}</p>
                             {% endif %}
                         </div>
                     {% endfor %}
