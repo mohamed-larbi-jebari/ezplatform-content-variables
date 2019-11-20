@@ -97,6 +97,10 @@
                                     {% endif %}
                                 </td>
                                 <td class="ez-table__cell ez-table__cell--has-action-btns text-right">
+                                    {% include '@ezdesign/content_variable/buttons/linked_content.html.twig' with {
+                                        'title': 'variable.content'|trans,
+                                        'href': path('content_variables.linked_content', {'id': variable.id}),
+                                    } %}
                                     {% include '@ezdesign/content_variable/buttons/edit.html.twig' with {
                                         'title': 'variable.edit'|trans({'%name%': collection.name|truncate(50) }),
                                         'href': path('content_variables.edit', {'id': variable.id}),
