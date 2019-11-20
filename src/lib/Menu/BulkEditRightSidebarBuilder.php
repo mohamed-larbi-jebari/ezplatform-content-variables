@@ -10,6 +10,7 @@ use Knp\Menu\ItemInterface;
 class BulkEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     private const ITEM__SAVE = 'content_variable_bulk_edit__sidebar_right__save';
+    private const ITEM__CANCEL = 'content_variable_bulk_edit__sidebar_right__cancel';
 
     protected function getConfigureEventName(): string
     {
@@ -30,6 +31,13 @@ class BulkEditRightSidebarBuilder extends AbstractBuilder implements Translation
                         'data-click' => '#variables-update',
                     ],
                     'extras' => ['icon' => 'save'],
+                ]
+            ),
+            self::ITEM__CANCEL => $this->createMenuItem(
+                self::ITEM__CANCEL,
+                [
+                    'route' => 'content_variables.bulk_edit',
+                    'extras' => ['icon' => 'circle-close'],
                 ]
             ),
         ]);

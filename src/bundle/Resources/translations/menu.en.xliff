@@ -41,6 +41,11 @@
                 <target>Save</target>
                 <note>key: content_variable_bulk_edit__sidebar_right__save</note>
             </trans-unit>
+            <trans-unit id="aab2a90f8ebd8fc9217923f94ac56bdda3aaf221" resname="content_variable_bulk_edit__sidebar_right__cancel">
+                <source>Discard changes</source>
+                <target>Discard changes</target>
+                <note>key: content_variable_bulk_edit__sidebar_right__cancel</note>
+            </trans-unit>
         </body>
   </file>
 </xliff>
