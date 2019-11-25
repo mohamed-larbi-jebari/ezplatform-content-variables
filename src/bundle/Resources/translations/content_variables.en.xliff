@@ -263,10 +263,24 @@
                 <note>key: variable.missing_callback.warning</note>
             </trans-unit>
             <trans-unit id="cca21aeef4da2c941f923fddacc2abb9add231" resname="bulk_edit.no_items">
-            privacy policy%link_end%
                 <source>There are no content variables. Start by %link_start%creating a new collection%link_end% and adding some content variables</source>
                 <target>There are no content variables. Start by %link_start%creating a new collection%link_end% and adding some content variables</target>
                 <note>key: bulk_edit.no_items</note>
+            </trans-unit>
+            <trans-unit id="cca21a5ef4da2c421f923fd33312a4b9add231" resname="variable.related_content.content_status.1">
+                <source>Published</source>
+                <target>Published</target>
+                <note>key: variable.related_content.content_status.1</note>
+            </trans-unit>
+            <trans-unit id="cca2142ef4da2c421fa23fd33312a4b9add231" resname="variable.related_content.content_status.3">
+                <source>Archived</source>
+                <target>Archived</target>
+                <note>key: variable.related_content.content_status.3</note>
+            </trans-unit>
+            <trans-unit id="cca21a5ef4da222a1f923fd33312a4b9add232" resname="variable.related_content.content_status.0">
+                <source>Draft</source>
+                <target>Draft</target>
+                <note>key: variable.related_content.content_status.0</note>
             </trans-unit>
         </body>
   </file>

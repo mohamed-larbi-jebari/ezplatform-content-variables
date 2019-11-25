@@ -24,34 +24,64 @@
                 </div>
             </div>
 
-            <section class="container mt-4 px-5">
-                {% if linked_content|length > 0 %}
-                    <table class="ez-table table mb-3">
-                        <thead>
-                            <tr>
-                                <th>{{ 'variable.related_content.name'|trans }}</th>
-                                <th>{{ 'variable.related_content.version'|trans }}</th>
-                                <th>{{ 'variable.related_content.field'|trans }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {% for item in linked_content %}
-                            <tr>
-                                <td class="ez-table__cell">
-                                    <a href="{{ path('_ez_content_view', {'contentId': item.content.id}) }}" target="_blank">{{ item.content.name }}</a>
-                                </td>
-                                <td class="ez-table__cell">
-                                    <a href="{{ path('ezplatform.content.preview', {'contentId': item.content.id, 'versionNo': item.content.versionInfo.versionNo, 'languageCode': item.content.versionInfo.languageCodes[0]}) }}" target="_blank">{{ item.content.versionInfo.versionNo }}</a>
-                                </td>
-                                <td class="ez-table__cell">{{ item.field_name }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                {% else %}
-                    <p class="ez-table-no-content">{{ 'variable.related_content.no_items'|trans }}</p>
-                {% endif %}
-            </section>
+            {% for status, items in linked_content %}
+                {% set isCollapsed = status != 1 %}
+                <section class="container mt-4 px-5">
+                    <div class="ez-table-header">
+                        <div class="ez-table-header__headline">{{ ('variable.related_content.content_status.' ~ status)|trans }}</div>
+                        <div>
+                            {% include '@ezdesign/content_variable/buttons/collapse.html.twig' with {
+                                'containerId': 'content-items-' ~ status,
+                                'isCollapsed': isCollapsed
+                            } %}
+                        </div>
+                    </div>
+
+                    <div id="content-items-{{ status }}" class="{{ isCollapsed ? 'collapse' : 'show' }}">
+                        {% if items|length > 0 %}
+                            <table class="ez-table table mb-3">
+                                <thead>
+                                    <tr>
+                                        <th>{{ 'variable.related_content.name'|trans }}</th>
+                                        <th>{{ 'variable.related_content.version'|trans }}</th>
+                                        <th>{{ 'variable.related_content.field'|trans }}</th>
+                                        <th/>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in items %}
+                                    <tr>
+                                        <td class="ez-table__cell">
+                                            <a href="{{ path('_ez_content_view', {'contentId': item.content.id}) }}" target="_blank">{{ item.content.name }}</a>
+                                        </td>
+                                        <td class="ez-table__cell">{{ item.content.versionInfo.versionNo }}</td>
+                                        <td class="ez-table__cell">
+                                            {% for field in item.fields %}
+                                                {{ field.name }}
+                                                {% if not loop.last %},{% endif %}
+                                            {% endfor %}
+                                        </td>
+                                        <td class="ez-table__cell ez-table__cell--has-action-btns text-right">
+                                            <a href="{{ path('ezplatform.content.preview', {'contentId': item.content.id, 'versionNo': item.content.versionInfo.versionNo, 'languageCode': item.content.versionInfo.languageCodes[0]}) }}" target="_blank" class="btn btn-icon mx-3">
+                                                <svg class="ez-icon ez-icon--secondary">
+                                                    <use xlink:href="{{ asset('bundles/ezplatformadminui/img/ez-icons.svg') }}#view"/>
+                                                </svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <p class="ez-table-no-content">{{ 'variable.related_content.no_items'|trans }}</p>
+                        {% endif %}
+                    </div>
+                </section>
+            {% endfor %}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('ezplatform-content-variables-related-content-js', null, 'ezplatform') }}
 {% endblock %}

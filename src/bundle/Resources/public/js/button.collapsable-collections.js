@@ -22,13 +22,20 @@ import Cookies from './universalCookie.min';
                 collapsedItemIds.splice(index, 1);
             }
         }
-        storeCollapsedItemIds(button, collapsedItemIds);
+
+        if (itemId) {
+            storeCollapsedItemIds(button, collapsedItemIds);
+        }
     };
 
     const getCollapsedItemIds = (button) => {
         const cookies = new Cookies();
         const cookieVariable = button.getAttribute('data-cookie-variable');
         const cookieSeparator = button.getAttribute('data-cookie-separator');
+
+        if (cookieVariable === '') {
+            return [];
+        }
 
         return cookies.get(cookieVariable)
             ? cookies.get(cookieVariable).split(cookieSeparator)

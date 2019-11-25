@@ -14,6 +14,7 @@ use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler as TypeHandler;
 use eZ\Publish\SPI\Persistence\Content\Type;
 
@@ -100,22 +101,55 @@ class Variable extends Handler
         $fieldNames = [];
         $result = $query->execute();
         while ($row = $result->fetch()) {
-            $id = (int)$row['contentobject_id'];
-            $version = (int)$row['version'];
+            $id = (int) $row['contentobject_id'];
+            $version = (int) $row['version'];
             $content = $this->contentService->loadContent($id, null, $version);
 
-            $fieldId = (int)$row['contentclassattribute_id'];
+            $fieldId = (int) $row['contentclassattribute_id'];
             if (!isset($fieldNames[$fieldId])) {
                 $fieldNames[$fieldId] = $this->getFieldName($fieldId);
             }
 
             $linkedContent[] = [
                 'content' => $content,
-                'field_name' => $fieldNames[$fieldId],
+                'field' => [
+                    'id' => $fieldId,
+                    'name' => $fieldNames[$fieldId],
+                ],
             ];
         }
 
         return $linkedContent;
+    }
+
+    public function linkedContentInfoGrouped(VariableEntity $variable): array
+    {
+        $return = [
+            VersionInfo::STATUS_PUBLISHED => [],
+            VersionInfo::STATUS_ARCHIVED => [],
+            VersionInfo::STATUS_DRAFT => [],
+        ];
+
+        $linkedContent = $this->linkedContentInfo($variable);
+        foreach ($linkedContent as $link) {
+            $key = $link['content']->id . '-' . $link['content']->versionInfo->versionNo;
+            $status = $link['content']->versionInfo->status;
+
+            if (isset($return[$status]) === false) {
+                continue;
+            }
+
+            if (isset($return[$status][$key]) === false) {
+                $return[$status][$key] = [
+                    'content' => $link['content'],
+                    'fields' => [$link['field']],
+                ];
+            } else {
+                $return[$status][$key]['fields'][] = $link['field'];
+            }
+        }
+
+        return $return;
     }
 
     protected function getFieldName(int $id): string

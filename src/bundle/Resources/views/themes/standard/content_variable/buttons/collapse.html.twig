@@ -4,9 +4,9 @@
     role="button"
     aria-expanded="{{ isCollapsed ? 'false' : 'true' }}"
     href="#{{ containerId }}"
-    data-cookie-variable="{{ cookieVariable }}"
-    data-cookie-separator="{{ cookieSeparator }}"
-    data-item-id="{{ itemId }}"
+    data-cookie-variable="{{ cookieVariable|default(false) }}"
+    data-cookie-separator="{{ cookieSeparator|default(false) }}"
+    data-item-id="{{ itemId|default('') }}"
 >
     <svg class="ez-icon collapse-show"{% if not isCollapsed %} hidden{% endif %}>
         <use xlink:href="{{ asset('bundles/ezplatformadminui/img/ez-icons.svg') }}#caret-down"/>

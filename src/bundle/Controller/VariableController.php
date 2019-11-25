@@ -2,6 +2,7 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\Controller;
 
+use eZ\Publish\API\Repository\Values\Content\VersionInfo;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\VariableValues;
@@ -113,7 +114,7 @@ class VariableController extends BaseController
      */
     public function linkedContentAction(Variable $variable): Response
     {
-        $linkedContentInfo = $this->variableHandler->linkedContentInfo($variable);
+        $linkedContentInfo = $this->variableHandler->linkedContentInfoGrouped($variable);
 
         $params = [
             'variable' => $variable,
