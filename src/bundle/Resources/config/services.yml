@@ -22,6 +22,9 @@ services:
         arguments: ['@ContextualCode\EzPlatformContentVariables\Variable\Value\Processor']
         tags: [form.type]
 
+    ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Collection: ~
+    ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Variable: ~
+
     ContextualCode\EzPlatformContentVariables\Menu\MainLeftSidebarBuilder:
         tags:
             - { name: knp_menu.menu_builder, method: build, alias: content_variables.menu.main.sidebar_left }
