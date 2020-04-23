@@ -3,7 +3,7 @@
 namespace ContextualCode\EzPlatformContentVariablesBundle\REST\Values;
 
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection as CollectionEntity;
-use eZ\Publish\Core\REST\Common\Value as RestValue;
+use EzSystems\EzPlatformRest\Value as RestValue;
 
 class Collection extends RestValue
 {

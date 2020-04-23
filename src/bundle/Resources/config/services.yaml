@@ -3,6 +3,8 @@ services:
         autowire: true
         autoconfigure: true
         public: false
+        bind:
+            $typeHandler: '@ezpublish.spi.persistence.legacy.content_type.handler.inner'
 
     ContextualCode\EzPlatformContentVariablesBundle\Controller\:
         resource: '../../Controller'
@@ -24,6 +26,7 @@ services:
 
     ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Collection: ~
     ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Variable: ~
+    ContextualCode\EzPlatformContentVariablesBundle\Form\Factory\FormFactory: ~
 
     ContextualCode\EzPlatformContentVariables\Menu\MainLeftSidebarBuilder:
         tags:

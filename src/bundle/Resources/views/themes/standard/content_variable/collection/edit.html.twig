@@ -1,11 +1,11 @@
 {% extends '@ezdesign/content_variable/layout.html.twig' %}
 
-{% form_theme form '@ezdesign/form_fields.html.twig' %}
+{% form_theme form '@ezdesign/ui/form_fields.html.twig' %}
 
 {% trans_default_domain "content_variables" %}
 
-{% set pathTitle = collection.isNew ? 'path.collection.new'|trans : 'path.collection.edit'|trans({'%name%': collection.name|truncate(50) }) %}
-{% set pageTitle = collection.isNew ? 'title.collection.new'|trans : 'title.collection.edit'|trans({'%name%': collection.name|truncate(50) }) %}
+{% set pathTitle = collection.isNew ? 'path.collection.new'|trans : 'path.collection.edit'|trans({'%name%': collection.name|u.truncate(50) }) %}
+{% set pageTitle = collection.isNew ? 'title.collection.new'|trans : 'title.collection.edit'|trans({'%name%': collection.name|u.truncate(50) }) %}
 {% block content %}
     <div class="row align-items-stretch ez-main-row">
         {% block left_sidebar %}
@@ -15,7 +15,7 @@
         <div class="px-0 pb-4 ez-content-container">
             <div class="ez-header">
                 <div class="container">
-                    {% include '@ezdesign/parts/breadcrumbs.html.twig' with { items: [
+                    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
                         { value: 'path.root'|trans, url: path('content_variables.collection.list') },
                         { value: pathTitle }
                     ]} %}
@@ -47,7 +47,7 @@
             <div class="ez-sticky-container">
                 {% set sidebar_right = knp_menu_get('content_variables.menu.collection_edit.sidebar_right', [], {}) %}
                 {{ knp_menu_render(sidebar_right, {
-                    'template': '@ezdesign/parts/menu/sidebar_right.html.twig'
+                    'template': '@ezdesign/ui/menu/sidebar_right.html.twig'
                 }) }}
             </div>
         </div>

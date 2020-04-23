@@ -9,18 +9,15 @@ This bundle provides a way to manage content variables. Basically, those are pla
    composer require contextualcode/ezplatform-content-variables
     ```
    
-2. Activate the bundle in `app/AppKernel.php`:
+2. Activate the bundle in `config/bundles.php`:
     ```php
-    $bundles = [
-       ...
-       new ContextualCode\EzPlatformContentVariablesBundle\EzPlatformContentVariablesBundle(),
-    ];
+    ContextualCode\EzPlatformContentVariablesBundle\EzPlatformContentVariablesBundle::class =>  ['all' => true],
     ```
 
-3. Add bundle routes in `app/config/routing.yml`:
+3. Add bundle routes in `config/routes/ezplatform_content_variables.yaml`:
     ```yaml
     content_variables:
-        resource: "@EzPlatformContentVariablesBundle/Resources/config/routing.yml"
+        resource: "@EzPlatformContentVariablesBundle/Resources/config/routing.yaml"
     ```
 
 4. Run the migrations:

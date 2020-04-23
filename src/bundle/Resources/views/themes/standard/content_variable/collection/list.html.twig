@@ -12,7 +12,7 @@
         <div class="px-0 pb-4 ez-content-container">
             <div class="ez-header">
                 <div class="container">
-                    {% include '@ezdesign/parts/breadcrumbs.html.twig' with { items: [
+                    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
                         { value: 'path.root'|trans, url: path('content_variables.collection.list') },
                         { value: 'path.collections'|trans }
                     ]} %}
@@ -89,7 +89,7 @@
                                 <td class="ez-table__cell">{{ collection.description }}</td>
                                 <td class="ez-table__cell ez-table__cell--has-action-btns text-right">
                                     {% include '@ezdesign/content_variable/buttons/edit.html.twig' with {
-                                        'title': 'collection.edit'|trans({'%name%': collection.name|truncate(50) }),
+                                        'title': 'collection.edit'|trans({'%name%': collection.name|u.truncate(50) }),
                                         'href': path('content_variables.collection.edit', {'id': collection.id}),
                                     } %}
                                 </td>

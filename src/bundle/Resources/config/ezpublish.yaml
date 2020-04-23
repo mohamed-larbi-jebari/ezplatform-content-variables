@@ -1,0 +1,14 @@
+system:
+    admin_group:
+        fieldtypes:
+            ezrichtext:
+                toolbars:
+                    text: &content-variables
+                        buttons:
+                            contentvariableinsert:
+                                priority: 0
+                    formatted: *content-variables
+                    heading: *content-variables
+                    paragraph: *content-variables
+                    li: *content-variables
+                    td: *content-variables

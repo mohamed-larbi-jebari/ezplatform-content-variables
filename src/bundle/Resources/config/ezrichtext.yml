@@ -1,9 +1,0 @@
-alloy_editor:
-    extra_plugins: [content-variables]
-    extra_buttons:
-        formatted: [content-variable-insert]
-        heading: [content-variable-insert]
-        paragraph: [content-variable-insert]
-        text: [content-variable-insert]
-        li: [content-variable-insert]
-        td: [content-variable-insert]

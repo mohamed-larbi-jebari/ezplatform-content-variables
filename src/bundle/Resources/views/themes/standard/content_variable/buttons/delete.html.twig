@@ -14,7 +14,7 @@
         <use xlink:href="{{ asset('bundles/ezplatformadminui/img/ez-icons.svg') }}#trash"/>
     </svg>
 </button>
-{% include '@ezdesign/admin/bulk_delete_confirmation_modal.html.twig' with {
+{% include '@ezdesign/ui/modal/bulk_delete_confirmation.html.twig' with {
     'id': modal_data_target,
     'message': message,
     'data_click': '#' ~ form_id ~ '_do_action',

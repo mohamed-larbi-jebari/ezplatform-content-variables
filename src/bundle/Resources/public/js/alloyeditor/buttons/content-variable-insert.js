@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AlloyEditor from 'alloyeditor';
-import EzWidgetButton from './../../../../../../../../../ezsystems/ezplatform-admin-ui/src/bundle/Resources/public/js/alloyeditor/src/base/ez-widgetbutton';
+import EzWidgetButton from './../../../../../../../../../ezsystems/ezplatform-richtext/src/bundle/Resources/public/js/OnlineEditor/buttons/base/ez-widgetbutton';
 import ContentVariablesModal from '../modals/content-variables';
 
 export default class BtnContentVariableInsert extends EzWidgetButton {
     static get key() {
-        return 'content-variable-insert';
+        return 'contentvariableinsert';
     }
 
     constructor(props) {
@@ -71,6 +71,12 @@ export default class BtnContentVariableInsert extends EzWidgetButton {
 }
 
 AlloyEditor.Buttons[BtnContentVariableInsert.key] = AlloyEditor.BtnContentVariableInsert = BtnContentVariableInsert;
+
+const eZ = (window.eZ = window.eZ || {});
+
+eZ.ezAlloyEditor = eZ.ezAlloyEditor || {};
+eZ.ezAlloyEditor.btnContentVariableInsert = BtnContentVariableInsert;
+
 BtnContentVariableInsert.defaultProps = {
     command: 'content-variable',
     modifiesSelection: true,

@@ -1,4 +1,4 @@
-import EzConfigBase from './../../../../../../../../../ezsystems/ezplatform-admin-ui/src/bundle/Resources/public/js/alloyeditor/src/toolbars/config/base';
+import EzConfigBase from './../../../../../../../../../ezsystems/ezplatform-richtext/src/bundle/Resources/public/js/OnlineEditor/toolbars/config/base';
 
 export default class ContentVariableEditConfig extends EzConfigBase {
     constructor(config) {
@@ -21,5 +21,11 @@ export default class ContentVariableEditConfig extends EzConfigBase {
         return !!(widget && widget.name === 'content-variable');
     }
 }
+
+const eZ = (window.eZ = window.eZ || {});
+
+eZ.ezAlloyEditor = eZ.ezAlloyEditor || {};
+eZ.ezAlloyEditor.customSelections = eZ.ezAlloyEditor.customSelections || {};
+eZ.ezAlloyEditor.customSelections.contentVariableEdit = ContentVariableEditConfig;
 
 eZ.addConfig('ezAlloyEditor.customSelections.contentVariableEdit', ContentVariableEditConfig);

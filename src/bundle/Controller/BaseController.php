@@ -18,8 +18,8 @@ use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class BaseController extends Controller
 {
@@ -41,7 +41,7 @@ abstract class BaseController extends Controller
     /** @var SubmitHandler */
     protected $submitHandler;
 
-    /** @var AuthorizationChecker */
+    /** @var AuthorizationCheckerInterface */
     protected $authorizationChecker;
 
     /** @var integer */
@@ -57,7 +57,7 @@ abstract class BaseController extends Controller
         NotificationHandlerInterface $notificationHandler,
         TranslatorInterface $translator,
         SubmitHandler $submitHandler,
-        AuthorizationChecker $authorizationChecker,
+        AuthorizationCheckerInterface $authorizationChecker,
         UserSettingService $userSettingService
     ) {
         $this->collectionHandler = $collectionHandler;
@@ -67,7 +67,7 @@ abstract class BaseController extends Controller
         $this->translator = $translator;
         $this->submitHandler = $submitHandler;
         $this->authorizationChecker = $authorizationChecker;
-        $this->paginationLimit = (int) $userSettingService->getUserSetting('subitems_limit')->value;
+        $this->paginationLimit = (int)$userSettingService->getUserSetting('subitems_limit')->value;
 
         $this->performSecurityAccessCheck();
     }

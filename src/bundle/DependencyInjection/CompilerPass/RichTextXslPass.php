@@ -15,7 +15,7 @@ final class RichTextXslPass implements CompilerPassInterface
             $container->getParameter('ezpublish.siteaccess.list')
         );
         $configs = [
-            'input_custom_xsl' => ['xhtml5/input/content_variable.xsl'],
+            // 'input_custom_xsl' => ['xhtml5/input/content_variable.xsl'], - disabled while full override in place
             'edit_custom_xsl' => ['xhtml5/edit/content_variable.xsl'],
             'output_custom_xsl' => ['xhtml5/output/content_variable.xsl'],
         ];

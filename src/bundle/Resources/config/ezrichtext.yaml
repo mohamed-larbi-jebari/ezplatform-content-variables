@@ -1,0 +1,2 @@
+alloy_editor:
+    extra_plugins: [content-variables]

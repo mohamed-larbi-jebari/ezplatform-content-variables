@@ -57,3 +57,8 @@ class BtnContentVariableEdit extends BtnContentVariableInsert {
 }
 
 AlloyEditor.Buttons[BtnContentVariableEdit.key] = AlloyEditor.BtnContentVariableEdit = BtnContentVariableEdit;
+
+const eZ = (window.eZ = window.eZ || {});
+
+eZ.ezAlloyEditor = eZ.ezAlloyEditor || {};
+eZ.ezAlloyEditor.btnContentVariableEdit = BtnContentVariableEdit;

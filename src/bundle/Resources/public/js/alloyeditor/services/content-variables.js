@@ -1,8 +1,8 @@
-import { showErrorNotification } from './../../../../../../../../../ezsystems/ezplatform-admin-ui-modules/src/modules/common/services/notification.service';
+import { showErrorNotification } from './../../../../../../../../../ezsystems/ezplatform-admin-ui/src/bundle/ui-dev/src/modules/common/services/notification.service';
 import {
     getBasicRequestInit,
     handleRequestResponse,
-} from './../../../../../../../../../ezsystems/ezplatform-admin-ui-modules/src/modules/common/helpers/request.helper.js';
+} from './../../../../../../../../../ezsystems/ezplatform-admin-ui/src/bundle/ui-dev/src/modules/common/helpers/request.helper.js';
 import ResponseCache from './../helpers/response.cache';
 
 const ENDPOINT_COLLECTIONS = '/api/ezp/v2/content_variable_collection/list';

@@ -1,4 +1,0 @@
-parameters:
-    ezrichtext.validator.docbook.resources:
-        - "%kernel.root_dir%/../vendor/contextualcode/ezplatform-content-variables/src/bundle/Resources/schemas/docbook/ezpublish.rng"
-        - "%ezrichtext.resources%/schemas/docbook/docbook.iso.sch.xsl"

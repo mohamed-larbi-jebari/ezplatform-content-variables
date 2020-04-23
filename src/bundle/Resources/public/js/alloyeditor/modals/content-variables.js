@@ -4,7 +4,7 @@ import { loadCollections } from '../services/content-variables';
 import Modal from '../components/modal';
 import ModalSelect from '../components/modal.select';
 
-import { showErrorNotification } from './../../../../../../../../../ezsystems/ezplatform-admin-ui-modules/src/modules/common/services/notification.service';
+import { showErrorNotification } from './../../../../../../../../../ezsystems/ezplatform-admin-ui/src/bundle/ui-dev/src/modules/common/services/notification.service';
 
 export default class ContentVariablesModal extends Component {
     constructor(props) {

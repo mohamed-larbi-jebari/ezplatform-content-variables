@@ -6,9 +6,9 @@ use ContextualCode\EzPlatformContentVariablesBundle\REST\Values\CollectionList;
 use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Collection as CollectionHandler;
 use Exception;
 use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use eZ\Publish\Core\REST\Server\Controller as RestController;
+use EzSystems\EzPlatformRest\Server\Controller as RestController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -19,12 +19,12 @@ class Collection extends RestController
     /** @var CollectionHandler */
     protected $collectionHandler;
 
-    /** @var AuthorizationChecker */
+    /** @var AuthorizationCheckerInterface */
     protected $authorizationChecker;
 
     public function __construct(
         CollectionHandler $collectionHandler,
-        AuthorizationChecker $authorizationChecker
+        AuthorizationCheckerInterface $authorizationChecker
     ) {
         $this->collectionHandler = $collectionHandler;
         $this->authorizationChecker = $authorizationChecker;

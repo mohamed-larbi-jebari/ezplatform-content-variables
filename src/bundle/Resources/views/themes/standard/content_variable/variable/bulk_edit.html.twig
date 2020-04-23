@@ -12,7 +12,7 @@
         <div class="px-0 pb-4 ez-content-container">
             <div class="ez-header">
                 <div class="container">
-                    {% include '@ezdesign/parts/breadcrumbs.html.twig' with { items: [
+                    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
                         { value: 'path.root'|trans, url: path('content_variables.collection.list') },
                         { value: 'path.bulk_edit'|trans }
                     ]} %}
@@ -98,7 +98,7 @@
             <div class="ez-sticky-container">
                 {% set sidebar_right = knp_menu_get('content_variables.menu.bulk_edit.sidebar_right', [], {}) %}
                 {{ knp_menu_render(sidebar_right, {
-                    'template': '@ezdesign/parts/menu/sidebar_right.html.twig'
+                    'template': '@ezdesign/ui/menu/sidebar_right.html.twig'
                 }) }}
             </div>
         </div>

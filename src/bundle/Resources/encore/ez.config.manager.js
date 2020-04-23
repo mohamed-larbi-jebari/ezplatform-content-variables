@@ -30,7 +30,7 @@ module.exports = (eZConfig, eZConfigManager) => {
     ];
     eZConfigManager.add({
         eZConfig,
-        entryName: 'ezplatform-admin-ui-alloyeditor-js',
+        entryName: 'ezplatform-richtext-onlineeditor-js',
         newItems: [
             path.resolve(__dirname, '../public/js/alloyeditor/buttons/content-variable-insert.js'),
             path.resolve(__dirname, '../public/js/alloyeditor/buttons/content-variable-edit.js'),
@@ -38,12 +38,12 @@ module.exports = (eZConfig, eZConfigManager) => {
             path.resolve(__dirname, '../public/js/alloyeditor/plugins/content-variables.js'),
         ]
     });
-    eZConfigManager.replace({
-        eZConfig,
-        entryName: 'ezplatform-admin-ui-alloyeditor-js',
-        itemToReplace: path.resolve(__dirname, eZAdminUIPath + 'js/scripts/fieldType/base/base-rich-text.js'),
-        newItem: path.resolve(__dirname, '../public/js/scripts/fieldType/base/base-rich-text.js'),
-    });
+    // eZConfigManager.replace({
+    //     eZConfig,
+    //     entryName: 'ezplatform-admin-ui-alloyeditor-js',
+    //     itemToReplace: path.resolve(__dirname, eZAdminUIPath + 'js/scripts/fieldType/base/base-rich-text.js'),
+    //     newItem: path.resolve(__dirname, '../public/js/scripts/fieldType/base/base-rich-text.js'),
+    // });
     eZConfigManager.add({
         eZConfig,
         entryName: 'ezplatform-admin-ui-layout-css',
