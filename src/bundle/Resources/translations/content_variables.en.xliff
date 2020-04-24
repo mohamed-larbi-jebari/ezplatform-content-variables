@@ -86,10 +86,20 @@
                 <target>There are no collections</target>
                 <note>key: collections.no_items</note>
             </trans-unit>
+            <trans-unit id="1e3ea4d8ebd811141f923f94ac56bddaaddaafe" resname="collection.new">
+                <source>New collection</source>
+                <target>New collection</target>
+                <note>key: variables.new</note>
+            </trans-unit>
             <trans-unit id="4f04e19e68e7ce4a6948c0b95eddde28900b274a" resname="collection.new.success">
                 <source>Collection "%name%" created</source>
                 <target>Collection "%name%" created</target>
                 <note>key: collection.new.success</note>
+            </trans-unit>
+            <trans-unit id="1e3ea4d8ebd811141f923f94ac56b1da51da2аe" resname="collection.edit">
+                <source>Edit "%name%" collection</source>
+                <target>Edit "%name%" collection</target>
+                <note>key: collection.edit</note>
             </trans-unit>
             <trans-unit id="4f04e19e68e7ce4a6948c0b95edeea28900b274a" resname="collection.edit.success">
                 <source>Collection "%name%" updated</source>
@@ -145,6 +155,11 @@
                 <source>New content variable</source>
                 <target>New content variable</target>
                 <note>key: variables.new</note>
+            </trans-unit>
+            <trans-unit id="1e3ea312ebd81ea741f923f94ac56b1da51da2аe" resname="variables.edit">
+                <source>Edit "%name%" content variable</source>
+                <target>Edit "%name%" content variable</target>
+                <note>key: variables.edit</note>
             </trans-unit>
             <trans-unit id="1ea2a90f8ebd8fc941f923f22123132b9eaaf221" resname="variable.delete">
                 <source>Delete content variable(s)</source>
