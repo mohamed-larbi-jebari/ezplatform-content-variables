@@ -3,8 +3,8 @@
 namespace ContextualCode\EzPlatformContentVariablesBundle\Service\Handler;
 
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Entity;
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\Bundle\DoctrineBundle\Registry as ManagerRegistry;
+use Doctrine\ORM\EntityRepository as ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 abstract class Handler
@@ -15,19 +15,15 @@ abstract class Handler
     /** @var EntityManagerInterface */
     protected $entityManager;
 
-    public function __construct(
-        ManagerRegistry $doctrine,
-        EntityManagerInterface $entityManager
-    ) {
-        $this->repository = $this->getRepository($doctrine);
+    public function __construct(EntityManagerInterface $entityManager) {
         $this->entityManager = $entityManager;
+        $this->repository = $this->getRepository();
     }
 
-    protected function getRepository(ManagerRegistry $doctrine): ObjectRepository
+    protected function getRepository(): ObjectRepository
     {
-        return $doctrine->getRepository(Entity::class);
+        return $this->entityManager->getRepository(Entity::class);
     }
-
 
     public function find(int $id): ?Entity
     {

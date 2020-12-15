@@ -5,6 +5,7 @@ services:
         public: false
         bind:
             $typeHandler: '@ezpublish.spi.persistence.legacy.content_type.handler.inner'
+            $entityManager: "@contextualcode_contentvariables.doctrine.entity_manager"
 
     ContextualCode\EzPlatformContentVariablesBundle\Controller\:
         resource: '../../Controller'
@@ -40,3 +41,13 @@ services:
     ContextualCode\EzPlatformContentVariables\Menu\BulkEditRightSidebarBuilder:
         tags:
             - { name: knp_menu.menu_builder, method: build, alias: content_variables.menu.bulk_edit.sidebar_right }
+
+    ContextualCode\EzPlatformContentVariablesBundle\SiteAccessAwareEntityManagerFactory:
+        arguments:
+            $repositoryConfigurationProvider: "@ezpublish.api.repository_configuration_provider"
+            $resolver: "@doctrine.orm.default_entity_listener_resolver"
+            $settings: { debug: "%kernel.debug%", cache_dir: "%kernel.cache_dir%" }
+
+    contextualcode_contentvariables.doctrine.entity_manager:
+        class: Doctrine\ORM\EntityManagerInterface
+        factory: [ '@ContextualCode\EzPlatformContentVariablesBundle\SiteAccessAwareEntityManagerFactory', 'get' ]

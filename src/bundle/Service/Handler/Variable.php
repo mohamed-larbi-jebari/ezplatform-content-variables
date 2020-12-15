@@ -6,8 +6,8 @@ use ContextualCode\EzPlatformContentVariables\Variable\Value\Processor as Callba
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Entity;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable as VariableEntity;
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Doctrine\ORM\EntityRepository as ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
@@ -33,14 +33,13 @@ class Variable extends Handler
     protected $searchService;
 
     public function __construct(
-        ManagerRegistry $doctrine,
         EntityManagerInterface $entityManager,
         ContentService $contentService,
         TypeHandler $typeHandler,
         CallbackProcessor $callbackProcessor,
         SearchService $searchService
     ) {
-        parent::__construct($doctrine, $entityManager);
+        parent::__construct($entityManager);
 
         $this->contentService = $contentService;
         $this->typeHandler = $typeHandler;
@@ -48,9 +47,9 @@ class Variable extends Handler
         $this->searchService = $searchService;
     }
 
-    protected function getRepository(ManagerRegistry $doctrine): ObjectRepository
+    protected function getRepository(): ObjectRepository
     {
-        return $doctrine->getRepository(VariableEntity::class);
+        return $this->entityManager->getRepository(VariableEntity::class);
     }
 
     public function findByCollection(Collection $collection): array

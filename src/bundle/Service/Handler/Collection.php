@@ -3,13 +3,13 @@
 namespace ContextualCode\EzPlatformContentVariablesBundle\Service\Handler;
 
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection as CollectionEntity;
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\Bundle\DoctrineBundle\Registry as ManagerRegistry;
+use Doctrine\ORM\EntityRepository as ObjectRepository;
 
 class Collection extends Handler
 {
-    protected function getRepository(ManagerRegistry $doctrine): ObjectRepository
+    protected function getRepository(): ObjectRepository
     {
-        return $doctrine->getRepository(CollectionEntity::class);
+        return $this->entityManager->getRepository(CollectionEntity::class);
     }
 }
