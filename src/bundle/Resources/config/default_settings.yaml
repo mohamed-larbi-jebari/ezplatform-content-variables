@@ -1,0 +1,5 @@
+parameters:
+    ez_platform_content_variables.default.supported_routes:
+        - 'ez_urlalias'
+        - '_ezpublishLocation'
+        - '_ezpublishPreviewContent'

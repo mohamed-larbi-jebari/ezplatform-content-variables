@@ -4,6 +4,7 @@ namespace ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber;
 
 use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Variable;
 use eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse;
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,9 +20,13 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
     /** @var Variable */
     protected $variableHandler;
 
-    public function __construct(Variable $variableHandler)
+    /** @var ConfigResolverInterface */
+    protected $configResolver;
+
+    public function __construct(Variable $variableHandler, ConfigResolverInterface $configResolver)
     {
         $this->variableHandler = $variableHandler;
+        $this->configResolver = $configResolver;
     }
 
     public function onKernelResponse(ResponseEvent $event): void
@@ -52,18 +57,13 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
 
     protected function getSupportedRoutes(): array
     {
-        return [
-            'ez_urlalias',
-            '_ezpublishLocation',
-            '_ezpublishPreviewContent',
-        ];
+        return array_unique(($this->configResolver->getParameter('supported_routes', 'ez_platform_content_variables')));
     }
 
     public function replaceContentVariables(string $content): string
     {
         /** @var \ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable[] $variables */
         $variables = $this->variableHandler->findAll();
-
         $replacementFrom = [];
         $replacementTo = [];
         foreach ($variables as $variable) {
