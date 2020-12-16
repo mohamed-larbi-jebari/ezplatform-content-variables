@@ -6,7 +6,8 @@ services:
         bind:
             $typeHandler: '@ezpublish.spi.persistence.legacy.content_type.handler.inner'
             $entityManager: "@contextualcode_contentvariables.doctrine.entity_manager"
-
+            $fragmentPath: "%fragment.path%"
+            
     ContextualCode\EzPlatformContentVariablesBundle\Controller\:
         resource: '../../Controller'
         tags: ['controller.service_arguments']

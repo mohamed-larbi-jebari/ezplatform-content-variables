@@ -23,10 +23,14 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
     /** @var ConfigResolverInterface */
     protected $configResolver;
 
-    public function __construct(Variable $variableHandler, ConfigResolverInterface $configResolver)
+    /** @var string */
+    protected $fragmentPath;
+
+    public function __construct(string $fragmentPath, Variable $variableHandler, ConfigResolverInterface $configResolver)
     {
         $this->variableHandler = $variableHandler;
         $this->configResolver = $configResolver;
+        $this->fragmentPath = $fragmentPath;
     }
 
     public function onKernelResponse(ResponseEvent $event): void
@@ -46,9 +50,15 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
             return;
         }
 
-        $route = $event->getRequest()->attributes->get('_route');
-        if (!in_array($route, $this->getSupportedRoutes(), true)) {
-            return;
+        $request = $event->getRequest();
+        $isFragment = ($this->fragmentPath === rawurldecode($request->getPathInfo()));
+
+        $supportedRoutes = $this->getSupportedRoutes();
+        if (\count($supportedRoutes) > 0 && !$isFragment) {
+            $route = $request->attributes->get('_route');
+            if (!in_array($route, $this->getSupportedRoutes(), true)) {
+                return;
+            }
         }
 
         $content = $response->getContent();
