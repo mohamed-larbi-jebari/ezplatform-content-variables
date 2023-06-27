@@ -10,5 +10,5 @@ content_variables_collection:
 
 content_variables_rest_collection:
     resource: "@EzPlatformContentVariablesBundle/REST/Controller/Collection.php"
-    prefix: '%ezpublish_rest.path_prefix%'
+    prefix: '%ibexa.rest.path_prefix%'
     type: annotation
