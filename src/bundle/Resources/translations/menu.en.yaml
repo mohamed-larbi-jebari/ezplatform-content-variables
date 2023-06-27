@@ -1,0 +1,9 @@
+content_variable_bulk_edit__sidebar_right__cancel: 'Discard changes'
+content_variable_bulk_edit__sidebar_right__save: Save
+content_variable_collection_edit__sidebar_right__cancel: 'Discard changes'
+content_variable_collection_edit__sidebar_right__save: Save
+content_variable_main__sidebar_left__bulk_edit: 'Bulk Edit'
+content_variable_main__sidebar_left__collections: Collections
+content_variable_variable_edit__sidebar_right__cancel: 'Discard changes'
+content_variable_variable_edit__sidebar_right__save: Save
+content_variables.menu.title: "Content Variables"

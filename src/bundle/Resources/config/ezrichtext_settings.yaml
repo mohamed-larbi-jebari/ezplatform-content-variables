@@ -1,7 +1,7 @@
 parameters:
     # todo - find solution without a whole override
-    ezrichtext.converter.input.xhtml5.resources: "%kernel.project_dir%/vendor/contextualcode/ezplatform-content-variables/src/bundle/Resources/xsl/xhtml5/input/docbook.xsl"
+    ibexa.field_type.richtext.converter.input.xhtml5.resources: "%kernel.project_dir%/vendor/contextualcode/ezplatform-content-variables/src/bundle/Resources/richtext/stylesheets/xhtml5/edit/docbook.xsl"
 
-    ezrichtext.validator.docbook.resources:
-        - "%kernel.project_dir%/vendor/contextualcode/ezplatform-content-variables/src/bundle/Resources/schemas/docbook/ezpublish.rng"
-        - "%ezrichtext.resources%/schemas/docbook/docbook.iso.sch.xsl"
+    ibexa.field_type.richtext.validator.docbook.resources:
+        - "%kernel.project_dir%/vendor/contextualcode/ezplatform-content-variables/src/bundle/Resources/richtext/schemas/docbook/ezpublish.rng"
+        - "%ibexa.field_type.richtext.resources%/schemas/docbook/docbook.iso.sch.xsl"

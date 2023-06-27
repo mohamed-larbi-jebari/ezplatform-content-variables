@@ -1,0 +1,13 @@
+.ibexa-collapse--heavy .ibexa-collapse__header {
+        display: block;
+}
+
+.ibexa-collapse--heavy  .ibexa-collapse__toggle-btn--status {
+        float: right;
+}
+.no-padding {
+        padding: 0px !important;
+}
+.no-margin{
+        margin: 0px !important;
+}

@@ -2,7 +2,7 @@
 
 namespace ContextualCode\EzPlatformContentVariables\Menu;
 
-use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -27,7 +27,7 @@ class VariableEditRightSidebarBuilder extends AbstractBuilder implements Transla
                 self::ITEM__SAVE,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => '#variable-update',
                     ],
                     'extras' => ['icon' => 'save'],

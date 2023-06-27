@@ -5,15 +5,13 @@ namespace ContextualCode\EzPlatformContentVariablesBundle\REST\Controller;
 use ContextualCode\EzPlatformContentVariablesBundle\REST\Values\CollectionList;
 use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Collection as CollectionHandler;
 use Exception;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use EzSystems\EzPlatformRest\Server\Controller as RestController;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use Ibexa\Rest\Server\Controller as RestController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-/**
- * @Route("/content_variable_collection", name="content_variables.rest.collection.")
- */
+#[Route(path: '/content_variable_collection', name: 'content_variables.rest.collection.')]
 class Collection extends RestController
 {
     /** @var CollectionHandler */
@@ -50,9 +48,7 @@ class Collection extends RestController
         return new AccessDeniedException($message, $previous);
     }
 
-    /**
-     * @Route("/list", name="list")
-     */
+    #[Route(path: '/list', name: 'list')]
     public function list(): CollectionList
     {
         return new CollectionList($this->collectionHandler->findAll());

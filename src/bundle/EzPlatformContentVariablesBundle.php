@@ -13,7 +13,7 @@ class EzPlatformContentVariablesBundle extends Bundle
     {
         parent::build($container);
 
-        $ezpublish = $container->getExtension('ezpublish');
+        $ezpublish = $container->getExtension('ibexa');
         $ezpublish->addPolicyProvider(new Security\ContentVariables());
 
         $container->addCompilerPass(new CompilerPass\RichTextXslPass());

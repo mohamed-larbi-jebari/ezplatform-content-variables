@@ -8,10 +8,10 @@
     data-cookie-separator="{{ cookieSeparator|default(false) }}"
     data-item-id="{{ itemId|default('') }}"
 >
-    <svg class="ez-icon collapse-show"{% if not isCollapsed %} hidden{% endif %}>
-        <use xlink:href="{{ asset('bundles/ezplatformadminui/img/ez-icons.svg') }}#caret-down"/>
+    <svg class="ibexa-icon collapse-show"{% if not isCollapsed %} hidden{% endif %}>
+        <use xlink:href="{{ asset('bundles/ibexaadminui/img/ibexa-icons.svg') }}#caret-down"/>
     </svg>
-    <svg class="ez-icon collapse-hide"{% if isCollapsed %} hidden{% endif %}>
-        <use xlink:href="{{ asset('bundles/ezplatformadminui/img/ez-icons.svg') }}#caret-up"/>
+    <svg class="ibexa-icon collapse-hide"{% if isCollapsed %} hidden{% endif %}>
+        <use xlink:href="{{ asset('bundles/ibexaadminui/img/ibexa-icons.svg') }}#caret-up"/>
     </svg>
 </a>

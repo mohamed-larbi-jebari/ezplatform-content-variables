@@ -35,7 +35,7 @@ class Variable extends Entity
      * @ORM\Column(type="string", length=256, unique=true)
      * @Assert\NotBlank()
      * @Assert\Regex(
-     *     pattern="/^[[:alnum:]_]+$/",
+     *     pattern="/^[a-zA-Z0-9_]+$/",
      *     message="variable.identifier"
      * )
      */

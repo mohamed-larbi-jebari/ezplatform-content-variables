@@ -3,8 +3,8 @@
 namespace ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber;
 
 use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Variable;
-use eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Bundle\IO\BinaryStreamResponse;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,10 +12,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use function count;
 
 class ContentVariablesOutputFilter implements EventSubscriberInterface
 {
-    public const WRAPPER = '#';
+    final public const WRAPPER = '#';
 
     /** @var Variable */
     protected $variableHandler;
@@ -54,7 +55,7 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
         $isFragment = ($this->fragmentPath === rawurldecode($request->getPathInfo()));
 
         $supportedRoutes = $this->getSupportedRoutes();
-        if (\count($supportedRoutes) > 0 && !$isFragment) {
+        if (count($supportedRoutes) > 0 && !$isFragment) {
             $route = $request->attributes->get('_route');
             if (!in_array($route, $this->getSupportedRoutes(), true)) {
                 return;
@@ -78,7 +79,7 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
         $replacementTo = [];
         foreach ($variables as $variable) {
             $placeholder = $variable->getPlaceholder();
-            if ($placeholder === null || strpos($content, $placeholder) === false) {
+            if ($placeholder === null || !str_contains($content, $placeholder)) {
                 continue;
             }
 

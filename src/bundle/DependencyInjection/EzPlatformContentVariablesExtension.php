@@ -2,7 +2,8 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\DependencyInjection;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor;
+use Ibexa\Bundle\FieldTypeRichText\DependencyInjection\IbexaFieldTypeRichTextExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -10,7 +11,7 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Yaml\Yaml;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 
 class EzPlatformContentVariablesExtension extends Extension implements PrependExtensionInterface
 {
@@ -32,8 +33,8 @@ class EzPlatformContentVariablesExtension extends Extension implements PrependEx
 
     public function prepend(ContainerBuilder $container): void
     {
-        $this->prependExtension($container, 'ezrichtext');
-        $this->prependExtension($container, 'ezpublish');
+        $this->prependExtension($container, IbexaFieldTypeRichTextExtension::EXTENSION_NAME);
+        $this->prependExtension($container, 'ibexa');
         $this->prependExtension($container, 'bazinga_js_translation');
     }
 

@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AlloyEditor from 'alloyeditor';
+import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import Widget from '@ckeditor/ckeditor5-widget/src/widget';
+import { toWidget, toWidgetEditable } from '@ckeditor/ckeditor5-widget/src/utils';
+import { SpecialCharacters } from '@ckeditor/ckeditor5-special-characters';
 import EzWidgetButton from './../../../../../../../../../ezsystems/ezplatform-richtext/src/bundle/Resources/public/js/OnlineEditor/buttons/base/ez-widgetbutton';
 import ContentVariablesModal from '../modals/content-variables';
 
@@ -63,7 +67,7 @@ export default class BtnContentVariableInsert extends EzWidgetButton {
                 title={Translator.trans('button.label', {}, 'content_variables')}
             >
                 <svg className="ez-icon ez-btn-ae__icon">
-                    <use xlinkHref="/bundles/ezplatformadminui/img/ez-icons.svg#keyword" />
+                    <use xlinkHref="/bundles/ibexaadminui/img/ibexa-icons.svg#keyword" />
                 </svg>
             </button>
         );
@@ -72,10 +76,11 @@ export default class BtnContentVariableInsert extends EzWidgetButton {
 
 AlloyEditor.Buttons[BtnContentVariableInsert.key] = AlloyEditor.BtnContentVariableInsert = BtnContentVariableInsert;
 
-const eZ = (window.eZ = window.eZ || {});
+const ibexa = (window.ibexa = window.ibexa || {});
 
-eZ.ezAlloyEditor = eZ.ezAlloyEditor || {};
-eZ.ezAlloyEditor.btnContentVariableInsert = BtnContentVariableInsert;
+ibexa.richText  = ibexa.richText || {};
+ibexa.richText.alloyEditor = ibexa.richText.alloyEditor || {};
+ibexa.richText.alloyEditor.btnContentVariableInsert = BtnContentVariableInsert;
 
 BtnContentVariableInsert.defaultProps = {
     command: 'content-variable',

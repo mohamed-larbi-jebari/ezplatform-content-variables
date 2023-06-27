@@ -2,7 +2,7 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\DependencyInjection\CompilerPass;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -12,7 +12,7 @@ final class RichTextXslPass implements CompilerPassInterface
     {
         $scopes = array_merge(
             [ConfigResolver::SCOPE_DEFAULT],
-            $container->getParameter('ezpublish.siteaccess.list')
+            $container->getParameter('ibexa.site_access.list')
         );
         $configs = [
             // 'input_custom_xsl' => ['xhtml5/input/content_variable.xsl'], - disabled while full override in place
@@ -33,7 +33,7 @@ final class RichTextXslPass implements CompilerPassInterface
         string $type,
         array $rules
     ): void {
-        $parameter = "ezsettings.{$scope}.fieldtypes.ezrichtext.{$type}";
+        $parameter = "ibexa.site_access.config.{$scope}.fieldtypes.ezrichtext.{$type}";
         if (!$container->hasParameter($parameter)) {
             return;
         }
@@ -41,7 +41,7 @@ final class RichTextXslPass implements CompilerPassInterface
         $extraRules = [];
         foreach ($rules as $rule) {
             $extraRules[] = [
-                'path' => __DIR__ . '/../../Resources/xsl/' . $rule,
+                'path' => __DIR__ . '/../../Resources/richtext/stylesheets/' . $rule,
                 'priority' => 250,
             ];
         }

@@ -1,7 +1,60 @@
-button.label: 'Content Variables'
-modal.header: 'Content Variables'
-modal.no_collections: 'There are no content variables. Start by creating a new collection and adding some content variables'
-modal.buttons.cancel.label: 'Cancel'
-modal.buttons.select.label: 'Select'
-modal.form.select.collection: 'Select a collection'
-modal.form.select.variable: 'Select a content variable'
+bulk_edit.no_items: 'There are no content variables. Start by %link_start%creating a new collection%link_end% and adding some content variables'
+button.label: button.label
+collection.delete: 'Delete collection(s)'
+collection.delete.modal.message: 'Do you want to delete collection(s)?'
+collection.delete.success: 'Collection "%name%" removed'
+collection.description: Description
+collection.edit: 'Edit "%name%" collection'
+collection.edit.success: 'Collection "%name%" updated'
+collection.name: Name
+collection.new: 'New collection'
+collection.new.success: 'Collection "%name%" created'
+collection.priority: Priority
+collection.priority_update.success: 'Priority of "%name%" updated'
+collection.update_priority: 'Update priorities'
+collection.variables: Variables
+collections.no_items: 'There are no collections'
+path.bulk_edit: 'Bulk Edit'
+path.collection.edit: 'Editing "%name%"'
+path.collection.new: 'New Collection'
+path.collections: Collections
+path.root: 'Content Variables'
+path.variable.edit: 'Editing "%name%"'
+path.variable.new: 'New Content Variable'
+title.bulk_edit: 'Bulk Edit'
+title.collection.edit: 'Editing Collection: "%name%"'
+title.collection.new: 'New Collection'
+title.collections: Collections
+title.variable.edit: 'Editing Content Variable: "%name%"'
+title.variable.linked_content: 'Linked content for "%name%" variable'
+title.variable.new: 'New Content Variable'
+title.variables: 'Content Variables'
+variable.content: 'Linked content'
+variable.delete: 'Delete content variable(s)'
+variable.delete.modal.message: 'Do you want to delete content variable(s)?'
+variable.delete.success: 'Content variable "%name%" removed'
+variable.edit: variable.edit
+variable.edit.success: 'Content variable "%name%" updated'
+variable.identifier: Identifier
+variable.missing_callback.warning: 'The chosen callback is missing, and that''s why the variable value type was switched to static'
+variable.name: Name
+variable.new.success: 'Content variable "%name%" created'
+variable.no_items: 'This collection has no content variables'
+variable.placeholder: Placeholder
+variable.priority: Priority
+variable.priority_update.success: 'Priority of "%name%" updated'
+variable.related_content.content_status.0: Draft
+variable.related_content.content_status.1: Published
+variable.related_content.content_status.3: Archived
+variable.related_content.field: Field
+variable.related_content.name: Name
+variable.related_content.no_items: 'There is not any linked content'
+variable.related_content.version: Version
+variable.type: Type
+variable.update_priority: 'Update priorities'
+variable.value: Value
+variable.value.callback: 'Callback "%callback%"'
+variable.value_type.1: Static
+variable.value_type.2: Callback
+variables.edit: 'Edit "%name%" content variable'
+variables.new: 'New content variable'
