@@ -9,14 +9,14 @@ use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable as VariableE
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Doctrine\ORM\EntityRepository as ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler as TypeHandler;
-use eZ\Publish\SPI\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Handler as TypeHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
 
 class Variable extends Handler
 {
@@ -34,10 +34,10 @@ class Variable extends Handler
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        ContentService $contentService,
-        TypeHandler $typeHandler,
+        \Ibexa\Contracts\Core\Repository\ContentService $contentService,
+        \Ibexa\Core\Persistence\Legacy\Content\Type\Handler $typeHandler,
         CallbackProcessor $callbackProcessor,
-        SearchService $searchService
+        \Ibexa\Contracts\Core\Repository\SearchService $searchService
     ) {
         parent::__construct($entityManager);
 
@@ -73,8 +73,8 @@ class Variable extends Handler
             return;
         }
 
-        $criterion = new Criterion\FullText($placeholder);
-        $query = new LocationQuery(['query' => $criterion, 'limit' => 0]);
+        $criterion = new \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\FullText($placeholder);
+        $query = new \Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery(['query' => $criterion, 'limit' => 0]);
         $results = $this->searchService->findContentInfo($query);
 
         $variable->setLinkedContentCount((int) $results->totalCount);
@@ -124,9 +124,9 @@ class Variable extends Handler
     public function linkedContentInfoGrouped(VariableEntity $variable): array
     {
         $return = [
-            VersionInfo::STATUS_PUBLISHED => [],
-            VersionInfo::STATUS_ARCHIVED => [],
-            VersionInfo::STATUS_DRAFT => [],
+            \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo::STATUS_PUBLISHED => [],
+            \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo::STATUS_ARCHIVED => [],
+            \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo::STATUS_DRAFT => [],
         ];
 
         $linkedContent = $this->linkedContentInfo($variable);
@@ -154,8 +154,8 @@ class Variable extends Handler
     protected function getFieldName(int $id): string
     {
         try {
-            $fieldDefinition = $this->typeHandler->getFieldDefinition($id, Type::STATUS_DEFINED);
-        } catch (NotFoundException $e) {
+            $fieldDefinition = $this->typeHandler->getFieldDefinition($id, \Ibexa\Contracts\Core\Persistence\Content\Type::STATUS_DEFINED);
+        } catch (\Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException) {
             return $id;
         }
 

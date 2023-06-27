@@ -3,8 +3,8 @@
 namespace ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber;
 
 use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Variable;
-use eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Bundle\IO\BinaryStreamResponse;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ContentVariablesOutputFilter implements EventSubscriberInterface
 {
-    public const WRAPPER = '#';
+    final public const WRAPPER = '#';
 
     /** @var Variable */
     protected $variableHandler;
@@ -26,7 +26,7 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
     /** @var string */
     protected $fragmentPath;
 
-    public function __construct(string $fragmentPath, Variable $variableHandler, ConfigResolverInterface $configResolver)
+    public function __construct(string $fragmentPath, Variable $variableHandler, \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver)
     {
         $this->variableHandler = $variableHandler;
         $this->configResolver = $configResolver;
@@ -45,7 +45,7 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
             || $response instanceof RedirectResponse
             || $response instanceof JsonResponse
             || $response instanceof BinaryFileResponse
-            || $response instanceof BinaryStreamResponse
+            || $response instanceof \Ibexa\Bundle\IO\BinaryStreamResponse
         ) {
             return;
         }
@@ -78,7 +78,7 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
         $replacementTo = [];
         foreach ($variables as $variable) {
             $placeholder = $variable->getPlaceholder();
-            if ($placeholder === null || strpos($content, $placeholder) === false) {
+            if ($placeholder === null || !str_contains($content, $placeholder)) {
                 continue;
             }
 

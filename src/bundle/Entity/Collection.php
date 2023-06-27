@@ -22,18 +22,18 @@ class Collection extends Entity
     /**
      * @ORM\Column(type="string", length=256)
      */
-    private $name;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=256, nullable=true)
      */
-    private $description;
+    private ?string $description = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Variable", mappedBy="collection")
      * @ORM\OrderBy({"priority" = "ASC", "id" = "DESC"})
      */
-    private $contentVariables;
+    private \Doctrine\Common\Collections\ArrayCollection $contentVariables;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -87,6 +87,6 @@ class Collection extends Entity
 
     public function canBeDeleted(): bool
     {
-        return count($this->getContentVariables()) === 0;
+        return (is_countable($this->getContentVariables()) ? count($this->getContentVariables()) : 0) === 0;
     }
 }

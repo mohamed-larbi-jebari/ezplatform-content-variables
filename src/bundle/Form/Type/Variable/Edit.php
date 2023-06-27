@@ -33,9 +33,7 @@ class Edit extends AbstractType
             $builder
                 ->add('valueType', ChoiceType::class, [
                     'choices' => DataClass::getValueTypes(),
-                    'choice_label' => static function ($choice, $key, $value) {
-                        return 'variable.value_type.' . $value;
-                    },
+                    'choice_label' => static fn($choice, $key, $value) => 'variable.value_type.' . $value,
                     'choice_translation_domain' => 'content_variables',
                 ])
                 ->add('valueCallback', ChoiceType::class, ['choices' => $callbacks]);

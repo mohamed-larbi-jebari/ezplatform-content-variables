@@ -10,8 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="cc_content_variable")
- * @UniqueEntity("identifier")
  */
+#[UniqueEntity('identifier')]
 class Variable extends Entity
 {
     private const VALUE_TYPE_STATIC = 1;
@@ -29,49 +29,44 @@ class Variable extends Entity
      * @ORM\ManyToOne(targetEntity="Collection", inversedBy="contentVariables")
      * @ORM\JoinColumn(name="collection_id", referencedColumnName="id")
      */
-    private $collection;
+    private ?\ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection $collection = null;
 
     /**
      * @ORM\Column(type="string", length=256, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Regex(
-     *     pattern="/^[[:alnum:]_]+$/",
-     *     message="variable.identifier"
-     * )
      */
-    private $identifier;
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^[[:alnum:]_]+$/', message: 'variable.identifier')]
+    private ?string $identifier = null;
 
     /**
      * @ORM\Column(type="string", length=256)
      */
-    private $name;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="smallint", length=1, nullable=true)
      */
-    private $valueType;
+    private ?int $valueType = self::VALUE_TYPE_STATIC;
 
     /**
      * @ORM\Column(type="string", length=256, nullable=true)
      */
-    private $valueStatic;
+    private ?string $valueStatic = null;
 
     /**
      * @ORM\Column(type="string", length=256, nullable=true)
      */
-    private $valueCallback;
+    private ?string $valueCallback = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $priority = 0;
 
-    /** @var int */
-    private $linkedContentCount = 0;
+    private int $linkedContentCount = 0;
 
     public function __construct()
     {
-        $this->valueType = self::VALUE_TYPE_STATIC;
     }
 
     public function getId(): ?int
