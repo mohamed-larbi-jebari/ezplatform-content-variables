@@ -12,7 +12,7 @@ final class RichTextXslPass implements CompilerPassInterface
     {
         $scopes = array_merge(
             [ConfigResolver::SCOPE_DEFAULT],
-            $container->getParameter('ezpublish.siteaccess.list')
+            $container->getParameter('ibexa.site_access.list')
         );
         $configs = [
             // 'input_custom_xsl' => ['xhtml5/input/content_variable.xsl'], - disabled while full override in place

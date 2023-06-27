@@ -1,2 +1,4 @@
-migrations_directory: '../../DoctrineMigrations'
-migrations_namespace: ContextualCode\EzPlatformContentVariablesBundle\DoctrineMigrations
+migrations_paths:
+  # namespace is arbitrary but should be different from App\Migrations
+  # as migrations classes should NOT be autoloaded
+  'ContextualCode\EzPlatformContentVariablesBundle\DoctrineMigrations': '../../DoctrineMigrations'
