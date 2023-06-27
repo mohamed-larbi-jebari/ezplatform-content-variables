@@ -63,7 +63,7 @@ export default class BtnContentVariableInsert extends EzWidgetButton {
                 title={Translator.trans('button.label', {}, 'content_variables')}
             >
                 <svg className="ez-icon ez-btn-ae__icon">
-                    <use xlinkHref="/bundles/ezplatformadminui/img/ez-icons.svg#keyword" />
+                    <use xlinkHref="/bundles/ibexaadminui/img/ez-icons.svg#keyword" />
                 </svg>
             </button>
         );

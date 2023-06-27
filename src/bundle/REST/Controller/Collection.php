@@ -6,7 +6,7 @@ use ContextualCode\EzPlatformContentVariablesBundle\REST\Values\CollectionList;
 use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Collection as CollectionHandler;
 use Exception;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
-use EzSystems\EzPlatformRest\Server\Controller as RestController;
+use Ibexa\Rest\Server\Controller as RestController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;

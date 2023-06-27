@@ -2,7 +2,7 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\Security;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Security\PolicyProvider\YamlPolicyProvider;
+use Ibexa\Bundle\Core\DependencyInjection\Security\PolicyProvider\YamlPolicyProvider;
 
 class ContentVariables extends YamlPolicyProvider
 {

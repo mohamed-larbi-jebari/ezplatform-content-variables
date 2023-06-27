@@ -1,4 +1,4 @@
-{% extends '@ezdesign/content_variable/layout.html.twig' %}
+{% extends '@ibexadesign/content_variable/layout.html.twig' %}
 {% set show_left_sidebar = true %}
 
 {% trans_default_domain "content_variables" %}
@@ -12,12 +12,12 @@
         <div class="px-0 pb-4 ez-content-container">
             <div class="ez-header">
                 <div class="container">
-                    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+                    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
                         { value: 'path.root'|trans, url: path('content_variables.collection.list') },
                         { value: variable.collection.name, url: path('content_variables.list', {'id': variable.collection.id}) },
                         { value: variable.name },
                     ]} %}
-                    {% include '@ezdesign/ui/page_title.html.twig' with {
+                    {% include '@ibexadesign/ui/page_title.html.twig' with {
                         title: 'title.variable.linked_content'|trans({'%name%': variable.name|u.truncate(50) }),
                         iconName: 'view-custom'
                     } %}
@@ -30,7 +30,7 @@
                     <div class="ez-table-header">
                         <div class="ez-table-header__headline">{{ ('variable.related_content.content_status.' ~ status)|trans }}</div>
                         <div>
-                            {% include '@ezdesign/content_variable/buttons/collapse.html.twig' with {
+                            {% include '@ibexadesign/content_variable/buttons/collapse.html.twig' with {
                                 'containerId': 'content-items-' ~ status,
                                 'isCollapsed': isCollapsed
                             } %}
@@ -52,7 +52,7 @@
                                 {% for item in items %}
                                     <tr>
                                         <td class="ez-table__cell">
-                                            <a href="{{ path('_ez_content_view', {'contentId': item.content.id}) }}" target="_blank">{{ item.content.name }}</a>
+                                            <a href="{{ path('ibexa.content.view', {'contentId': item.content.id}) }}" target="_blank">{{ item.content.name }}</a>
                                         </td>
                                         <td class="ez-table__cell">{{ item.content.versionInfo.versionNo }}</td>
                                         <td class="ez-table__cell">
@@ -62,9 +62,9 @@
                                             {% endfor %}
                                         </td>
                                         <td class="ez-table__cell ez-table__cell--has-action-btns text-right">
-                                            <a href="{{ path('ezplatform.content.preview', {'contentId': item.content.id, 'versionNo': item.content.versionInfo.versionNo, 'languageCode': item.content.versionInfo.languageCodes[0]}) }}" target="_blank" class="btn btn-icon mx-3">
+                                            <a href="{{ path('ibexa.content.preview', {'contentId': item.content.id, 'versionNo': item.content.versionInfo.versionNo, 'languageCode': item.content.versionInfo.languageCodes[0]}) }}" target="_blank" class="btn btn-icon mx-3">
                                                 <svg class="ez-icon ez-icon--secondary">
-                                                    <use xlink:href="{{ asset('bundles/ezplatformadminui/img/ez-icons.svg') }}#view"/>
+                                                    <use xlink:href="{{ asset('bundles/ibexaadminui/img/ez-icons.svg') }}#view"/>
                                                 </svg>
                                             </a>
                                         </td>
@@ -83,5 +83,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-content-variables-related-content-js', null, 'ezplatform') }}
+    {{ encore_entry_script_tags('ezplatform-content-variables-related-content-js', null, 'ibexa') }}
 {% endblock %}

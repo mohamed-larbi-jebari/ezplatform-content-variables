@@ -2,7 +2,7 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\REST\Values;
 
-use EzSystems\EzPlatformRest\Value as RestValue;
+use Ibexa\Rest\Value as RestValue;
 
 class CollectionList extends RestValue
 {

@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use function count;
 
 class ContentVariablesOutputFilter implements EventSubscriberInterface
 {
@@ -26,7 +27,7 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
     /** @var string */
     protected $fragmentPath;
 
-    public function __construct(string $fragmentPath, Variable $variableHandler, \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver)
+    public function __construct(string $fragmentPath, Variable $variableHandler, ConfigResolverInterface $configResolver)
     {
         $this->variableHandler = $variableHandler;
         $this->configResolver = $configResolver;
@@ -45,7 +46,7 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
             || $response instanceof RedirectResponse
             || $response instanceof JsonResponse
             || $response instanceof BinaryFileResponse
-            || $response instanceof \Ibexa\Bundle\IO\BinaryStreamResponse
+            || $response instanceof BinaryStreamResponse
         ) {
             return;
         }
@@ -54,7 +55,7 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
         $isFragment = ($this->fragmentPath === rawurldecode($request->getPathInfo()));
 
         $supportedRoutes = $this->getSupportedRoutes();
-        if (\count($supportedRoutes) > 0 && !$isFragment) {
+        if (count($supportedRoutes) > 0 && !$isFragment) {
             $route = $request->attributes->get('_route');
             if (!in_array($route, $this->getSupportedRoutes(), true)) {
                 return;

@@ -3,7 +3,7 @@
 namespace ContextualCode\EzPlatformContentVariablesBundle\REST\Values;
 
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection as CollectionEntity;
-use EzSystems\EzPlatformRest\Value as RestValue;
+use Ibexa\Rest\Value as RestValue;
 
 class Collection extends RestValue
 {

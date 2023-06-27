@@ -3,7 +3,7 @@
 namespace ContextualCode\EzPlatformContentVariablesBundle\REST\Values;
 
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable as VariableEntity;
-use EzSystems\EzPlatformRest\Value as RestValue;
+use Ibexa\Rest\Value as RestValue;
 
 class Variable extends RestValue
 {

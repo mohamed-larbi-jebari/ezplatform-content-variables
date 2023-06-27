@@ -6,6 +6,7 @@ use ContextualCode\EzPlatformContentVariables\Variable\Value\Processor as Callba
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Entity;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable as VariableEntity;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\FullText;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Doctrine\ORM\EntityRepository as ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,10 +35,10 @@ class Variable extends Handler
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        \Ibexa\Contracts\Core\Repository\ContentService $contentService,
-        \Ibexa\Core\Persistence\Legacy\Content\Type\Handler $typeHandler,
-        CallbackProcessor $callbackProcessor,
-        \Ibexa\Contracts\Core\Repository\SearchService $searchService
+        ContentService         $contentService,
+        TypeHandler            $typeHandler,
+        CallbackProcessor      $callbackProcessor,
+        SearchService          $searchService
     ) {
         parent::__construct($entityManager);
 
@@ -73,8 +74,8 @@ class Variable extends Handler
             return;
         }
 
-        $criterion = new \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\FullText($placeholder);
-        $query = new \Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery(['query' => $criterion, 'limit' => 0]);
+        $criterion = new FullText($placeholder);
+        $query = new LocationQuery(['query' => $criterion, 'limit' => 0]);
         $results = $this->searchService->findContentInfo($query);
 
         $variable->setLinkedContentCount((int) $results->totalCount);
@@ -124,9 +125,9 @@ class Variable extends Handler
     public function linkedContentInfoGrouped(VariableEntity $variable): array
     {
         $return = [
-            \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo::STATUS_PUBLISHED => [],
-            \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo::STATUS_ARCHIVED => [],
-            \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo::STATUS_DRAFT => [],
+            VersionInfo::STATUS_PUBLISHED => [],
+            VersionInfo::STATUS_ARCHIVED => [],
+            VersionInfo::STATUS_DRAFT => [],
         ];
 
         $linkedContent = $this->linkedContentInfo($variable);
@@ -154,8 +155,8 @@ class Variable extends Handler
     protected function getFieldName(int $id): string
     {
         try {
-            $fieldDefinition = $this->typeHandler->getFieldDefinition($id, \Ibexa\Contracts\Core\Persistence\Content\Type::STATUS_DEFINED);
-        } catch (\Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException) {
+            $fieldDefinition = $this->typeHandler->getFieldDefinition($id, Type::STATUS_DEFINED);
+        } catch (NotFoundException) {
             return $id;
         }
 

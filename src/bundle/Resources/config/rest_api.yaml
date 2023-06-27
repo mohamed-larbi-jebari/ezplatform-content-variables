@@ -1,30 +1,30 @@
 services:
     ContextualCode\EzPlatformContentVariablesBundle\REST\Controller\Collection:
-        parent: ezpublish_rest.controller.base
+        parent: Ibexa\Rest\Server\Controller
         autowire: true
         autoconfigure: false
         public: true
 
     ContextualCode\EzPlatformContentVariablesBundle\REST\ValueObjectVisitor\CollectionList:
-        parent: ezpublish_rest.output.value_object_visitor.base
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
         autowire: true
         autoconfigure: false
         public: true
         tags:
-            - { name: ezpublish_rest.output.value_object_visitor, type: ContextualCode\EzPlatformContentVariablesBundle\REST\Values\CollectionList }
+            - { name: ibexa.rest.output.value_object.visitor, type: ContextualCode\EzPlatformContentVariablesBundle\REST\Values\CollectionList }
 
     ContextualCode\EzPlatformContentVariablesBundle\REST\ValueObjectVisitor\Collection:
-        parent: ezpublish_rest.output.value_object_visitor.base
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
         autowire: true
         autoconfigure: false
         public: true
         tags:
-            - { name: ezpublish_rest.output.value_object_visitor, type: ContextualCode\EzPlatformContentVariablesBundle\REST\Values\Collection }
+            - { name: ibexa.rest.output.value_object.visitor, type: ContextualCode\EzPlatformContentVariablesBundle\REST\Values\Collection }
 
     ContextualCode\EzPlatformContentVariablesBundle\REST\ValueObjectVisitor\Variable:
-        parent: ezpublish_rest.output.value_object_visitor.base
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
         autowire: true
         autoconfigure: false
         public: true
         tags:
-            - { name: ezpublish_rest.output.value_object_visitor, type: ContextualCode\EzPlatformContentVariablesBundle\REST\Values\Variable }
+            - { name: ibexa.rest.output.value_object.visitor, type: ContextualCode\EzPlatformContentVariablesBundle\REST\Values\Variable }

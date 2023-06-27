@@ -53,7 +53,7 @@ class VariableController extends BaseController
             'form' => $form->createView(),
         ];
 
-        return $this->render('@ezdesign/content_variable/variable/list.html.twig', $params);
+        return $this->render('@ibexadesign/content_variable/variable/list.html.twig', $params);
     }
 
     #[Route(path: '/{id}/new', name: 'new', defaults: ['id' => null], requirements: ['id' => '\d+'])]
@@ -98,7 +98,7 @@ class VariableController extends BaseController
             'collection' => $collection,
         ];
 
-        return $this->render('@ezdesign/content_variable/variable/edit.html.twig', $params);
+        return $this->render('@ibexadesign/content_variable/variable/edit.html.twig', $params);
     }
 
     #[Route(path: '/{id}/linked_content', name: 'linked_content', defaults: ['id' => null], requirements: ['id' => '\d+'])]
@@ -111,7 +111,7 @@ class VariableController extends BaseController
             'linked_content' => $linkedContentInfo,
         ];
 
-        return $this->render('@ezdesign/content_variable/variable/related_content.html.twig', $params);
+        return $this->render('@ibexadesign/content_variable/variable/related_content.html.twig', $params);
     }
 
     #[Route(path: '/bulk_edit', name: 'bulk_edit')]
@@ -135,7 +135,7 @@ class VariableController extends BaseController
             'collapsed_collections' => $this->getBulkEditCollapsedCollections($request),
         ];
 
-        return $this->render('@ezdesign/content_variable/variable/bulk_edit.html.twig', $params);
+        return $this->render('@ibexadesign/content_variable/variable/bulk_edit.html.twig', $params);
     }
 
     public function bulkEditHandler(VariableValues $data): void

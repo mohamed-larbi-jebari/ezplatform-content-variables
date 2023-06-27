@@ -1,4 +1,4 @@
-{% extends '@ezdesign/ui/layout.html.twig' %}
+{% extends '@ibexadesign/ui/layout.html.twig' %}
 
 {% block left_sidebar %}
     {% if show_left_sidebar is defined %}
@@ -6,7 +6,7 @@
             <div class="ez-sticky-container">
                 {% set sidebar_left = knp_menu_get('content_variables.menu.main.sidebar_left', [], {}) %}
                 {{ knp_menu_render(sidebar_left, {
-                    'template': '@ezdesign/content_variable/parts/menu/sidebar_left.html.twig',
+                    'template': '@ibexadesign/content_variable/parts/menu/sidebar_left.html.twig',
                     'currentClass': 'ez-btn--content-tree-expanded',
                     'ancestorClass': 'ez-btn--content-tree-expanded'
                 }) }}

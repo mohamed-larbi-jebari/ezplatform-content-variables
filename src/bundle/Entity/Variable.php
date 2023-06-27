@@ -29,7 +29,7 @@ class Variable extends Entity
      * @ORM\ManyToOne(targetEntity="Collection", inversedBy="contentVariables")
      * @ORM\JoinColumn(name="collection_id", referencedColumnName="id")
      */
-    private ?\ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection $collection = null;
+    private ?Collection $collection = null;
 
     /**
      * @ORM\Column(type="string", length=256, unique=true)

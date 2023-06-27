@@ -42,7 +42,7 @@ class CollectionController extends BaseController
             'form' => $form->createView(),
         ];
 
-        return $this->render('@ezdesign/content_variable/collection/list.html.twig', $params);
+        return $this->render('@ibexadesign/content_variable/collection/list.html.twig', $params);
     }
 
     #[Route(path: '/new', name: 'new')]
@@ -70,6 +70,6 @@ class CollectionController extends BaseController
             'form' => $form->createView(),
         ];
 
-        return $this->render('@ezdesign/content_variable/collection/edit.html.twig', $params);
+        return $this->render('@ibexadesign/content_variable/collection/edit.html.twig', $params);
     }
 }

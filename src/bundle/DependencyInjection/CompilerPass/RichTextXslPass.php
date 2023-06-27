@@ -2,7 +2,7 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\DependencyInjection\CompilerPass;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\ConfigResolver;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

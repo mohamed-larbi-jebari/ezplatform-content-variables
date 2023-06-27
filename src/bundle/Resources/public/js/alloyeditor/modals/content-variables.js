@@ -110,7 +110,7 @@ export default class ContentVariablesModal extends Component {
             return (
                 <div className="text-center">
                     <svg className="ez-icon ez-spin ez-icon-x2 ez-icon-spinner">
-                        <use xlinkHref="/bundles/ezplatformadminui/img/ez-icons.svg#spinner"/>
+                        <use xlinkHref="/bundles/ibexaadminui/img/ez-icons.svg#spinner"/>
                     </svg>
                 </div>
             );

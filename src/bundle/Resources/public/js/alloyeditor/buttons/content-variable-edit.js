@@ -49,7 +49,7 @@ class BtnContentVariableEdit extends BtnContentVariableInsert {
                 title={Translator.trans('button.label', {}, 'content_variables')}
             >
                 <svg className="ez-icon ez-btn-ae__icon">
-                    <use xlinkHref="/bundles/ezplatformadminui/img/ez-icons.svg#edit" />
+                    <use xlinkHref="/bundles/ibexaadminui/img/ez-icons.svg#edit" />
                 </svg>
             </button>
         );

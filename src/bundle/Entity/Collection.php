@@ -33,7 +33,7 @@ class Collection extends Entity
      * @ORM\OneToMany(targetEntity="Variable", mappedBy="collection")
      * @ORM\OrderBy({"priority" = "ASC", "id" = "DESC"})
      */
-    private \Doctrine\Common\Collections\ArrayCollection $contentVariables;
+    private ArrayCollection $contentVariables;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
