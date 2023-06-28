@@ -6,17 +6,18 @@ use ContextualCode\EzPlatformContentVariables\Variable\Value\Processor as Callba
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Entity;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable as VariableEntity;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\FullText;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Doctrine\ORM\EntityRepository as ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use eZ\Publish\Core\Persistence\Legacy\Content\Type\Handler as TypeHandler;
-use eZ\Publish\SPI\Persistence\Content\Type;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Persistence\Legacy\Content\Type\Handler as TypeHandler;
+use Ibexa\Contracts\Core\Persistence\Content\Type;
 
 class Variable extends Handler
 {
@@ -34,10 +35,10 @@ class Variable extends Handler
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        ContentService $contentService,
-        TypeHandler $typeHandler,
-        CallbackProcessor $callbackProcessor,
-        SearchService $searchService
+        ContentService         $contentService,
+        TypeHandler            $typeHandler,
+        CallbackProcessor      $callbackProcessor,
+        SearchService          $searchService
     ) {
         parent::__construct($entityManager);
 
@@ -73,7 +74,7 @@ class Variable extends Handler
             return;
         }
 
-        $criterion = new Criterion\FullText($placeholder);
+        $criterion = new FullText($placeholder);
         $query = new LocationQuery(['query' => $criterion, 'limit' => 0]);
         $results = $this->searchService->findContentInfo($query);
 
@@ -155,7 +156,7 @@ class Variable extends Handler
     {
         try {
             $fieldDefinition = $this->typeHandler->getFieldDefinition($id, Type::STATUS_DEFINED);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             return $id;
         }
 

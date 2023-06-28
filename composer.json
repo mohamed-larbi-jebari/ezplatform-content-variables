@@ -1,9 +1,9 @@
 {
     "name": "contextualcode/ezplatform-content-variables",
     "license": "GPL-2.0-only",
-    "type": "ezplatform-bundle",
-    "description": "eZ Platform bundle which provides dynamic content variables and UI to manage them",
-    "keywords": ["ezplatform"],
+    "type": "ibexa-bundle",
+    "description": "ibexa bundle which provides dynamic content variables and UI to manage them",
+    "keywords": ["ibexa"],
     "homepage": "http://www.contextualcode.com",
     "minimum-stability": "stable",
     "authors": [
@@ -13,11 +13,12 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": ">=8.1",
         "ezsystems/ezplatform-kernel": "^1.0",
         "ezsystems/ezplatform-admin-ui": "^2.0",
-        "ezsystems/ezplatform-richtext": "^2.0",
-        "doctrine/orm": "^2.9 | ^3.1"
+        "ezsystems/ezplatform-richtext": "^2.3",
+        "doctrine/orm": "^2.14",
+        "doctrine/common": "^2.9 | ^3.4"
     },
     "suggest": {
         "doctrine/doctrine-migrations-bundle": "To apply required database changes",

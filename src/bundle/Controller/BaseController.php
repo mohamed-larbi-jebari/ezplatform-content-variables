@@ -8,11 +8,11 @@ use ContextualCode\EzPlatformContentVariablesBundle\Form\Factory\FormFactory;
 use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Collection;
 use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Handler as EntityHandler;
 use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Variable;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface;
-use EzSystems\EzPlatformAdminUiBundle\Controller\Controller;
-use EzSystems\EzPlatformUser\UserSetting\UserSettingService;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\User\UserSetting\UserSettingService;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\FormInterface;
@@ -51,14 +51,14 @@ abstract class BaseController extends Controller
     protected $entityName;
 
     public function __construct(
-        Collection $collectionHandler,
-        Variable $variableHandler,
-        FormFactory $formFactory,
-        NotificationHandlerInterface $notificationHandler,
-        TranslatorInterface $translator,
-        SubmitHandler $submitHandler,
+        Collection                    $collectionHandler,
+        Variable                      $variableHandler,
+        FormFactory                   $formFactory,
+        NotificationHandlerInterface  $notificationHandler,
+        TranslatorInterface           $translator,
+        SubmitHandler                 $submitHandler,
         AuthorizationCheckerInterface $authorizationChecker,
-        UserSettingService $userSettingService
+        UserSettingService            $userSettingService
     ) {
         $this->collectionHandler = $collectionHandler;
         $this->variableHandler = $variableHandler;

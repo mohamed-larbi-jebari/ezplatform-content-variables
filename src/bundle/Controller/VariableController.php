@@ -2,7 +2,7 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\Controller;
 
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\VariableValues;
@@ -11,9 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/content_variables", name="content_variables.")
- */
+#[Route(path: '/content_variables', name: 'content_variables.')]
 class VariableController extends BaseController
 {
     private const BULK_EDIT_COLLAPSED_COLLECTIONS_COOKIE_VAR = 'content-variables_bulk-edit_collapsed-collections';
@@ -26,9 +24,7 @@ class VariableController extends BaseController
         return $this->variableHandler;
     }
 
-    /**
-     * @Route("/{id}/variables", name="list", defaults={"id"=null})
-     */
+    #[Route(path: '/{id}/variables', name: 'list', defaults: ['id' => null])]
     public function listAction(Request $request, Collection $collection): Response
     {
         $collectionVariables = $this->variableHandler->findByCollection($collection);
@@ -57,20 +53,16 @@ class VariableController extends BaseController
             'form' => $form->createView(),
         ];
 
-        return $this->render('@ezdesign/content_variable/variable/list.html.twig', $params);
+        return $this->render('@ibexadesign/content_variable/variable/list.html.twig', $params);
     }
 
-    /**
-     * @Route("/{id}/new", name="new", defaults={"id"=null}, requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/new', name: 'new', defaults: ['id' => null], requirements: ['id' => '\d+'])]
     public function createAction(Request $request, Collection $collection): Response
     {
         return $this->editAction($request, new Variable(), $collection);
     }
 
-    /**
-     * @Route("/edit/{id}", name="edit", defaults={"id"=null})
-     */
+    #[Route(path: '/edit/{id}', name: 'edit', defaults: ['id' => null])]
     public function editAction(
         Request $request,
         Variable $variable,
@@ -106,12 +98,10 @@ class VariableController extends BaseController
             'collection' => $collection,
         ];
 
-        return $this->render('@ezdesign/content_variable/variable/edit.html.twig', $params);
+        return $this->render('@ibexadesign/content_variable/variable/edit.html.twig', $params);
     }
 
-    /**
-     * @Route("/{id}/linked_content", name="linked_content", defaults={"id"=null}, requirements={"id"="\d+"})
-     */
+    #[Route(path: '/{id}/linked_content', name: 'linked_content', defaults: ['id' => null], requirements: ['id' => '\d+'])]
     public function linkedContentAction(Variable $variable): Response
     {
         $linkedContentInfo = $this->variableHandler->linkedContentInfoGrouped($variable);
@@ -121,12 +111,10 @@ class VariableController extends BaseController
             'linked_content' => $linkedContentInfo,
         ];
 
-        return $this->render('@ezdesign/content_variable/variable/related_content.html.twig', $params);
+        return $this->render('@ibexadesign/content_variable/variable/related_content.html.twig', $params);
     }
 
-    /**
-     * @Route("/bulk_edit", name="bulk_edit")
-     */
+    #[Route(path: '/bulk_edit', name: 'bulk_edit')]
     public function bulkEditAction(Request $request): Response
     {
         $collections = $this->collectionHandler->findAll();
@@ -135,7 +123,7 @@ class VariableController extends BaseController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, [$this, 'bulkEditHandler']);
+            $result = $this->submitHandler->handle($form, $this->bulkEditHandler(...));
             if ($result instanceof Response) {
                 return $result;
             }
@@ -147,7 +135,7 @@ class VariableController extends BaseController
             'collapsed_collections' => $this->getBulkEditCollapsedCollections($request),
         ];
 
-        return $this->render('@ezdesign/content_variable/variable/bulk_edit.html.twig', $params);
+        return $this->render('@ibexadesign/content_variable/variable/bulk_edit.html.twig', $params);
     }
 
     public function bulkEditHandler(VariableValues $data): void

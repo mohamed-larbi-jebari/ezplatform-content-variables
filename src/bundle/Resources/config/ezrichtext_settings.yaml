@@ -4,4 +4,4 @@ parameters:
 
     ezrichtext.validator.docbook.resources:
         - "%kernel.project_dir%/vendor/contextualcode/ezplatform-content-variables/src/bundle/Resources/schemas/docbook/ezpublish.rng"
-        - "%ezrichtext.resources%/schemas/docbook/docbook.iso.sch.xsl"
+        - "%ibexa.field_type.richtext.resources%/schemas/docbook/docbook.iso.sch.xsl"

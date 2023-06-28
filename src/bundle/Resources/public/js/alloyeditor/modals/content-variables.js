@@ -4,7 +4,7 @@ import { loadCollections } from '../services/content-variables';
 import Modal from '../components/modal';
 import ModalSelect from '../components/modal.select';
 
-import { showErrorNotification } from './../../../../../../../../../ezsystems/ezplatform-admin-ui/src/bundle/ui-dev/src/modules/common/services/notification.service';
+import { showErrorNotification } from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/common/services/notification.service.js';
 
 export default class ContentVariablesModal extends Component {
     constructor(props) {
@@ -110,7 +110,7 @@ export default class ContentVariablesModal extends Component {
             return (
                 <div className="text-center">
                     <svg className="ez-icon ez-spin ez-icon-x2 ez-icon-spinner">
-                        <use xlinkHref="/bundles/ezplatformadminui/img/ez-icons.svg#spinner"/>
+                        <use xlinkHref="/bundles/ibexaadminui/img/ibexa-icons.svg#spinner"/>
                     </svg>
                 </div>
             );

@@ -11,10 +11,10 @@
     title="{{ title }}"
 >
     <svg class="ez-icon ez-icon-trash">
-        <use xlink:href="{{ asset('bundles/ezplatformadminui/img/ez-icons.svg') }}#trash"/>
+        <use xlink:href="{{ asset('bundles/ibexaadminui/img/ibexa-icons.svg') }}#trash"/>
     </svg>
 </button>
-{% include '@ezdesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+{% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
     'id': modal_data_target,
     'message': message,
     'data_click': '#' ~ form_id ~ '_do_action',

@@ -45,7 +45,7 @@ export default class Modal extends Component {
                             <h3 className="modal-title">{this.props.title}</h3>
                             <button type="button" className="close" onClick={this.close.bind(this)}>
                                 <svg className="ez-icon ez-icon--medium" aria-hidden="true">
-                                    <use xlinkHref="/bundles/ezplatformadminui/img/ez-icons.svg#discard"/>
+                                    <use xlinkHref="/bundles/ibexaadminui/img/ibexa-icons.svg#discard"/>
                                 </svg>
                             </button>
                         </div>

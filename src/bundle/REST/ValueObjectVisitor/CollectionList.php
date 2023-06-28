@@ -2,9 +2,9 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\REST\ValueObjectVisitor;
 
-use EzSystems\EzPlatformRest\Output\Generator;
-use EzSystems\EzPlatformRest\Output\ValueObjectVisitor;
-use EzSystems\EzPlatformRest\Output\Visitor;
+use Ibexa\Contracts\Rest\Output\Generator;
+use Ibexa\Contracts\Rest\Output\ValueObjectVisitor;
+use Ibexa\Contracts\Rest\Output\Visitor;
 
 class CollectionList extends ValueObjectVisitor
 {

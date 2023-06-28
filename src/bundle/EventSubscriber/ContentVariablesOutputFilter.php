@@ -3,8 +3,8 @@
 namespace ContextualCode\EzPlatformContentVariablesBundle\EventSubscriber;
 
 use ContextualCode\EzPlatformContentVariablesBundle\Service\Handler\Variable;
-use eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use Ibexa\Bundle\IO\BinaryStreamResponse;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,10 +12,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use function count;
 
 class ContentVariablesOutputFilter implements EventSubscriberInterface
 {
-    public const WRAPPER = '#';
+    final public const WRAPPER = '#';
 
     /** @var Variable */
     protected $variableHandler;
@@ -23,10 +24,14 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
     /** @var ConfigResolverInterface */
     protected $configResolver;
 
-    public function __construct(Variable $variableHandler, ConfigResolverInterface $configResolver)
+    /** @var string */
+    protected $fragmentPath;
+
+    public function __construct(string $fragmentPath, Variable $variableHandler, ConfigResolverInterface $configResolver)
     {
         $this->variableHandler = $variableHandler;
         $this->configResolver = $configResolver;
+        $this->fragmentPath = $fragmentPath;
     }
 
     public function onKernelResponse(ResponseEvent $event): void
@@ -46,9 +51,15 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
             return;
         }
 
-        $route = $event->getRequest()->attributes->get('_route');
-        if (!in_array($route, $this->getSupportedRoutes(), true)) {
-            return;
+        $request = $event->getRequest();
+        $isFragment = ($this->fragmentPath === rawurldecode($request->getPathInfo()));
+
+        $supportedRoutes = $this->getSupportedRoutes();
+        if (count($supportedRoutes) > 0 && !$isFragment) {
+            $route = $request->attributes->get('_route');
+            if (!in_array($route, $this->getSupportedRoutes(), true)) {
+                return;
+            }
         }
 
         $content = $response->getContent();
@@ -68,7 +79,7 @@ class ContentVariablesOutputFilter implements EventSubscriberInterface
         $replacementTo = [];
         foreach ($variables as $variable) {
             $placeholder = $variable->getPlaceholder();
-            if ($placeholder === null || strpos($content, $placeholder) === false) {
+            if ($placeholder === null || !str_contains($content, $placeholder)) {
                 continue;
             }
 

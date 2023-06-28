@@ -8,9 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/content_variables/collection", name="content_variables.collection.")
- */
+#[Route(path: '/content_variables/collection', name: 'content_variables.collection.')]
 class CollectionController extends BaseController
 {
     protected $entityName = 'collection';
@@ -20,9 +18,7 @@ class CollectionController extends BaseController
         return $this->collectionHandler;
     }
 
-    /**
-     * @Route("/list", name="list")
-     */
+    #[Route(path: '/list', name: 'list')]
     public function listAction(Request $request): Response
     {
         $pagination = $this->getPagination($request, $this->collectionHandler->findAll());
@@ -46,20 +42,16 @@ class CollectionController extends BaseController
             'form' => $form->createView(),
         ];
 
-        return $this->render('@ezdesign/content_variable/collection/list.html.twig', $params);
+        return $this->render('@ibexadesign/content_variable/collection/list.html.twig', $params);
     }
 
-    /**
-     * @Route("/new", name="new")
-     */
+    #[Route(path: '/new', name: 'new')]
     public function createAction(Request $request): Response
     {
         return $this->editAction($request, new Collection());
     }
 
-    /**
-     * @Route("/edit/{id}", name="edit", defaults={"id"=null})
-     */
+    #[Route(path: '/edit/{id}', name: 'edit', defaults: ['id' => null])]
     public function editAction(Request $request, Collection $collection): Response
     {
         $form = $this->formFactory->collectionEdit($collection);
@@ -78,6 +70,6 @@ class CollectionController extends BaseController
             'form' => $form->createView(),
         ];
 
-        return $this->render('@ezdesign/content_variable/collection/edit.html.twig', $params);
+        return $this->render('@ibexadesign/content_variable/collection/edit.html.twig', $params);
     }
 }

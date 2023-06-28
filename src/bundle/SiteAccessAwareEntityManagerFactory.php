@@ -8,45 +8,28 @@ namespace ContextualCode\EzPlatformContentVariablesBundle;
 
 use Doctrine\Bundle\DoctrineBundle\Mapping\ContainerEntityListenerResolver;
 use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
 use Doctrine\Persistence\ManagerRegistry as Registry;
-use eZ\Bundle\EzPublishCoreBundle\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
 
 class SiteAccessAwareEntityManagerFactory
 {
-    /**
-     * @var Registry
-     */
-    private $registry;
-
     /**
      * @var RepositoryConfigurationProvider
      */
     private $repositoryConfigurationProvider;
 
-    /**
-     * @var array
-     */
-    private $settings;
-
-    /**
-     * @var ContainerEntityListenerResolver
-     */
-    private $resolver;
-
     public function __construct(
-        Registry $registry,
+        private readonly Registry $registry,
         RepositoryConfigurationProvider $repositoryConfigurationProvider,
-        ContainerEntityListenerResolver $resolver,
-        array $settings
+        private readonly ContainerEntityListenerResolver $resolver,
+        private readonly array $settings
     ) {
-        $this->registry = $registry;
         $this->repositoryConfigurationProvider = $repositoryConfigurationProvider;
-        $this->settings = $settings;
-        $this->resolver = $resolver;
     }
 
     private function getConnectionName(): string
@@ -66,7 +49,7 @@ class SiteAccessAwareEntityManagerFactory
 
         $connection = $this->registry->getConnection($connectionName);
 
-        /** @var \Doctrine\DBAL\Connection $connection */
+        /** @var Connection $connection */
         $cache = new ArrayCache();
         $config = new Configuration();
         $config->setMetadataCacheImpl($cache);

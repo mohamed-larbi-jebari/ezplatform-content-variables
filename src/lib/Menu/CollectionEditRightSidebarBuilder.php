@@ -2,7 +2,7 @@
 
 namespace ContextualCode\EzPlatformContentVariables\Menu;
 
-use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;

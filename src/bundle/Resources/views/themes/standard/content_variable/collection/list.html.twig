@@ -1,4 +1,4 @@
-{% extends '@ezdesign/content_variable/layout.html.twig' %}
+{% extends '@ibexadesign/content_variable/layout.html.twig' %}
 {% set show_left_sidebar = true %}
 
 {% trans_default_domain "content_variables" %}
@@ -12,11 +12,11 @@
         <div class="px-0 pb-4 ez-content-container">
             <div class="ez-header">
                 <div class="container">
-                    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+                    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
                         { value: 'path.root'|trans, url: path('content_variables.collection.list') },
                         { value: 'path.collections'|trans }
                     ]} %}
-                    {% include '@ezdesign/content_variable/parts/page_title.html.twig' with {
+                    {% include '@ibexadesign/content_variable/parts/page_title.html.twig' with {
                         title: 'title.collections'|trans,
                         iconsFile: 'bundles/ezplatformcontentvariables/img/icons.svg',
                         iconName: 'content-variables-manager',
@@ -29,18 +29,18 @@
                 <div class="ez-table-header">
                     <div class="ez-table-header__headline">{{ 'title.collections'|trans }}</div>
                     <div>
-                        {% include '@ezdesign/content_variable/buttons/new.html.twig' with {
+                        {% include '@ibexadesign/content_variable/buttons/new.html.twig' with {
                             'title': 'collection.new'|trans,
                             'href': path('content_variables.collection.new'),
                         } %}
                         {% if collections|length > 0 %}
-                            {% include '@ezdesign/content_variable/buttons/update_priority.html.twig' with {
+                            {% include '@ibexadesign/content_variable/buttons/update_priority.html.twig' with {
                                 'title': 'collection.update_priority'|trans,
                                 'id': 'update-priority-variables',
                                 'form_id': form_id,
                                 'action': 'updatePriority',
                             } %}
-                            {% include '@ezdesign/content_variable/buttons/delete.html.twig' with {
+                            {% include '@ibexadesign/content_variable/buttons/delete.html.twig' with {
                                 'title': 'collection.delete'|trans,
                                 'id': 'delete-collections',
                                 'form_id': form_id,
@@ -88,7 +88,7 @@
                                 <td class="ez-table__cell"><a href="{{ path('content_variables.list', {'id': collection.id}) }}">{{ collection.contentVariables|length }}</a></td>
                                 <td class="ez-table__cell">{{ collection.description }}</td>
                                 <td class="ez-table__cell ez-table__cell--has-action-btns text-right">
-                                    {% include '@ezdesign/content_variable/buttons/edit.html.twig' with {
+                                    {% include '@ibexadesign/content_variable/buttons/edit.html.twig' with {
                                         'title': 'collection.edit'|trans({'%name%': collection.name|u.truncate(50) }),
                                         'href': path('content_variables.collection.edit', {'id': collection.id}),
                                     } %}
@@ -119,5 +119,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-content-variables-collection-list-js', null, 'ezplatform') }}
+    {{ encore_entry_script_tags('ezplatform-content-variables-collection-list-js', null, 'ibexa') }}
 {% endblock %}

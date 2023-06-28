@@ -34,14 +34,14 @@ export default class ContentVariableDefinition extends BaseDefinition {
                 <svg class="ez-icon ez-icon--medium ez-icon--secondary">
                     <use
                         xmlns:xlink="http://www.w3.org/1999/xlink"
-                        xlink:href="/bundles/ezplatformadminui/img/ez-icons.svg#keyword"
+                        xlink:href="/bundles/ibexaadminui/img/ibexa-icons.svg#keyword"
                     />
                 </svg>
                 <span>{identifier}</span>
                 <svg class="ez-icon ez-icon--medium ez-icon--secondary">
                     <use
                         xmlns:xlink="http://www.w3.org/1999/xlink"
-                        xlink:href="/bundles/ezplatformadminui/img/ez-icons.svg#keyword"
+                        xlink:href="/bundles/ibexaadminui/img/ibexa-icons.svg#keyword"
                     />
                 </svg>
             </span>
