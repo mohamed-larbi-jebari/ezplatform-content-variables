@@ -2,7 +2,7 @@ system:
     admin_group:
         fieldtypes:
             ezrichtext:
-                toolbars:
+                toolbar:
                     text: &content-variables
                         buttons:
                             contentvariableinsert:

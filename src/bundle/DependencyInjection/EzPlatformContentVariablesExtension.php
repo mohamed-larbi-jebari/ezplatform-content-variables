@@ -3,6 +3,7 @@
 namespace ContextualCode\EzPlatformContentVariablesBundle\DependencyInjection;
 
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor;
+use Ibexa\Bundle\FieldTypeRichText\DependencyInjection\IbexaFieldTypeRichTextExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -32,8 +33,8 @@ class EzPlatformContentVariablesExtension extends Extension implements PrependEx
 
     public function prepend(ContainerBuilder $container): void
     {
-        $this->prependExtension($container, 'ezrichtext');
-        $this->prependExtension($container, 'ezpublish');
+        $this->prependExtension($container, IbexaFieldTypeRichTextExtension::EXTENSION_NAME);
+        $this->prependExtension($container, 'ibexa');
         $this->prependExtension($container, 'bazinga_js_translation');
     }
 

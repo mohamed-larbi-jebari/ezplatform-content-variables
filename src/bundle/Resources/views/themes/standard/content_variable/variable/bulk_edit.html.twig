@@ -3,27 +3,29 @@
 
 {% trans_default_domain "content_variables" %}
 
-{% block content %}
-    <div class="row align-items-stretch ez-main-row">
-        {% block left_sidebar %}
-            {{ parent() }}
-        {% endblock left_sidebar %}
+{% block breadcrumbs %}
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
+        { value: 'path.root'|trans, url: path('content_variables.collection.list') },
+        { value: 'path.bulk_edit'|trans }
+    ]} %}
+{% endblock %}
+{% block header %}
+    {% include '@ibexadesign/content_variable/parts/page_title.html.twig' with {
+        title: 'title.bulk_edit'|trans,
+        iconsFile: 'bundles/ezplatformcontentvariables/img/icons.svg',
+        iconName: 'edit-bulk',
+    } %}
+{% endblock %}
 
-        <div class="px-0 pb-4 ez-content-container">
-            <div class="ez-header">
-                <div class="container">
-                    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-                        { value: 'path.root'|trans, url: path('content_variables.collection.list') },
-                        { value: 'path.bulk_edit'|trans }
-                    ]} %}
-                    {% include '@ibexadesign/content_variable/parts/page_title.html.twig' with {
-                        title: 'title.bulk_edit'|trans,
-                        iconsFile: 'bundles/ezplatformcontentvariables/img/icons.svg',
-                        iconName: 'edit-bulk',
-                    } %}
-                </div>
-            </div>
+{% block context_menu %}
+    {% set sidebar_right = knp_menu_get('content_variables.menu.bulk_edit.sidebar_right', [], {}) %}
+    {{ knp_menu_render(sidebar_right, {
+        'template': '@ibexadesign/ui/menu/context_menu.html.twig'
+    }) }}
+{% endblock %}
 
+{% block content_variables_bulk %}
+        <div class="px-0 pb-4 ibexa-content-container">
             <section class="container mt-4 px-5">
                 {% if collections|length > 0 %}
                     {{ form_start(form) }}
@@ -32,8 +34,8 @@
                     {% for collection in collections %}
                         {% set hasVariables = collection.contentVariables|length > 0 %}
                         {% set isCollapsed = collection.id in collapsed_collections.ids %}
-                        <div class="ez-table-header">
-                            <div class="ez-table-header__headline">{{ collection.name }}</div>
+                        <div class="ibexa-table-header">
+                            <div class="ibexa-table-header__headline">{{ collection.name }}</div>
                             {% if collection.description %}
                                 <div class="c-no-items">{{ collection.description }}</div>
                             {% endif %}
@@ -49,7 +51,7 @@
                         </div>
                         <div id="content-variables-bulk-edit-{{ collection.id }}" class="{{ isCollapsed ? 'collapse' : 'show' }}">
                             {% if hasVariables %}
-                                <table class="ez-table table mb-0">
+                                <table class="ibexa-table table mb-0">
                                     <thead>
                                         <tr>
                                             <th>{{ 'variable.name'|trans }}</th>
@@ -60,9 +62,9 @@
                                     <tbody>
                                     {% for variable in collection.contentVariables %}
                                         <tr class="content-variable-block">
-                                            <td class="ez-table__cell">{{ variable.name }}</td>
-                                            <td class="ez-table__cell">{{ variable.placeholder }}</td>
-                                            <td class="ez-table__cell">
+                                            <td class="ibexa-table__cell">{{ variable.name }}</td>
+                                            <td class="ibexa-table__cell">{{ variable.placeholder }}</td>
+                                            <td class="ibexa-table__cell">
                                                 <div{% if not variable.isStatic %} hidden="hidden"{% endif %}>
                                                     {{ form_widget(form.valueStatic[variable.id], {
                                                         'attr': {'class': 'form-control content-variable-value-static'}
@@ -81,7 +83,7 @@
                                     </tbody>
                                 </table>
                             {% else %}
-                                <p class="ez-table-no-content mb-0">{{ 'variable.no_items'|trans }}</p>
+                                <p class="ibexa-table-no-content mb-0">{{ 'variable.no_items'|trans }}</p>
                             {% endif %}
                         </div>
                     {% endfor %}
@@ -89,20 +91,10 @@
                     <button id="variables-update" type="submit" hidden />
                     {{ form_end(form) }}
                 {% else %}
-                    <p class="ez-table-no-content">{{ 'bulk_edit.no_items'|trans({'%link_start%' : '<a href="'~path('content_variables.collection.new')~'">', '%link_end%' : '</a>'})|raw }}</p>
+                    <p class="ibexa-table-no-content">{{ 'bulk_edit.no_items'|trans({'%link_start%' : '<a href="'~path('content_variables.collection.new')~'">', '%link_end%' : '</a>'})|raw }}</p>
                 {% endif %}
             </section>
         </div>
-
-        <div class="pt-4 px-0 bg-secondary ez-context-menu">
-            <div class="ez-sticky-container">
-                {% set sidebar_right = knp_menu_get('content_variables.menu.bulk_edit.sidebar_right', [], {}) %}
-                {{ knp_menu_render(sidebar_right, {
-                    'template': '@ibexadesign/ui/menu/sidebar_right.html.twig'
-                }) }}
-            </div>
-        </div>
-    </div>
 {% endblock %}
 
 {% block stylesheets %}
@@ -110,5 +102,6 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
     {{ encore_entry_script_tags('ezplatform-content-variables-bulk-edit-js', null, 'ibexa') }}
 {% endblock %}

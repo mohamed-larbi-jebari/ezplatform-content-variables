@@ -1,16 +1,33 @@
 {% extends '@ibexadesign/ui/layout.html.twig' %}
 
-{% block left_sidebar %}
+{% block content_tree %}
     {% if show_left_sidebar is defined %}
-        <div class="bg-dark pt-4 px-0 ez-side-menu">
-            <div class="ez-sticky-container">
+        <div class="bg-dark pt-4 px-0 ibexa-side-menu">
+            <div class="ibexa-sticky-container">
                 {% set sidebar_left = knp_menu_get('content_variables.menu.main.sidebar_left', [], {}) %}
                 {{ knp_menu_render(sidebar_left, {
                     'template': '@ibexadesign/content_variable/parts/menu/sidebar_left.html.twig',
-                    'currentClass': 'ez-btn--content-tree-expanded',
-                    'ancestorClass': 'ez-btn--content-tree-expanded'
+                    'currentClass': 'ibexa-side-menu ibexa-btn--content-tree-expanded',
+                    'ancestorClass': 'ibexa-side-menu ibexa-btn--content-tree-expanded'
                 }) }}
             </div>
         </div>
     {% endif %}
-{% endblock left_sidebar %}
+{% endblock %}
+{% block content_variables_collection %}{% endblock %}
+{% block content_variables_bulk %}
+    {{ render(controller('ContextualCode\\EzPlatformContentVariablesBundle\\Controller\\VariableController:bulkEditAction')) }}
+{% endblock %}
+
+{% block content %}
+    {% include '@ibexadesign/ui/component/tab/tabs.html.twig' with {
+        tabs: [
+            { id: 'first', label: 'First', content: block('content_variables_collection'), active: true  },
+            { id: 'second', label: 'Second', content: block('content_variables_bulk')},
+        ]
+    } %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('ibexa-admin-ui-tabs-js', null, 'ibexa') }}
+{% endblock %}

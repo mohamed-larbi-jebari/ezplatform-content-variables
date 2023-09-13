@@ -6,50 +6,43 @@
 
 {% set pathTitle = collection.isNew ? 'path.collection.new'|trans : 'path.collection.edit'|trans({'%name%': collection.name|u.truncate(50) }) %}
 {% set pageTitle = collection.isNew ? 'title.collection.new'|trans : 'title.collection.edit'|trans({'%name%': collection.name|u.truncate(50) }) %}
-{% block content %}
-    <div class="row align-items-stretch ez-main-row">
-        {% block left_sidebar %}
-            {{ parent() }}
-        {% endblock left_sidebar %}
 
-        <div class="px-0 pb-4 ez-content-container">
-            <div class="ez-header">
-                <div class="container">
-                    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-                        { value: 'path.root'|trans, url: path('content_variables.collection.list') },
-                        { value: pathTitle }
-                    ]} %}
-                    {% include '@ibexadesign/content_variable/parts/page_title.html.twig' with {
-                        title: pageTitle,
-                        iconsFile: 'bundles/ezplatformcontentvariables/img/icons.svg',
-                        iconName: 'content-variables-manager',
-                    } %}
-                </div>
-            </div>
+{% block breadcrumbs %}
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
+        { value: 'path.root'|trans, url: path('content_variables.collection.list') },
+        { value: pathTitle }
+    ]} %}
+{% endblock %}
+{% block header %}
+    {% include '@ibexadesign/content_variable/parts/page_title.html.twig' with {
+        title: pageTitle,
+        iconsFile: 'bundles/ezplatformcontentvariables/img/icons.svg',
+        iconName: 'content-variables-manager',
+    } %}
+{% endblock %}
+{% block context_menu %}
+        {% set sidebar_right = knp_menu_get('content_variables.menu.collection_edit.sidebar_right', [], {}) %}
+        {{ knp_menu_render(sidebar_right, {
+            'template': '@ibexadesign/ui/menu/context_menu.html.twig'
+        }) }}
+{% endblock %}
+{% block content_variables_collection %}
+    <div class="px-0 pb-4 ibexa-content-container">
 
-            <div class="container px-0 pb-4 mt-5">
-                {{ form_start(form) }}
-                {{ form_errors(form) }}
+        <div class="container px-0 pb-4 mt-5">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
 
-                <section class="container mt-4">
-                    <div class="card ez-card">
-                        <div class="card-body">
-                            {{ form_row(form.name, {'label_attr': {'class': 'ez-label'}}) }}
-                            {{ form_row(form.description, {'label_attr': {'class': 'ez-label'}}) }}
-                        </div>
+            <section class="container mt-4">
+                <div class="card ibexa-card">
+                    <div class="card-body">
+                        {{ form_row(form.name, {'label_attr': {'class': 'ibexa-label'}}) }}
+                        {{ form_row(form.description, {'label_attr': {'class': 'ibexa-label'}}) }}
                     </div>
-                </section>
-                <button id="collection-update" type="submit" hidden/>
-                {{ form_end(form) }}
-            </div>
-        </div>
-        <div class="pt-4 px-0 bg-secondary ez-context-menu">
-            <div class="ez-sticky-container">
-                {% set sidebar_right = knp_menu_get('content_variables.menu.collection_edit.sidebar_right', [], {}) %}
-                {{ knp_menu_render(sidebar_right, {
-                    'template': '@ibexadesign/ui/menu/sidebar_right.html.twig'
-                }) }}
-            </div>
+                </div>
+            </section>
+            <button id="collection-update" type="submit" hidden/>
+            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}

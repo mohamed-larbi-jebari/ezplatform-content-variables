@@ -7,21 +7,22 @@
 namespace ContextualCode\EzPlatformContentVariablesBundle;
 
 use Doctrine\Bundle\DoctrineBundle\Mapping\ContainerEntityListenerResolver;
-use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Exception\MissingMappingDriverImplementation;
 use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
 use Doctrine\Persistence\ManagerRegistry as Registry;
 use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 class SiteAccessAwareEntityManagerFactory
 {
     /**
      * @var RepositoryConfigurationProvider
      */
-    private $repositoryConfigurationProvider;
+    private RepositoryConfigurationProvider $repositoryConfigurationProvider;
 
     public function __construct(
         private readonly Registry $registry,
@@ -39,6 +40,9 @@ class SiteAccessAwareEntityManagerFactory
         return $config['storage']['connection'] ?? 'default';
     }
 
+    /**
+     * @throws MissingMappingDriverImplementation
+     */
     public function get(): EntityManagerInterface
     {
         $connectionName = $this->getConnectionName();
@@ -50,18 +54,19 @@ class SiteAccessAwareEntityManagerFactory
         $connection = $this->registry->getConnection($connectionName);
 
         /** @var Connection $connection */
-        $cache = new ArrayCache();
+        $cache = new ArrayAdapter();
         $config = new Configuration();
-        $config->setMetadataCacheImpl($cache);
+        $config->setMetadataCache($cache);
         $driverImpl = $config->newDefaultAnnotationDriver(__DIR__.'/../Entity', false);
         $config->setMetadataDriverImpl($driverImpl);
-        $config->setQueryCacheImpl($cache);
+        $config-> setQueryCache($cache);
+
         $config->setProxyDir($this->settings['cache_dir'].'/eZContentVariablesBundle/');
         $config->setProxyNamespace('eZContentVariablesBundle\Proxies');
         $config->setAutoGenerateProxyClasses($this->settings['debug']);
         $config->setEntityListenerResolver($this->resolver);
         $config->setNamingStrategy(new UnderscoreNamingStrategy());
 
-        return EntityManager::create($connection, $config);
+        return new EntityManager($connection, $config);
     }
 }
