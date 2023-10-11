@@ -27,7 +27,7 @@ class VariableEditRightSidebarBuilder extends AbstractBuilder implements Transla
                 self::ITEM__SAVE,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => '#variable-update',
                     ],
                     'extras' => ['icon' => 'save'],

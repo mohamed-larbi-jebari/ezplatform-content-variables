@@ -41,7 +41,7 @@ module.exports = (ibexaConfig, ibexaConfigManager) => {
         entryName: 'ibexa-admin-ui-layout-css',
         newItems: [
 
-            path.resolve(__dirname, '../public/css/ezplatform-admin-ui-layout-css.css'),
+            path.resolve(__dirname, '../public/css/ibexa-admin-ui-layout-css.css'),
             path.resolve(__dirname, '../public/css/alloyeditor/widgets/content-variable.css'),
         ]
     });

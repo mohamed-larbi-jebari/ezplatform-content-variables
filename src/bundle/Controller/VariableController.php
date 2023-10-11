@@ -2,7 +2,6 @@
 
 namespace ContextualCode\EzPlatformContentVariablesBundle\Controller;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Collection;
 use ContextualCode\EzPlatformContentVariablesBundle\Entity\Variable;
 use ContextualCode\EzPlatformContentVariablesBundle\Form\Data\VariableValues;
@@ -123,10 +122,10 @@ class VariableController extends BaseController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, $this->bulkEditHandler(...));
-            if ($result instanceof Response) {
-                return $result;
-            }
+            $this->submitHandler->handle($form, $this->bulkEditHandler(...));
+            return $this->redirect(
+                $this->generateUrl('content_variables.collection.list').'#ibexa-tab-second#tab'
+            );
         }
 
         $params = [

@@ -40,6 +40,9 @@ services:
         tags:
             - { name: knp_menu.menu_builder, method: build, alias: content_variables.menu.variable_edit.sidebar_right }
     ContextualCode\EzPlatformContentVariables\Menu\BulkEditRightSidebarBuilder:
+        autowire: true
+        calls:
+            - [ setRouter, ["@router"] ]
         tags:
             - { name: knp_menu.menu_builder, method: build, alias: content_variables.menu.bulk_edit.sidebar_right }
 

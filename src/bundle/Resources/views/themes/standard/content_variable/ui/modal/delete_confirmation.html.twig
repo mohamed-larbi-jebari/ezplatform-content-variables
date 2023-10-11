@@ -1,0 +1,18 @@
+{% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
+    class: 'ibexa-modal--send-to-trash',
+    no_header: true,
+    id,
+    message,
+} %}
+    {% block body_content %}
+        {{ message }}
+    {% endblock %}
+    {% block footer_content %}
+        <button class="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger" data-click="{{ data_click }}">
+            {{ 'modal.delete'|trans|desc('Delete') }}
+        </button>
+        <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
+            {{ 'modal.cancel'|trans|desc('Cancel') }}
+        </button>
+    {% endblock %}
+{% endembed %}

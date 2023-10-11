@@ -33,7 +33,7 @@ final class RichTextXslPass implements CompilerPassInterface
         string $type,
         array $rules
     ): void {
-        $parameter = "ezsettings.{$scope}.fieldtypes.ezrichtext.{$type}";
+        $parameter = "ibexa.site_access.config.{$scope}.fieldtypes.ezrichtext.{$type}";
         if (!$container->hasParameter($parameter)) {
             return;
         }
@@ -41,7 +41,7 @@ final class RichTextXslPass implements CompilerPassInterface
         $extraRules = [];
         foreach ($rules as $rule) {
             $extraRules[] = [
-                'path' => __DIR__ . '/../../Resources/xsl/' . $rule,
+                'path' => __DIR__ . '/../../Resources/richtext/stylesheets/' . $rule,
                 'priority' => 250,
             ];
         }

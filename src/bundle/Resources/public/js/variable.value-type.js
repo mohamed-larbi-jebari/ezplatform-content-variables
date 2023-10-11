@@ -14,13 +14,19 @@
                 staticValue.value = placeholder;
             }
             staticValue.parentElement.hidden = true;
+            staticValue.closest('.form-group').hidden = true;
             callbackValue.parentElement.hidden = false;
+            callbackValue.closest('.ibexa-dropdown--single').hidden = false;
+            callbackValue.closest('.form-group').hidden = false;
         } else {
             if (staticValue.value === placeholder) {
                 staticValue.value = '';
             }
             staticValue.parentElement.hidden = false;
+            staticValue.closest('.form-group').hidden = false;
             callbackValue.parentElement.hidden = true;
+            callbackValue.closest('.ibexa-dropdown--single').hidden = true;
+            callbackValue.closest('.form-group').hidden = true;
         }
     };
     const items = doc.querySelectorAll('.content-variable-value-type');
