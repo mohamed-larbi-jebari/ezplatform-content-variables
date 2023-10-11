@@ -10,25 +10,23 @@
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'path.root'|trans, url: path('content_variables.collection.list') },
+        { value: 'path.collections'|trans , url: path('content_variables.collection.list')},
         { value: collection.name, url: path('content_variables.list', {'id': collection.id}) },
         { value: pathTitle }
     ]} %}
 {% endblock %}
-{% block header %}
-    {% include '@ibexadesign/ui/page_title.html.twig' with {
-        title: pageTitle,
-        iconName: 'keyword'
-    } %}
-{% endblock %}
 
-{% block context_menu %}
+
+{% block content_variables_collection %}
     {% set sidebar_right = knp_menu_get('content_variables.menu.variable_edit.sidebar_right', [], {'collection': collection}) %}
     {{ knp_menu_render(sidebar_right, {
         'template': '@ibexadesign/ui/menu/context_menu.html.twig'
     }) }}
-{% endblock %}
-
-{% block content_variables_bulk %}
+    {% include '@ibexadesign/content_variable/parts/page_title.html.twig' with {
+        title: pageTitle,
+        iconsFile: 'bundles/ezplatformcontentvariables/img/icons.svg',
+        iconName: 'content-variables-manager',
+    } %}
         <div class="px-0 pb-4 ibexa-content-container">
             <div class="container px-0 pb-4 mt-5">
                 {{ form_start(form) }}
@@ -56,7 +54,7 @@
                         </div>
                     </div>
                 </section>
-                <button id="variable-update" type="submit" hidden/>
+                <button id="variable-update" type="submit" hidden />
                 {{ form_end(form) }}
             </div>
         </div>
@@ -64,5 +62,6 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('ezplatform-content-variables-collection-list-js', null, 'ibexa') }}
     {{ encore_entry_script_tags('ezplatform-content-variables-variables-edit-js', null, 'ibexa') }}
 {% endblock %}

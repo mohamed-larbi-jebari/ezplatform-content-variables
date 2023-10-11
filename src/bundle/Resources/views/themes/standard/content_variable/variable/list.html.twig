@@ -1,4 +1,5 @@
 {% extends '@ibexadesign/content_variable/layout.html.twig' %}
+
 {% set show_left_sidebar = true %}
 
 {% trans_default_domain "content_variables" %}
@@ -6,18 +7,16 @@
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'path.root'|trans, url: path('content_variables.collection.list') },
-        { value: collection.name }
+        { value: 'path.collections'|trans , url: path('content_variables.collection.list') },
+        { value: collection.name, url: path('content_variables.list', {'id': collection.id}) }
     ]} %}
 {% endblock %}
 
-{% block header %}
-    {% include '@ibexadesign/ui/page_title.html.twig' with {
-        title: collection.name,
-        iconName: 'keyword'
-    } %}
-{% endblock %}
-
-{% block content_variables_bulk %}
+{% block content_variables_collection %}
+        {% include '@ibexadesign/ui/page_title.html.twig' with {
+            title: collection.name,
+            iconName: 'keyword'
+        } %}
         <div class="px-0 pb-4 ibexa-content-container">
             {% set form_id = 'variables_bulk_actions' %}
             <section class="container mt-4 px-5">
@@ -71,7 +70,12 @@
                         {% for variable in variables %}
                             <tr>
                                 <td class="ibexa-table__cell ibexa-table__cell--has-checkbox">
-                                    {{ form_widget(form.selectedId[variable.id], {"disabled": not variable.canBeDeleted}) }}
+                                    {{ form_widget(form.selectedId[variable.id], {
+                                        'attr': {
+                                            'class': 'ibexa-input ibexa-input--checkbox'
+                                        },
+                                        "disabled": not variable.canBeDeleted
+                                        }) }}
                                 </td>
                                 <td class="ibexa-table__cell">{{ variable.name }}</td>
                                 <td class="ibexa-table__cell">{{ variable.identifier }}</td>
@@ -92,7 +96,7 @@
                                         {{ 'variable.value.callback'|trans({'%callback%': variable.valueCallback}) }}
                                     {% endif %}
                                 </td>
-                                <td class="ibexa-table__cell ibexa-table__cell--has-action-btns text-right">
+                                <td class="ibexa-table__cell ibexa-table__cell--has-action-btns text-right" width="10%">
                                     {% include '@ibexadesign/content_variable/buttons/linked_content.html.twig' with {
                                         'title': 'variable.content'|trans,
                                         'href': path('content_variables.linked_content', {'id': variable.id}),
@@ -107,18 +111,16 @@
                         </tbody>
                     </table>
                     {{ form_end(form) }}
-                    <div class="row justify-content-center align-items-center mb-2">
-                        <span class="ibexa-pagination__text">
+                    <div class="ibexa-pagination">
+                        <div class="ibexa-pagination__info">
                             {{ 'pagination.viewing'|trans({
                                 '%viewing%': pager.currentPageResults|length,
                                 '%total%': pager.nbResults}, 'pagination')|raw }}
-                        </span>
-                    </div>
-                    {% if pager.haveToPaginate %}
-                        <div class="row justify-content-center align-items-center ibexa-pagination__btn mb-5">
-                            {{ pagerfanta(pager, 'ez') }}
                         </div>
-                    {% endif %}
+                        {% if pager.haveToPaginate %}
+                            {{ pagerfanta(pager, 'ibexa') }}
+                        {% endif %}
+                    </div>
                 {% else %}
                     <p class="ibexa-table-no-content">{{ 'variable.no_items'|trans }}</p>
                 {% endif %}

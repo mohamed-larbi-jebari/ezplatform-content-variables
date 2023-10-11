@@ -6,20 +6,17 @@
 {% block breadcrumbs %}
     {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'path.root'|trans, url: path('content_variables.collection.list') },
+        { value: 'path.collections'|trans , url: path('content_variables.collection.list') },
         { value: variable.collection.name, url: path('content_variables.list', {'id': variable.collection.id}) },
         { value: variable.name },
     ]} %}
 {% endblock %}
 
-{% block header %}
+{% block content_variables_collection %}
     {% include '@ibexadesign/ui/page_title.html.twig' with {
         title: 'title.variable.linked_content'|trans({'%name%': variable.name|u.truncate(50) }),
         iconName: 'view-custom'
     } %}
-{% endblock %}
-
-
-{% block content %}
     <div class="px-0 pb-4 ibexa-content-container">
         {% for status, items in linked_content %}
             {% set isCollapsed = status != 1 %}
@@ -80,5 +77,6 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('ezplatform-content-variables-variables-list-js', null, 'ibexa') }}
     {{ encore_entry_script_tags('ezplatform-content-variables-related-content-js', null, 'ibexa') }}
 {% endblock %}

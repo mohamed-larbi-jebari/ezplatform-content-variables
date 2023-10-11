@@ -3,20 +3,13 @@
 
 {% trans_default_domain "content_variables" %}
 
-{% block breadcrumbs %}
-    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-        { value: 'path.root'|trans, url: path('content_variables.collection.list') },
-        { value: 'path.collections'|trans }
-    ]} %}
-{% endblock %}
-{% block header %}
+
+{% block content_variables_collection %}
     {% include '@ibexadesign/content_variable/parts/page_title.html.twig' with {
         title: 'title.collections'|trans,
         iconsFile: 'bundles/ezplatformcontentvariables/img/icons.svg',
         iconName: 'content-variables-manager',
     } %}
-{% endblock %}
-{% block content_variables_collection %}
     <div class="px-0 pb-4 ibexa-content-container">
         {% set form_id = 'collections_bulk_actions' %}
         <section class="container mt-4 px-5">
@@ -69,7 +62,12 @@
                     {% for collection in collections %}
                         <tr>
                             <td class="ibexa-table__cell ibexa-table__cell--has-checkbox">
-                                {{ form_widget(form.selectedId[collection.id], {"disabled": not collection.canBeDeleted}) }}
+                                {{ form_widget(form.selectedId[collection.id], {
+                                    'attr': {
+                                        'class': 'ibexa-input ibexa-input--checkbox'
+                                    },
+                                    'disabled': not collection.canBeDeleted
+                                }) }}
                             </td>
                             <td class="ibexa-table__cell"><a href="{{ path('content_variables.list', {'id': collection.id}) }}">{{ collection.name }}</a></td>
                             <td class="ibexa-table__cell">
@@ -92,18 +90,17 @@
                     </tbody>
                 </table>
                 {{ form_end(form) }}
-                <div class="row justify-content-center align-items-center mb-2">
-                        <span class="ibexa-pagination__text">
-                            {{ 'pagination.viewing'|trans({
-                                '%viewing%': pager.currentPageResults|length,
-                                '%total%': pager.nbResults}, 'pagination')|raw }}
-                        </span>
-                </div>
-                {% if pager.haveToPaginate %}
-                    <div class="row justify-content-center align-items-center ibexa-pagination__btn mb-5">
-                        {{ pagerfanta(pager, 'ez') }}
+                <div class="ibexa-pagination">
+                    <div class="ibexa-pagination__info">
+                        {{ 'pagination.viewing'|trans({
+                            '%viewing%': pager.currentPageResults|length,
+                            '%total%': pager.nbResults}, 'pagination')|raw }}
                     </div>
-                {% endif %}
+                    {% if pager.haveToPaginate %}
+                        {{ pagerfanta(pager, 'ibexa') }}
+                    {% endif %}
+                </div>
+
             {% else %}
                 <p class="ibexa-table-no-content">{{ 'collections.no_items'|trans }}</p>
             {% endif %}
@@ -111,6 +108,9 @@
     </div>
 {% endblock %}
 
+{% block stylesheets %}
+    {{ encore_entry_link_tags('ezplatform-content-variables-bulk-edit-css', null, 'ibexa') }}
+{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}

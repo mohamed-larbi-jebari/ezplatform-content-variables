@@ -1,10 +1,11 @@
 <button
     id="{{ id }}"
     type="button"
-    class="btn btn-danger update-bulk-action"
+    class="btn ibexa-btn ibexa-btn--secondary update-bulk-action"
     disabled
-    data-toggle="modal"
-    data-target="#{{ modal_data_target }}"
+    data-bs-toggle="modal"
+    data-bs-target="#{{ modal_data_target }}"
+    data-bss-action="{{ action }}"
     data-form="#{{ form_id }}"
     data-action-element="#{{ form_id }}_action"
     data-action="{{ action }}"
@@ -14,7 +15,9 @@
         <use xlink:href="{{ asset('bundles/ibexaadminui/img/ibexa-icons.svg') }}#trash"/>
     </svg>
 </button>
-{% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+
+
+{% include '@ibexadesign/content_variable/ui/modal/delete_confirmation.html.twig' with {
     'id': modal_data_target,
     'message': message,
     'data_click': '#' ~ form_id ~ '_do_action',

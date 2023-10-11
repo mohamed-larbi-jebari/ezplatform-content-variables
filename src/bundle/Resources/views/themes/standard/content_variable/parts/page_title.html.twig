@@ -1,10 +1,10 @@
 {% if title is defined %}
-    <h1 class="ibexa-page-title__title">
+    <h2 class="ibexa-page-title__title">
         {% if iconName is defined %}
             <svg class="ibexa-icon ibexa-icon-{{ iconName }}">
                 <use xlink:href="{{ asset(iconsFile|default('bundles/ibexaadminui/img/ibexa-icons.svg')) }}#{{ iconName }}"></use>
             </svg>
         {% endif %}
         {{ title }}
-    </h1>
+    </h2>
 {% endif %}

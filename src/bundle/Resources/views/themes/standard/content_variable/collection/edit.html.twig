@@ -7,26 +7,16 @@
 {% set pathTitle = collection.isNew ? 'path.collection.new'|trans : 'path.collection.edit'|trans({'%name%': collection.name|u.truncate(50) }) %}
 {% set pageTitle = collection.isNew ? 'title.collection.new'|trans : 'title.collection.edit'|trans({'%name%': collection.name|u.truncate(50) }) %}
 
-{% block breadcrumbs %}
-    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-        { value: 'path.root'|trans, url: path('content_variables.collection.list') },
-        { value: pathTitle }
-    ]} %}
-{% endblock %}
-{% block header %}
+{% block content_variables_collection %}
+    {% set sidebar_right = knp_menu_get('content_variables.menu.collection_edit.sidebar_right', [], {}) %}
+    {{ knp_menu_render(sidebar_right, {
+        'template': '@ibexadesign/ui/menu/context_menu.html.twig'
+    }) }}
     {% include '@ibexadesign/content_variable/parts/page_title.html.twig' with {
         title: pageTitle,
         iconsFile: 'bundles/ezplatformcontentvariables/img/icons.svg',
         iconName: 'content-variables-manager',
     } %}
-{% endblock %}
-{% block context_menu %}
-        {% set sidebar_right = knp_menu_get('content_variables.menu.collection_edit.sidebar_right', [], {}) %}
-        {{ knp_menu_render(sidebar_right, {
-            'template': '@ibexadesign/ui/menu/context_menu.html.twig'
-        }) }}
-{% endblock %}
-{% block content_variables_collection %}
     <div class="px-0 pb-4 ibexa-content-container">
 
         <div class="container px-0 pb-4 mt-5">
@@ -45,4 +35,13 @@
             {{ form_end(form) }}
         </div>
     </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('ezplatform-content-variables-bulk-edit-css', null, 'ibexa') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('ezplatform-content-variables-collection-list-js', null, 'ibexa') }}
 {% endblock %}

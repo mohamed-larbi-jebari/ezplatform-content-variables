@@ -1,107 +1,94 @@
-{% extends '@ibexadesign/content_variable/layout.html.twig' %}
-{% set show_left_sidebar = true %}
-
 {% trans_default_domain "content_variables" %}
 
-{% block breadcrumbs %}
-    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
-        { value: 'path.root'|trans, url: path('content_variables.collection.list') },
-        { value: 'path.bulk_edit'|trans }
-    ]} %}
-{% endblock %}
-{% block header %}
+{% set show_left_sidebar = true %}
+
+{% block content_variables_bulk %}
+
+    {% set sidebar_right = knp_menu_get('content_variables.menu.bulk_edit.sidebar_right', [], {}) %}
+    {{ knp_menu_render(sidebar_right, {
+        'template': '@ibexadesign/ui/menu/context_menu.html.twig'
+    }) }}
+
     {% include '@ibexadesign/content_variable/parts/page_title.html.twig' with {
         title: 'title.bulk_edit'|trans,
         iconsFile: 'bundles/ezplatformcontentvariables/img/icons.svg',
         iconName: 'edit-bulk',
     } %}
-{% endblock %}
+    <div class="px-0 pb-4 ibexa-content-container">
+        <section class="container mt-4 px-5">
+            {% if collections|length > 0 %}
+                {{ form_start(form,{
+                    'action': path('content_variables.bulk_edit'),
+                    'attr': {'id': 'content-variables-bulk-edit'}
+                    })
+                }}
+                {{ form_errors(form) }}
 
-{% block context_menu %}
-    {% set sidebar_right = knp_menu_get('content_variables.menu.bulk_edit.sidebar_right', [], {}) %}
-    {{ knp_menu_render(sidebar_right, {
-        'template': '@ibexadesign/ui/menu/context_menu.html.twig'
-    }) }}
-{% endblock %}
+                {% for collection in collections %}
+                    {% set hasVariables = collection.contentVariables|length > 0 %}
+                    {% set isCollapsed = collection.id in collapsed_collections.ids %}
+                    {%- embed "@ibexadesign/ui/component/collapse.html.twig" with {
+                        'class': 'ibexa-pc-added-attributes-group ibexa-collapse ibexa-collapse--heavy ',
+                        'body_id':  'attributes_collapse-' ~ collection.id,
+                        'header_label': collection.name ~ ' '  ~ collection.description,
+                        'is_expanded': true,
+                        'is_draggable': false,
+                        'data_attr': {
+                            'data-group-id': collection.id,
+                            'data-item-id': collection.id
+                        }
+                    } -%}
 
-{% block content_variables_bulk %}
-        <div class="px-0 pb-4 ibexa-content-container">
-            <section class="container mt-4 px-5">
-                {% if collections|length > 0 %}
-                    {{ form_start(form) }}
-                    {{ form_errors(form) }}
-
-                    {% for collection in collections %}
-                        {% set hasVariables = collection.contentVariables|length > 0 %}
-                        {% set isCollapsed = collection.id in collapsed_collections.ids %}
-                        <div class="ibexa-table-header">
-                            <div class="ibexa-table-header__headline">{{ collection.name }}</div>
-                            {% if collection.description %}
-                                <div class="c-no-items">{{ collection.description }}</div>
-                            {% endif %}
-                            <div>
-                                {% include '@ibexadesign/content_variable/buttons/collapse.html.twig' with {
-                                    'containerId': 'content-variables-bulk-edit-' ~ collection.id,
-                                    'isCollapsed': isCollapsed,
-                                    'cookieVariable': collapsed_collections.cookie_var,
-                                    'cookieSeparator': collapsed_collections.cookie_separator,
-                                    'itemId': collection.id,
-                                } %}
+                        {% block body_content_wrapper %}
+                            <div class="ibexa-collapse__body-content ibexa-pc-added-attributes-group__drop-zone">
+                                <div id="content-variables-bulk-edit-{{ collection.id }}" class="{{ isCollapsed ? 'collapse' : 'show' }}">
+                                    {% if hasVariables %}
+                                        <table class="ibexa-table table mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th>{{ 'variable.name'|trans({}, 'content_variables') }}</th>
+                                                <th>{{ 'variable.placeholder'|trans({}, 'content_variables') }}</th>
+                                                <th>{{ 'variable.value'|trans({}, 'content_variables') }}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for variable in collection.contentVariables %}
+                                                <tr class="content-variable-block">
+                                                    <td class="ibexa-table__cell">{{ variable.name }}</td>
+                                                    <td class="ibexa-table__cell">{{ variable.placeholder }}</td>
+                                                    <td class="ibexa-table__cell">
+                                                        <div{% if not variable.isStatic %} hidden="hidden"{% endif %}>
+                                                            {{ form_widget(form.valueStatic[variable.id], {
+                                                                'attr': {'class': 'form-control content-variable-value-static'}
+                                                            }) }}
+                                                        </div>
+                                                        {% if form.valueCallback is defined %}
+                                                            <div{% if variable.isStatic %} hidden="hidden"{% endif %}>
+                                                                {{ form_widget(form.valueCallback[variable.id], {
+                                                                    'attr': {'class': 'form-control content-variable-value-callback'}
+                                                                }) }}
+                                                            </div>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    {% else %}
+                                        <p class="ibexa-table-no-content mb-0"> {{ 'variable.no_items'|trans({}, 'content_variables') }}</p>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
-                        <div id="content-variables-bulk-edit-{{ collection.id }}" class="{{ isCollapsed ? 'collapse' : 'show' }}">
-                            {% if hasVariables %}
-                                <table class="ibexa-table table mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>{{ 'variable.name'|trans }}</th>
-                                            <th>{{ 'variable.placeholder'|trans }}</th>
-                                            <th>{{ 'variable.value'|trans }}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for variable in collection.contentVariables %}
-                                        <tr class="content-variable-block">
-                                            <td class="ibexa-table__cell">{{ variable.name }}</td>
-                                            <td class="ibexa-table__cell">{{ variable.placeholder }}</td>
-                                            <td class="ibexa-table__cell">
-                                                <div{% if not variable.isStatic %} hidden="hidden"{% endif %}>
-                                                    {{ form_widget(form.valueStatic[variable.id], {
-                                                        'attr': {'class': 'form-control content-variable-value-static'}
-                                                    }) }}
-                                                </div>
-                                                {% if form.valueCallback is defined %}
-                                                    <div{% if variable.isStatic %} hidden="hidden"{% endif %}>
-                                                        {{ form_widget(form.valueCallback[variable.id], {
-                                                            'attr': {'class': 'form-control content-variable-value-callback'}
-                                                        }) }}
-                                                    </div>
-                                                {% endif %}
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            {% else %}
-                                <p class="ibexa-table-no-content mb-0">{{ 'variable.no_items'|trans }}</p>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
+                        {% endblock %}
+                    {%- endembed -%}
 
-                    <button id="variables-update" type="submit" hidden />
-                    {{ form_end(form) }}
-                {% else %}
-                    <p class="ibexa-table-no-content">{{ 'bulk_edit.no_items'|trans({'%link_start%' : '<a href="'~path('content_variables.collection.new')~'">', '%link_end%' : '</a>'})|raw }}</p>
-                {% endif %}
-            </section>
-        </div>
-{% endblock %}
+                {% endfor %}
 
-{% block stylesheets %}
-    {{ encore_entry_link_tags('ezplatform-content-variables-bulk-edit-css', null, 'ibexa') }}
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('ezplatform-content-variables-bulk-edit-js', null, 'ibexa') }}
+                <button id="variables-update" type="submit" hidden />
+                {{ form_end(form) }}
+            {% else %}
+                <p class="ibexa-table-no-content">{{ 'bulk_edit.no_items'|trans({'%link_start%' : '<a href="'~path('content_variables.collection.new')~'">', '%link_end%' : '</a>'}, 'content_variables')|raw }}</p>
+            {% endif %}
+        </section>
+    </div>
 {% endblock %}

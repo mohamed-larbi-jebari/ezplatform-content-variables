@@ -27,7 +27,7 @@ class CollectionEditRightSidebarBuilder extends AbstractBuilder implements Trans
                 self::ITEM__SAVE,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => '#collection-update',
                     ],
                     'extras' => ['icon' => 'save'],

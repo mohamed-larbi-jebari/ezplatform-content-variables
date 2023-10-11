@@ -70,11 +70,15 @@ class Variable extends Handler
     public function countLinkedContent(VariableEntity $variable): void
     {
         $placeholder = $variable->getPlaceholder();
+
         if ($placeholder === null) {
             return;
         }
-
-        $criterion = new FullText($placeholder);
+        $criterion = new Criterion\CustomField(
+            'meta_content__text_t',
+            Criterion\Operator::CONTAINS,
+            "{$placeholder}"
+        );
         $query = new LocationQuery(['query' => $criterion, 'limit' => 0]);
         $results = $this->searchService->findContentInfo($query);
 
