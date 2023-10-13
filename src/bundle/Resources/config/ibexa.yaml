@@ -2,13 +2,10 @@ system:
     admin_group:
         fieldtypes:
             ezrichtext:
+                custom_tags: [content_variables]
                 toolbar:
-                    text: &content-variables
+                    app_custom_tags_group:
+                        priority: 60
                         buttons:
-                            contentvariableinsert:
-                                priority: 0
-                    formatted: *content-variables
-                    heading: *content-variables
-                    paragraph: *content-variables
-                    li: *content-variables
-                    td: *content-variables
+                            content_variables:
+                                priority: 5

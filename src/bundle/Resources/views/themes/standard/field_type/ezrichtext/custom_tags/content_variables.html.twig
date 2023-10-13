@@ -1,0 +1,5 @@
+{% if params.variable_list is defined and params.variable_list != '' and params.variable_list|lower != 'non' %}
+    {{ '#' ~ params.variable_list|split('[')|last|split(']')|first ~ '#'}}
+{% elseif params.variable is defined and params.variable != '' %}
+    {{ '#' ~ params.variable|split('#')|join ~ '#'}}
+{% endif %}

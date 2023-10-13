@@ -11,3 +11,14 @@
 .no-margin{
         margin: 0px !important;
 }
+
+.ibexa-custom-tag[data-ezname="content_variables"] {
+    content: url('/bundles/ibexaadminui/img/icons/keyword.svg');
+    margin: 0 !important;
+    display: inline-block;
+}
+
+.ck-dropdown__panel ul.ck-list {
+    overflow-y: scroll;
+    height: 200px;
+}

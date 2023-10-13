@@ -26,7 +26,7 @@ class Variable extends Entity
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Collection", inversedBy="contentVariables")
+     * @ORM\ManyToOne(targetEntity="Collection", inversedBy="contentVariables", fetch="EAGER")
      * @ORM\JoinColumn(name="collection_id", referencedColumnName="id")
      */
     private $collection;

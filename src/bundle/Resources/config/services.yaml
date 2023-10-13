@@ -55,3 +55,10 @@ services:
     contextualcode_contentvariables.doctrine.entity_manager:
         class: Doctrine\ORM\EntityManagerInterface
         factory: [ '@ContextualCode\EzPlatformContentVariablesBundle\SiteAccessAwareEntityManagerFactory', 'get' ]
+
+    ContextualCode\EzPlatformContentVariablesBundle\FieldTypeRichText\CustomTag\ContentVariablesAttributeMapper:
+        parent: Ibexa\FieldTypeRichText\Configuration\UI\Mapper\CustomTag\CommonAttributeMapper
+        autowire: true
+        public: true
+        tags:
+            - { name: ibexa.field_type.richtext.configuration.custom_tag.mapper, priority: 11 }

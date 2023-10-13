@@ -58,3 +58,5 @@ variable.value_type.1: Static
 variable.value_type.2: Callback
 variables.edit: 'Edit "%name%" content variable'
 variables.new: 'New content variable'
+ck_editor_btn:
+  label: 'Content Variables'

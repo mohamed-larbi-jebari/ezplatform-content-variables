@@ -1,2 +1,14 @@
-alloy_editor:
-    extra_plugins: [content-variables]
+custom_tags:
+  content_variables:
+    template: '@ibexadesign/field_type/ezrichtext/custom_tags/content_variables.html.twig'
+    icon: '/bundles/ibexaicons/img/all-icons.svg#keyword'
+    is_inline: true
+    attributes:
+      variable_list:
+        type: choice
+        default_value: 'Non'
+        choices: ['']
+        required: true
+      variable:
+        type: string
+        required: true

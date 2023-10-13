@@ -27,22 +27,11 @@ module.exports = (ibexaConfig, ibexaConfigManager) => {
     ibexaConfig.entry['ezplatform-content-variables-related-content-js'] = [
         path.resolve(__dirname, '../public/js/button.collapsable-collections.js')
     ];
-    //@TODO to be moved into ibexa.richtext.config.manager.js
-    // ibexaConfigManager.add({
-    //     ibexaConfig,
-    //     entryName: 'ibexa-richtext-onlineeditor-js',
-    //     newItems: [
-    //         path.resolve(__dirname, '../public/js/alloyeditor/buttons/content-variable-edit.js'),
-    //         path.resolve(__dirname, '../public/js/alloyeditor/plugins/content-variables.js'),
-    //     ]
-    // });
     ibexaConfigManager.add({
         ibexaConfig,
         entryName: 'ibexa-admin-ui-layout-css',
         newItems: [
-
-            path.resolve(__dirname, '../public/css/ibexa-admin-ui-layout-css.css'),
-            path.resolve(__dirname, '../public/css/alloyeditor/widgets/content-variable.css'),
+            path.resolve(__dirname, '../public/css/ibexa-admin-ui-layout-css.css')
         ]
     });
 
